@@ -1,6 +1,7 @@
 // ApprovalProjecRequestFlow: Handles button access based on user role and process stage
 function ControlDefaultEntityButtonAccess(primaryControl) 
 {
+    //Integrate git
     try 
     {
         "use strict";
