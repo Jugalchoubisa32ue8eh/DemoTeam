@@ -1,0 +1,128 @@
+// ApprovalProjecRequestFlow: Handles button access based on user role and process stage
+function ControlRelatedEntityButtonAccess(primaryControl) 
+{
+    try {
+      debugger;
+        "use strict";
+        // Get current user ID and name
+        var UserId = primaryControl.context.getUserId().replace(/[{}]/g, '').toLowerCase();
+        var UserName = primaryControl.context.getUserName();
+        //Get Entity Name
+        var EntityName = primaryControl.data.entity.getEntityName();
+        if (EntityName !== "msdyn_project") {
+            return false;
+        }
+        // Get project lead and approval status
+        var ProjectLead = primaryControl.getAttribute("msdyn_projectmanager").getValue();
+        var DepartmentHead = primaryControl.getAttribute("advcellp_departmenthead").getValue();
+        var PMOHead = primaryControl.getAttribute("advcellp_pmohead").getValue();
+        var ProjectManager = primaryControl.getAttribute("proj_manager").getValue();
+        var ReadyForApproval = primaryControl.getAttribute("advcellp_readyforapproval").getValue();
+        var ExecutiveSponsor = primaryControl.getAttribute("proj_executivesponsor").getValue();
+        var CTO = primaryControl.getAttribute("advcellp_cto").getValue();
+        // Get current process stage
+        var activeStage = primaryControl.data.process.getActiveStage();
+        var stagename = activeStage.getName();
+        // Check if user is admin
+        const isAdmin = isAdminRole();
+
+        // Delegate stage-based field access logic to a separate function
+        var accessAllowed = handleStageButtonAccess({
+            stagename,
+            UserName,
+            ProjectLead,
+            ProjectManager,
+            PMOHead,
+            DepartmentHead,
+            ExecutiveSponsor,
+            CTO,
+            isAdmin
+        });
+        if (accessAllowed === false) {
+            return false;
+        }
+    } catch (error) {
+        // Error handling can be added here if needed
+    }
+}
+
+// isAdminRole: Checks if current user has the 'Agratas PFW Admin' role
+function isAdminRole() {
+    const roles = Xrm.Utility.getGlobalContext().userSettings.roles;
+
+    if (roles === null) return false;
+
+    var hasRole = false;
+
+    roles.forEach(function (item) {
+        if (item.name === "Agratas PFW Admin") {
+            hasRole = true;
+        }
+    });
+
+    return hasRole;
+}
+
+// handleStageFieldAccess: Handles field access logic for each stage
+function handleStageButtonAccess({stagename, UserName, ProjectLead, ProjectManager, PMOHead, DepartmentHead, ExecutiveSponsor, CTO, isAdmin}) {
+    switch (stagename) 
+    {
+        case 'Initiation':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead && ProjectLead[0].name === UserName;
+            var isProjectManager = ProjectManager && ProjectManager[0].name === UserName;
+            if (!(isProjectLead || isProjectManager || isAdmin)) 
+            {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                return false;
+            }
+            break;
+        case 'Department And PMO Head Review':
+            // Determine if current user is PMO Head or Project Manager
+            var isPMOHead = PMOHead && PMOHead[0].name === UserName;
+             var isDepartmentHead = DepartmentHead && DepartmentHead[0].name === UserName;
+            if (!(isDepartmentHead || isPMOHead || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                return false;
+            }
+            break;
+        case 'Executive Sponsor Review':
+            // Determine if current user is PMO Head or Project Manager
+            var isExecutiveSponsor = ExecutiveSponsor && ExecutiveSponsor[0].name === UserName;
+            if (!(isExecutiveSponsor || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                return false;
+            }
+            break;
+        case 'CTO Review':
+            // Determine if current user is PMO Head or Project Manager
+            var isCTO = CTO && CTO[0].name === UserName;
+            if (!(isCTO || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                return false;
+            }
+            break;
+        case 'Approved':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isPMOHead = PMOHead && PMOHead[0].name === UserName;
+            var isProjectManager = ProjectManager && ProjectManager[0].name === UserName;
+            if (!(isPMOHead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                return false;
+            }
+            break;
+        case 'Rejected':
+            return false; 
+            break;
+        case 'Revision Needed':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead && ProjectLead[0].name === UserName;
+            var isProjectManager = ProjectManager && ProjectManager[0].name === UserName;
+            if (!(isProjectLead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                return false;
+            }
+            break;
+    }
+}
+

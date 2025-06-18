@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{5918c0c3-b401-44d5-846e-57dd2a0e4de2}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="advcellp_newcolumn" select="1" icon="1" preview="1">
+        <row name="result" id="advcellp_externalresourceid">
+          <cell name="advcellp_newcolumn" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="advcellp_externalresource">
+          <attribute name="advcellp_externalresourceid" />
+          <attribute name="advcellp_newcolumn" />
+          <attribute name="createdon" />
+          <order attribute="advcellp_newcolumn" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="1" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Inactive External Resources" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

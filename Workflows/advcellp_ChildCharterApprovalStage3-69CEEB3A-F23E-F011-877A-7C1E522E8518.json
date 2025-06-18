@@ -1,0 +1,1761 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      },
+      "shared_approvals": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedapprovals_a0cbf"
+        },
+        "api": {
+          "name": "shared_approvals"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Project Record URL (advcellp_ProjectRecordURL)": {
+          "defaultValue": "https://cellpakdev.crm11.dynamics.com/main.aspx?appid=fcc0a086-7634-f011-8c4c-7c1e5264d2dd&pagetype=entityrecord&etn=msdyn_project&id=",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ProjectRecordURL"
+          }
+        },
+        "Change Record URL (advcellp_ChangeRecordURL)": {
+          "defaultValue": "https://cellpakdev.crm11.dynamics.com/main.aspx?appid=fcc0a086-7634-f011-8c4c-7c1e5264d2dd&pagetype=entityrecord&etn=msdyn_projectchange&id=",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ChangeRecordURL"
+          }
+        },
+        "Email Tracker List (advcellp_EmailTrackerList)": {
+          "defaultValue": "757c1908-d15e-4367-be2d-b5c37924eb23",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_EmailTrackerList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "6d2db832-a293-4691-84ff-93d9ae0037aa"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "Approval entity",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_variable_-_Email_Subject": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "589c4ab4-95d9-4d98-a0bf-66cad3d9014c"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "EmailSubject",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_-_Email_Body": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "57043cf6-affc-4520-8235-cef859ffe8b0"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "EmailBody",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_-_CTO_review_comment": {
+          "runAfter": {
+            "Initialize_variable_-_Email_Body": [
+              "Succeeded"
+            ],
+            "Initialize_variable_-_Email_Subject": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "935c4fe3-06dd-4a4e-a213-c6b9f0884965"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "CTO comment",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Switch_Approval_Entity": {
+          "runAfter": {
+            "Initialize_variable_-_IsProjectCreated": [
+              "Succeeded"
+            ]
+          },
+          "cases": {
+            "Case_-_Project": {
+              "case": "Project",
+              "actions": {
+                "Try": {
+                  "actions": {
+                    "Update_a_row_-_Pending_CTO_Review": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "25c3023a-bd77-4577-bb45-6062f7345ba0"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "msdyn_projects",
+                          "recordId": "@triggerBody()['text']",
+                          "item/proj_stage": 189330003
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_CTO_Review": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "330a1983-40d4-4bb6-b343-0ba48e560a47"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_')?['cto_id']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Run_a_Child_Flow_-_CTO_Review_": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_Update_BPF_CTO_Review_Stage": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "846cdd77-13d7-4bcd-8b8c-d8eea3867776"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "bd9dae7b-3541-f011-877a-7c1e522e8518"
+                        },
+                        "body": {
+                          "text": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']"
+                        }
+                      }
+                    },
+                    "Run_a_Child_Flow_-_Update_BPF_CTO_Review_Stage": {
+                      "runAfter": {
+                        "Update_a_row_-_Pending_CTO_Review": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "d3fc33e4-a0ff-4a51-92bb-385b3f366c89"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                        },
+                        "body": {
+                          "text": "@triggerBody()['text']",
+                          "text_1": "327a80ce-c32a-4497-a4c9-c60fd887d810",
+                          "text_2": "Project"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_Executive_Sponsor": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8a36dde3-26f6-492e-be6f-f6c71ca1ff99"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_')?['executive_sponsor_id']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_PMO_Head": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "20652ed2-3272-4f48-a40e-d6f1603a0bc0"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_')?['pmo_head']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_Department_Head": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "6b78dd72-ce4c-4d8c-a637-3747be2e4232"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_')?['department_head_id']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_Project_Lead_or_Project_Requester": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7a7bcc26-1858-483d-8eab-bb73c1e8aa5a"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/_msdyn_projectmanager_value']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Condition_IsRejected_is_true": {
+                      "actions": {
+                        "Set_variable_-_isProjectRequest_Created": {
+                          "runAfter": {
+                            "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Approval": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "915d12b0-efee-48db-ba3e-2bfe21396c78"
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "IsProjectRequest",
+                            "value": "@true"
+                          }
+                        },
+                        "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Approval": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "3d9bf84d-7f38-4cf3-8dd7-9d8a935d4c8c"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_sharepointonline",
+                              "operationId": "PostItem",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                            },
+                            "parameters": {
+                              "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                              "table": "@parameters('Email Tracker List (advcellp_EmailTrackerList)')",
+                              "item/Title": "Project charter for @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} is Approved by CTO",
+                              "item/Subject": "Project charter for @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} is Approved by CTO",
+                              "item/Emailbody": "Hello,\n<br><br>\nHope all good\n<br><br>\nHello,\nThe Project charter for  @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} has been approved by CTO. Please proceed further with updating project attributes.\n<br><br>\n<a href=\"@{parameters('Project Record URL (advcellp_ProjectRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']}\">Click here to review the information.</a>.\n<br><br>\nBest regards,\n<br>\nAgratas PFW",
+                              "item/EntityID": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']",
+                              "item/To": "@{outputs('Get_a_row_by_ID_-_Project_Manager')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Project_Lead_or_Project_Requester')?['body/internalemailaddress']};",
+                              "item/CC": "@{outputs('Get_a_row_by_ID_-_Department_Head')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_PMO_Head')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Executive_Sponsor')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_CTO_Review')?['body/internalemailaddress']};"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Update_a_row_-_Charter_Creation_Field": {
+                          "runAfter": {
+                            "Run_a_Child_Flow_-_Update_BPF_Approved_Stage": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "02d7a828-9c5d-4259-bd14-75f7f7bf9c75"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "UpdateOnlyRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "msdyn_projects",
+                              "recordId": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']",
+                              "item/advcellp_charterapproved": true,
+                              "item/proj_stage": 189330004
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Run_a_Child_Flow_-_Update_BPF_Approved_Stage": {
+                          "runAfter": {
+                            "Set_variable_-_isProjectRequest_Created": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "d3fc33e4-a0ff-4a51-92bb-385b3f366c89"
+                          },
+                          "type": "Workflow",
+                          "inputs": {
+                            "host": {
+                              "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                            },
+                            "body": {
+                              "text": "@triggerBody()['text']",
+                              "text_1": "8d55c194-1358-46ec-a139-ffe8ed8c0dc3",
+                              "text_2": "Project"
+                            }
+                          }
+                        },
+                        "Run_a_Child_Flow_-_Pending_Executive_Sponsor_Review_(Related)_2": {
+                          "runAfter": {
+                            "Run_a_Child_Flow_-_Update_BPF_Approved_Stage": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "6cbba7a8-5a50-4abd-be07-3b1afc37cccd"
+                          },
+                          "type": "Workflow",
+                          "inputs": {
+                            "host": {
+                              "workflowReferenceName": "70b42b76-3648-f011-877b-7ced8d38c375"
+                            },
+                            "body": {
+                              "text": "@triggerBody()['text']",
+                              "text_1": "189330004",
+                              "text_2": "null"
+                            }
+                          }
+                        },
+                        "Add_a_new_row_-_Project_Request": {
+                          "runAfter": {
+                            "Update_a_row_-_Charter_Creation_Field": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "a4b5e7f5-040d-43a3-9570-eb6f822c988b"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "CreateRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "msdyn_projectrequests",
+                              "item/msdyn_name": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']",
+                              "item/advcellp_activechanges": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_activechanges']",
+                              "item/advcellp_activeissues": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_activeissues']",
+                              "item/advcellp_activerisks": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_activerisks']",
+                              "item/advcellp_actualcost": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_actualcost']",
+                              "item/msdyn_benefit": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_benefits']",
+                              "item/msdyn_budget": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_budget']",
+                              "item/advcellp_budgetvariance": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_budgetvariance']",
+                              "item/msdyn_businesscase": "@outputs('Update_a_row_-_Charter_Creation_Field')?['body/msdyn_businesscase']",
+                              "item/advcellp_businessunitdepartment": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_businessunit']",
+                              "item/advcellp_capextotal": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_capexplannedinvestment']",
+                              "item/advcellp_charterapproved": true,
+                              "item/advcellp_completeddeliverablecount": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_completeddeliverablecount']",
+                              "item/advcellp_completedworkpackagecount": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_completedworkpackagecount']",
+                              "item/advcellp_costcenter": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_costcenter']",
+                              "item/advcellp_CTO@odata.bind": "systemusers(@{outputs('Update_a_row_-_Charter_Creation_Field')?['body/_advcellp_cto_value']})",
+                              "item/advcellp_deliverablecount": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_deliverablecount']",
+                              "item/advcellp_deliverablesprogress": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_deliverablesprogress']",
+                              "item/advcellp_Departmenthead@odata.bind": "systemusers(@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/_advcellp_departmenthead_value']})",
+                              "item/advcellp_description": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_description']",
+                              "item/advcellp_durationdays": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_duration']",
+                              "item/advcellp_efforthours": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_effort']",
+                              "item/advcellp_effortcompletedhours": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_effortcompleted']",
+                              "item/advcellp_efforthealth": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_efforthealth']",
+                              "item/advcellp_effortremaininghours": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_effortremaining']",
+                              "item/advcellp_estimatestartdate": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_scheduledstart']",
+                              "item/proj_ExecutiveSponsor@odata.bind": "systemusers(@{outputs('Get_a_row_by_ID_-_Executive_Sponsor')?['body/systemuserid']})",
+                              "item/advcellp_externalresourcetotal": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_externalresourcetotalbudget']",
+                              "item/advcellp_externalresourcetotalbudget": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_externalresourcetotalbudget']",
+                              "item/advcellp_facility": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_facility']",
+                              "item/advcellp_financialhealth": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_financialhealth']",
+                              "item/advcellp_finishdate": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_finish']",
+                              "item/advcellp_forecast": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_forecast']",
+                              "item/proj_fundingavailable": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_fundingavailable']",
+                              "item/proj_fundingsource": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_fundingsource']",
+                              "item/proj_improveemployeeretention": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_improveemployeeretention']",
+                              "item/proj_improveemployeeretentionscore": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_improveemployeeretentionscore']",
+                              "item/advcellp_issuehealth": "@outputs('Update_a_row_-_Charter_Creation_Field')?['body/proj_issuehealth']",
+                              "item/proj_lowercost": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_lowercost']",
+                              "item/proj_lowercostscore": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_lowercostscore']",
+                              "item/advcellp_material": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_material']",
+                              "item/advcellp_opextotal": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_opexplannedinvestment']",
+                              "item/advcellp_overallhealth": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_overallhealth']",
+                              "item/advcellp_overdueworkpackages": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_overdueworkpackage']",
+                              "item/ownerid@odata.bind": "systemusers(@{outputs('Get_a_row_by_ID_-_Project_Lead_or_Project_Requester')?['body/systemuserid']})",
+                              "item/advcellp_PMOhead@odata.bind": "systemusers(@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/_advcellp_pmohead_value']})",
+                              "item/proj_prioritizationscore": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_prioritizationscore']",
+                              "item/proj_priority": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_priority']",
+                              "item/msdyn_Project@odata.bind": "msdyn_projects(@{triggerBody()['text']})",
+                              "item/advcellp_projectbudget": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_budget']",
+                              "item/advcellp_projectcategory": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_projectcategory']",
+                              "item/advcellp_Projectlead@odata.bind": "systemusers(@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/_proj_manager_value']})",
+                              "item/advcellp_Projectmanager@odata.bind": "systemusers(@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/_msdyn_projectmanager_value']})",
+                              "item/advcellp_projectprogress": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_projectprogress']",
+                              "item/advcellp_remainingbudget": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_remainingbudget']",
+                              "item/proj_RequestedBy@odata.bind": "systemusers(@{outputs('Get_a_row_by_ID_-_Project_Lead_or_Project_Requester')?['body/systemuserid']})",
+                              "item/proj_risk": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_risk']",
+                              "item/proj_riskscore": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_riskscore']",
+                              "item/advcellp_schedulehealth": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_schedulehealth']",
+                              "item/advcellp_stage": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_stage']",
+                              "item/proj_strategicalignment": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_strategicalignment']",
+                              "item/proj_strategicalignmentscore": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/proj_strategicalignmentscore']",
+                              "item/advcellp_sumofallworkpackageprogress": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_sumofallworkpackageprogress']",
+                              "item/proj_valuestatement": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_valuestatement']",
+                              "item/advcellp_workpackagecount": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_workpackagecount']",
+                              "item/advcellp_workpackageprogress": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_workpackageprogress']"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Run_a_Child_Flow_-_Add_Request_Lookup_on_Related_Entities": {
+                          "runAfter": {
+                            "Add_a_new_row_-_Project_Request": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "ce4d80cb-07fb-47ee-ae3b-854af843fc80"
+                          },
+                          "type": "Workflow",
+                          "inputs": {
+                            "host": {
+                              "workflowReferenceName": "70b42b76-3648-f011-877b-7ced8d38c375"
+                            },
+                            "body": {
+                              "text": "@triggerBody()['text']",
+                              "text_1": "null",
+                              "text_2": "@outputs('Add_a_new_row_-_Project_Request')?['body/msdyn_projectrequestid']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Approved_or_Not": [
+                          "Succeeded"
+                        ]
+                      },
+                      "else": {
+                        "actions": {
+                          "Condition_to_Rejected_or_Revision_Needed": {
+                            "actions": {
+                              "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Rejected": {
+                                "runAfter": {},
+                                "metadata": {
+                                  "operationMetadataId": "d547b507-50bf-461f-8d61-c9451fcd3a07"
+                                },
+                                "type": "OpenApiConnection",
+                                "inputs": {
+                                  "host": {
+                                    "connectionName": "shared_sharepointonline",
+                                    "operationId": "PostItem",
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                                  },
+                                  "parameters": {
+                                    "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                                    "table": "@parameters('Email Tracker List (advcellp_EmailTrackerList)')",
+                                    "item/Title": "Project charter for @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} is Rejected by CTO",
+                                    "item/Subject": "Project charter for @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} is Rejected by CTO",
+                                    "item/Emailbody": "Hello,\n<br><br>\nHope all good\n<br><br>\nHello,\nThe Project charter for @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} has been rejected by CTO and requires revision.\n<br><br>\n<a href=\"@{parameters('Project Record URL (advcellp_ProjectRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']}\">Click here to review the information.</a>.\n<br><br>\nBest regards,\n<br>\nAgratas PFW",
+                                    "item/EntityID": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']",
+                                    "item/To": "@{outputs('Get_a_row_by_ID_-_Project_Manager')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Project_Lead_or_Project_Requester')?['body/internalemailaddress']}",
+                                    "item/CC": "@{outputs('Get_a_row_by_ID_-_Department_Head')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_PMO_Head')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Executive_Sponsor')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_CTO_Review')?['body/internalemailaddress']};"
+                                  },
+                                  "authentication": {
+                                    "type": "Raw",
+                                    "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                  }
+                                }
+                              },
+                              "Run_a_Child_Flow_-_Update_BPF_Approved_Stage_2": {
+                                "runAfter": {
+                                  "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Rejected": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "d3fc33e4-a0ff-4a51-92bb-385b3f366c89"
+                                },
+                                "type": "Workflow",
+                                "inputs": {
+                                  "host": {
+                                    "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                                  },
+                                  "body": {
+                                    "text": "@triggerBody()['text']",
+                                    "text_1": "fb7f6b0f-0721-4784-91c6-bfc96e2239a9",
+                                    "text_2": "Project"
+                                  }
+                                }
+                              },
+                              "Run_a_Child_Flow_-_Pending_Rejected_(Related)": {
+                                "runAfter": {
+                                  "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Rejected": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "6cbba7a8-5a50-4abd-be07-3b1afc37cccd"
+                                },
+                                "type": "Workflow",
+                                "inputs": {
+                                  "host": {
+                                    "workflowReferenceName": "70b42b76-3648-f011-877b-7ced8d38c375"
+                                  },
+                                  "body": {
+                                    "text": "@triggerBody()['text']",
+                                    "text_1": "468910001",
+                                    "text_2": "null"
+                                  }
+                                }
+                              }
+                            },
+                            "runAfter": {},
+                            "else": {
+                              "actions": {
+                                "Run_a_Child_Flow_-_Update_BPF_Initiation_Stage": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "d3fc33e4-a0ff-4a51-92bb-385b3f366c89"
+                                  },
+                                  "type": "Workflow",
+                                  "inputs": {
+                                    "host": {
+                                      "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                                    },
+                                    "body": {
+                                      "text": "@triggerBody()['text']",
+                                      "text_1": "a287ac6d-2de4-438f-8257-430828072b71",
+                                      "text_2": "Project"
+                                    }
+                                  }
+                                },
+                                "Run_a_Child_Flow_-_Update_BPF_Revision_Needed_Stage": {
+                                  "runAfter": {
+                                    "Run_a_Child_Flow_-_Update_BPF_Initiation_Stage": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "d3fc33e4-a0ff-4a51-92bb-385b3f366c89"
+                                  },
+                                  "type": "Workflow",
+                                  "inputs": {
+                                    "host": {
+                                      "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                                    },
+                                    "body": {
+                                      "text": "@triggerBody()['text']",
+                                      "text_1": "cd555a00-783c-41ee-b20c-39bca78be632",
+                                      "text_2": "Project"
+                                    }
+                                  }
+                                },
+                                "Update_a_row_-_Ready_for_approval_field_to_NO": {
+                                  "runAfter": {
+                                    "Run_a_Child_Flow_-_Update_BPF_Revision_Needed_Stage": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "c657e8ab-ebb8-4d27-a754-f94f7869e71f"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_commondataserviceforapps",
+                                      "operationId": "UpdateOnlyRecord",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                    },
+                                    "parameters": {
+                                      "entityName": "msdyn_projects",
+                                      "recordId": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']",
+                                      "item/advcellp_readyforapproval": false
+                                    },
+                                    "authentication": {
+                                      "type": "Raw",
+                                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                    }
+                                  }
+                                },
+                                "Run_a_Child_Flow_-_Pending_Executive_Sponsor_Review_(Related)": {
+                                  "runAfter": {
+                                    "Run_a_Child_Flow_-_Update_BPF_Revision_Needed_Stage": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "6cbba7a8-5a50-4abd-be07-3b1afc37cccd"
+                                  },
+                                  "type": "Workflow",
+                                  "inputs": {
+                                    "host": {
+                                      "workflowReferenceName": "70b42b76-3648-f011-877b-7ced8d38c375"
+                                    },
+                                    "body": {
+                                      "text": "@triggerBody()['text']",
+                                      "text_1": "189330007",
+                                      "text_2": "null"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "expression": {
+                              "equals": [
+                                "@outputs('Start_and_wait_for_an_approval_-_CTO_Head')?['body/outcome']",
+                                "Reject"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "6f069c77-af64-476c-bcbc-116b2af033e8"
+                            },
+                            "type": "If"
+                          }
+                        }
+                      },
+                      "expression": {
+                        "equals": [
+                          "@body('Run_a_Child_Flow_-_CTO_Approved_or_Not')?['isrejectedrevision']",
+                          false
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "be252ed4-fa20-4d64-862f-04a0ae915a66"
+                      },
+                      "type": "If"
+                    },
+                    "Run_a_Child_Flow_-_CTO_Approved_or_Not": {
+                      "runAfter": {
+                        "Apply_to_each": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8ea14d1d-35c4-4c42-b1a5-88101187d778"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "2e020c0a-1342-f011-877a-6045bdc1fe02"
+                        },
+                        "body": {
+                          "text": "CTO Head",
+                          "text_1": "@outputs('Start_and_wait_for_an_approval_-_CTO_Head')?['body/outcome']",
+                          "text_2": "@variables('CTO comment')",
+                          "text_3": "Project",
+                          "text_4": "@triggerBody()['text']"
+                        }
+                      }
+                    },
+                    "Apply_to_each": {
+                      "foreach": "@outputs('Start_and_wait_for_an_approval_-_CTO_Head')?['body/responses']",
+                      "actions": {
+                        "Set_variable_-_CTO_Head_comment": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "87f89809-c1cd-4def-9a34-f35eb6409bdc"
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "CTO comment",
+                            "value": "@items('Apply_to_each')?['comments']"
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Start_and_wait_for_an_approval_-_CTO_Head": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "79e78e7c-0fed-4ca1-ac58-0ed2f4525dee"
+                      },
+                      "type": "Foreach"
+                    },
+                    "Start_and_wait_for_an_approval_-_CTO_Head": {
+                      "runAfter": {
+                        "Condition_to_Set_Email_Body_on_basis_of_resubmitted": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "22ca663c-6ec2-4818-9718-3d5c1b706de5"
+                      },
+                      "type": "OpenApiConnectionWebhook",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_approvals",
+                          "operationId": "StartAndWaitForAnApproval",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals"
+                        },
+                        "parameters": {
+                          "approvalType": "CustomResponse",
+                          "WebhookApprovalCreationInput/responseOptions": [
+                            "Approve",
+                            "Reject",
+                            "Revision needed"
+                          ],
+                          "WebhookApprovalCreationInput/title": "@variables('EmailSubject')",
+                          "WebhookApprovalCreationInput/assignedTo": "@{outputs('Get_a_row_by_ID_-_CTO_Review')?['body/internalemailaddress']};",
+                          "WebhookApprovalCreationInput/details": "@variables('EmailBody')",
+                          "WebhookApprovalCreationInput/itemLink": "Project Link",
+                          "WebhookApprovalCreationInput/itemLinkDescription": "@{parameters('Project Record URL (advcellp_ProjectRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']}",
+                          "WebhookApprovalCreationInput/enableNotifications": true,
+                          "WebhookApprovalCreationInput/enableReassignment": true
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Condition_to_Set_Email_Body_on_basis_of_resubmitted": {
+                      "actions": {
+                        "Set_variable-_EmailSubject": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "94fa4de3-62fc-4c7d-818a-06423d63f877"
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "EmailSubject",
+                            "value": "Approval required for new project - @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']}"
+                          }
+                        },
+                        "Set_variable_-_EmailBody": {
+                          "runAfter": {
+                            "Set_variable-_EmailSubject": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "4523bc37-4c71-4c68-ba3a-6dbef33cf1a7"
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "EmailBody",
+                            "value": "Dear Sir/Ma'am,\n\nKindly review and approve the Project Charter by clicking the link below:\n\nRegards,\nThe PMO team"
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Create_item_-_Email_Tracker_for_CTO_": [
+                          "Succeeded"
+                        ]
+                      },
+                      "else": {
+                        "actions": {
+                          "Set_variable_-_EmailSubject2": {
+                            "runAfter": {},
+                            "metadata": {
+                              "operationMetadataId": "f72f3bf3-59a5-44ef-bc20-b07a0f7e5166"
+                            },
+                            "type": "SetVariable",
+                            "inputs": {
+                              "name": "EmailSubject",
+                              "value": "Resubmission - Approval required for new project - @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']}"
+                            }
+                          },
+                          "Set_variable_-_EmailBody_2": {
+                            "runAfter": {
+                              "Set_variable_-_EmailSubject2": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "e7168888-2210-4433-94ca-333b67a99a96"
+                            },
+                            "type": "SetVariable",
+                            "inputs": {
+                              "name": "EmailBody",
+                              "value": "Dear PMO, \n\nHope you are well. \n\nWe have a resubmission for the @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']}.The rejection was due to:-\nRejection comments:- @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_latestcomment']}\n\nYou have now 14 days to approve the project in the system, after this time project will be automatically rejected.  \n\nKind Regards, \nThe PMO Team. "
+                            }
+                          }
+                        }
+                      },
+                      "expression": {
+                        "equals": [
+                          "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/advcellp_isresubmitted']",
+                          false
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "f5b9ce1d-2b01-4a03-b071-b0777c12a78c"
+                      },
+                      "type": "If"
+                    },
+                    "Create_item_-_Email_Tracker_for_CTO_": {
+                      "runAfter": {
+                        "Get_a_row_by_ID_-_Project_Lead_or_Project_Requester": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_CTO_Review": [
+                          "Succeeded"
+                        ],
+                        "Condition_to_check_Project_manager_exist_or_not": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_Executive_Sponsor": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_PMO_Head": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_Department_Head": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "b51297ac-40d4-45be-b525-78aa4cae23d3"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "PostItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                          "table": "@parameters('Email Tracker List (advcellp_EmailTrackerList)')",
+                          "item/Title": "Project charter @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} is awaiting for your approval",
+                          "item/Subject": "Project charter @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} is awaiting for your approval",
+                          "item/Emailbody": "Hello, \n<br><br>\nHope all good\n<br><br>\nHello,\nThe New Project charter for @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_subject']} is awaiting for your approval.\n<br><br>\n<a href=\"@{parameters('Project Record URL (advcellp_ProjectRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']}\">Click here to review the information.</a>.\n<br><br>\nBest regards,\n<br>\nAgratas PFW",
+                          "item/To": "@outputs('Get_a_row_by_ID_-_CTO_Review')?['body/internalemailaddress']",
+                          "item/CC": "@{outputs('Get_a_row_by_ID_-_Project_Manager')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Project_Lead_or_Project_Requester')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Department_Head')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_PMO_Head')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Executive_Sponsor')?['body/internalemailaddress']}"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Condition_to_check_Project_manager_exist_or_not": {
+                      "actions": {
+                        "Get_a_row_by_ID_-_Project_Manager": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "15daf464-b58e-4537-8f58-8a054d25965d"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "GetItem",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "systemusers",
+                              "recordId": "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/_proj_manager_value']"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "not": {
+                          "equals": [
+                            "@outputs('Update_a_row_-_Pending_CTO_Review')?['body/_proj_manager_value']",
+                            "@null"
+                          ]
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "86117b46-a646-4c56-bfaa-c252bd562c06"
+                      },
+                      "type": "If"
+                    },
+                    "Run_a_Child_Flow_-_Pending_CTO_Review_(Related)": {
+                      "runAfter": {
+                        "Update_a_row_-_Pending_CTO_Review": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "6cbba7a8-5a50-4abd-be07-3b1afc37cccd"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "70b42b76-3648-f011-877b-7ced8d38c375"
+                        },
+                        "body": {
+                          "text": "@triggerBody()['text']",
+                          "text_1": "189330003",
+                          "text_2": "null"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "11fba953-afef-4b96-8ee0-147ab52a962c"
+                  },
+                  "type": "Scope"
+                },
+                "Catch_2": {
+                  "actions": {
+                    "Create_item_-_Error_Log_2": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "PostItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                          "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                          "item/Title": "Error in advcellp_Child Charter Approval Stage 3",
+                          "item/ErrorLogType/Value": "Power automate",
+                          "item/PowerAutomateorJavascriptName": "advcellp_Child Charter Approval Stage 3",
+                          "item/ErrorMessage": "Child automate to update the stage of CTO and send approval to CTO ",
+                          "item/ErrorOccurredInEntity": "Project",
+                          "item/EntityRecordID": " @{outputs('Update_a_row_-_Pending_CTO_Review')?['body/msdyn_projectid']}",
+                          "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                          "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                          "item/OtherInformation": "Child automate to update the stage of CTO and send approval to CTO "
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Try": [
+                      "Failed"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+                  },
+                  "type": "Scope"
+                }
+              }
+            },
+            "Case_-_Change": {
+              "case": "Change",
+              "actions": {
+                "Try_2": {
+                  "actions": {
+                    "Update_a_row_-_Pending_CTO_Review_3": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "29807cbd-a571-4fc9-99bf-a37ab78bce9e"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "msdyn_projectchanges",
+                          "recordId": "@triggerBody()['text']",
+                          "item/advcellp_stage": 189330003
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_CTO_Review_2": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "330a1983-40d4-4bb6-b343-0ba48e560a47"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_2')?['cto_id']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Run_a_Child_Flow_-_CTO_Review_2": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_Update_BPF_CTO_Review_Stage_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "301f1d03-b2cb-46b8-a379-c560e3840b53"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "bd9dae7b-3541-f011-877a-7c1e522e8518"
+                        },
+                        "body": {
+                          "text": "@outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/_msdyn_project_value']"
+                        }
+                      }
+                    },
+                    "Run_a_Child_Flow_-_Update_BPF_CTO_Review_Stage_2": {
+                      "runAfter": {
+                        "Update_a_row_-_Pending_CTO_Review_3": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "d3fc33e4-a0ff-4a51-92bb-385b3f366c89"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                        },
+                        "body": {
+                          "text": "@triggerBody()['text']",
+                          "text_1": "805b4c7f-23e2-4b43-b7a7-1a047f25bbaa",
+                          "text_2": "Change"
+                        }
+                      }
+                    },
+                    "CTO_Approved_or_Not_2": {
+                      "actions": {
+                        "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Approval_": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "b6924d8d-5b6b-4c6f-9df6-76b0c6d35d90"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_sharepointonline",
+                              "operationId": "PostItem",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                            },
+                            "parameters": {
+                              "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                              "table": "@parameters('Email Tracker List (advcellp_EmailTrackerList)')",
+                              "item/Title": "Project Change Request for @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} is Approved by CTO",
+                              "item/Subject": "Project Change Request for @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} is Approved by CTO",
+                              "item/Emailbody": "Hello,\n<br><br>\nHope all good\n<br><br>\nThe Project Change Request @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} has been approved by CTO. Please proceed further with updating project attributes.\n.<br><br>\n<a href=\"@{parameters('Change Record URL (advcellp_ChangeRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']}\">Click here to review the information.</a>.\n<br><br>\nBest regards,\n<br>\nAgratas PFW",
+                              "item/EntityID": "@outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']",
+                              "item/To": "@{outputs('Get_a_row_by_ID_-_Project_Requester_or_Project_Lead')?['body/internalemailaddress']};",
+                              "item/CC": "@{outputs('Get_a_row_by_ID_-_PMO_Head_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Department_Head_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_CTO_Review_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Executive_Sponsor_2')?['body/internalemailaddress']};"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Update_a_row_-_Approved_Field_To_Yes": {
+                          "runAfter": {
+                            "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Approval_": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "259a6dde-16cf-4539-be1e-76ef60b629a9"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "UpdateOnlyRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "msdyn_projectchanges",
+                              "recordId": "@outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']",
+                              "item/advcellp_approved": true,
+                              "item/advcellp_stage": 189330004
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Run_a_Child_Flow_-_Update_BPF_Approved_Stage_3": {
+                          "runAfter": {
+                            "Update_a_row_-_Approved_Field_To_Yes": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "8b8b5f5f-aea0-4280-b853-07dde17cac5d"
+                          },
+                          "type": "Workflow",
+                          "inputs": {
+                            "host": {
+                              "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                            },
+                            "body": {
+                              "text": "@triggerBody()['text']",
+                              "text_1": "3b8daaaf-3730-42ad-b397-6dd6c5c0ba24",
+                              "text_2": "Change"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Approved_or_Not_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "else": {
+                        "actions": {
+                          "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Rejected_": {
+                            "runAfter": {},
+                            "metadata": {
+                              "operationMetadataId": "b6924d8d-5b6b-4c6f-9df6-76b0c6d35d90"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_sharepointonline",
+                                "operationId": "PostItem",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                              },
+                              "parameters": {
+                                "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                                "table": "@parameters('Email Tracker List (advcellp_EmailTrackerList)')",
+                                "item/Title": "Project Change Request for @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} is Rejected by CTO",
+                                "item/Subject": "Project Change Request for @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} is Rejected by CTO",
+                                "item/Emailbody": "Hello,\n<br><br>\nHope all good\n<br><br>\nThe Project Change Request @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} has been Rejected by CTO. Please proceed further with updating project attributes.\n.<br><br>\n<a href=\"@{parameters('Change Record URL (advcellp_ChangeRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']}\">Click here to review the information.</a>.\n<br><br>\nBest regards,\n<br>\nAgratas PFW",
+                                "item/EntityID": "@outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']",
+                                "item/To": "@{outputs('Get_a_row_by_ID_-_Project_Requester_or_Project_Lead')?['body/internalemailaddress']};",
+                                "item/CC": "@{outputs('Get_a_row_by_ID_-_PMO_Head_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Department_Head_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_CTO_Review_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Executive_Sponsor_2')?['body/internalemailaddress']};"
+                              },
+                              "authentication": {
+                                "type": "Raw",
+                                "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                              }
+                            }
+                          },
+                          "Update_a_row_-_Rejected_Field_To_NO_2": {
+                            "runAfter": {
+                              "Create_item_-_Email_Tracker_to_Project_Lead_On_CTO_is_Rejected_": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "259a6dde-16cf-4539-be1e-76ef60b629a9"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "UpdateOnlyRecord",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "msdyn_projectchanges",
+                                "recordId": "@outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']",
+                                "item/advcellp_rejected": true
+                              },
+                              "authentication": {
+                                "type": "Raw",
+                                "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                              }
+                            }
+                          },
+                          "Run_a_Child_Flow_-_Update_BPF_Rejected_Stage_3": {
+                            "runAfter": {
+                              "Update_a_row_-_Rejected_Field_To_NO_2": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "d3fc33e4-a0ff-4a51-92bb-385b3f366c89"
+                            },
+                            "type": "Workflow",
+                            "inputs": {
+                              "host": {
+                                "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                              },
+                              "body": {
+                                "text": "@triggerBody()['text']",
+                                "text_1": "b3fea4e6-f4e2-4ae2-a14a-7da869fe1e98",
+                                "text_2": "Change"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "expression": {
+                        "equals": [
+                          "@body('Run_a_Child_Flow_-_CTO_Approved_or_Not_2')?['isrejectedrevision']",
+                          "@false"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "0653d99b-8200-4fd7-a64c-9e88ee25e1fe"
+                      },
+                      "type": "If"
+                    },
+                    "Run_a_Child_Flow_-_CTO_Approved_or_Not_2": {
+                      "runAfter": {
+                        "Apply_to_each_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "2f1c1041-e45c-45eb-842c-6536fc650935"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "2e020c0a-1342-f011-877a-6045bdc1fe02"
+                        },
+                        "body": {
+                          "text": "CTO Head",
+                          "text_1": "@outputs('Start_and_wait_for_an_approval_-_CTO_Head_2')?['body/outcome']",
+                          "text_2": "@variables('CTO comment')",
+                          "text_3": "Change",
+                          "text_4": "@triggerBody()['text']"
+                        }
+                      }
+                    },
+                    "Apply_to_each_2": {
+                      "foreach": "@outputs('Start_and_wait_for_an_approval_-_CTO_Head_2')?['body/responses']",
+                      "actions": {
+                        "Set_variable_-_CTO_head_comment_2": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "5718ed88-9e3c-4020-bf7f-bf32fdf284c5"
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "CTO comment",
+                            "value": "@items('Apply_to_each_2')?['comments']"
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Start_and_wait_for_an_approval_-_CTO_Head_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "ebd24f38-0d37-44a2-97b6-5c459b3c4e9f"
+                      },
+                      "type": "Foreach"
+                    },
+                    "Start_and_wait_for_an_approval_-_CTO_Head_2": {
+                      "runAfter": {
+                        "Set_variable_-_EmailBody_3": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "22ca663c-6ec2-4818-9718-3d5c1b706de5"
+                      },
+                      "type": "OpenApiConnectionWebhook",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_approvals",
+                          "operationId": "StartAndWaitForAnApproval",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals"
+                        },
+                        "parameters": {
+                          "approvalType": "Basic",
+                          "WebhookApprovalCreationInput/title": "@variables('EmailSubject')",
+                          "WebhookApprovalCreationInput/assignedTo": "@{outputs('Get_a_row_by_ID_-_CTO_Review_2')?['body/internalemailaddress']};",
+                          "WebhookApprovalCreationInput/details": "@variables('EmailBody')",
+                          "WebhookApprovalCreationInput/itemLink": "@{parameters('Change Record URL (advcellp_ChangeRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']}",
+                          "WebhookApprovalCreationInput/itemLinkDescription": "Click here to review the information",
+                          "WebhookApprovalCreationInput/enableNotifications": true,
+                          "WebhookApprovalCreationInput/enableReassignment": true
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Set_variable_-_EmailBody_3": {
+                      "runAfter": {
+                        "Set_variable-_EmailSubject_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "4523bc37-4c71-4c68-ba3a-6dbef33cf1a7"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "EmailBody",
+                        "value": "Hello,\nThe New Change Request @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} for  is awaiting for your approval.\n\nRegards,\nAgratas PFW\n"
+                      }
+                    },
+                    "Set_variable-_EmailSubject_2": {
+                      "runAfter": {
+                        "Create_item_-_Email_Tracker_for_CTO__2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "94fa4de3-62fc-4c7d-818a-06423d63f877"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "EmailSubject",
+                        "value": "Approval required for new change request - @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']}"
+                      }
+                    },
+                    "Get_a_row_by_ID_-_Executive_Sponsor_2": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "330a1983-40d4-4bb6-b343-0ba48e560a47"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_2')?['executive_sponsor_id']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_Department_Head_2": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "330a1983-40d4-4bb6-b343-0ba48e560a47"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_2')?['department_head_id']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_PMO_Head_2": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "330a1983-40d4-4bb6-b343-0ba48e560a47"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@body('Run_a_Child_Flow_-_CTO_Review_2')?['pmo_head']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Get_a_row_by_ID_-_Project_Requester_or_Project_Lead": {
+                      "runAfter": {
+                        "Run_a_Child_Flow_-_CTO_Review_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "330a1983-40d4-4bb6-b343-0ba48e560a47"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/_ownerid_value']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Create_item_-_Email_Tracker_for_CTO__2": {
+                      "runAfter": {
+                        "Get_a_row_by_ID_-_CTO_Review_2": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_Department_Head_2": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_Executive_Sponsor_2": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_PMO_Head_2": [
+                          "Succeeded"
+                        ],
+                        "Get_a_row_by_ID_-_Project_Requester_or_Project_Lead": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "b51297ac-40d4-45be-b525-78aa4cae23d3"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "PostItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                          "table": "@parameters('Email Tracker List (advcellp_EmailTrackerList)')",
+                          "item/Title": "Change Request @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} is awaiting for your approval",
+                          "item/Subject": "Change Request @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} is awaiting for your approval",
+                          "item/Emailbody": "Hello, \n<br><br>\nHope all good\n<br><br>\nThe New Change Request for @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_name']} is awaiting for your approval.\n<br><br>\n<a href=\"@{parameters('Change Record URL (advcellp_ChangeRecordURL)')}@{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']}\">Click here to review the information.</a>.\n<br><br>\nBest regards,\n<br>\nAgratas PFW",
+                          "item/To": "@outputs('Get_a_row_by_ID_-_CTO_Review_2')?['body/internalemailaddress']",
+                          "item/CC": "@{outputs('Get_a_row_by_ID_-_Department_Head_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Executive_Sponsor_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_PMO_Head_2')?['body/internalemailaddress']};@{outputs('Get_a_row_by_ID_-_Project_Requester_or_Project_Lead')?['body/internalemailaddress']}"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "97481deb-8bb0-405b-a522-951d443986d0"
+                  },
+                  "type": "Scope"
+                },
+                "Catch": {
+                  "actions": {
+                    "Create_item_-_Error_Log": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "PostItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                          "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                          "item/Title": "Error in advcellp_Child Charter Approval Stage 3",
+                          "item/ErrorLogType/Value": "Power automate",
+                          "item/PowerAutomateorJavascriptName": "advcellp_Child Charter Approval Stage 3",
+                          "item/ErrorMessage": "Child automate to update the stage of CTO and send approval to CTO ",
+                          "item/ErrorOccurredInEntity": "Change",
+                          "item/EntityRecordID": " @{outputs('Update_a_row_-_Pending_CTO_Review_3')?['body/msdyn_projectchangeid']}",
+                          "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                          "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                          "item/OtherInformation": "Child automate to update the stage of CTO and send approval to CTO "
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Try_2": [
+                      "Failed"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+                  },
+                  "type": "Scope"
+                }
+              }
+            }
+          },
+          "default": {
+            "actions": {}
+          },
+          "expression": "@triggerBody()['text_1']",
+          "metadata": {
+            "operationMetadataId": "9db53e67-beeb-49d4-b71b-88b71f607113"
+          },
+          "type": "Switch"
+        },
+        "Initialize_variable_-_IsProjectCreated": {
+          "runAfter": {
+            "Initialize_variable_-_CTO_review_comment": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "646c2732-b524-44cb-bbf5-8972317ad17c"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IsProjectRequest",
+                "type": "boolean",
+                "value": "@false"
+              }
+            ]
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Switch_Approval_Entity": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "55d63fe1-d3ce-4cb0-bb43-a881493724fa"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "isprojectcreated": "@{variables('IsProjectRequest')}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isprojectcreated": {
+                  "title": "IsProjectCreated",
+                  "x-ms-dynamically-added": true,
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

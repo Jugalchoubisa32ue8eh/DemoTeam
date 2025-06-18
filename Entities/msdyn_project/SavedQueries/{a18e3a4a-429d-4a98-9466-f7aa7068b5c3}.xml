@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{a18e3a4a-429d-4a98-9466-f7aa7068b5c3}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="msdyn_subject" select="1" preview="1" icon="1">
+        <row name="result" id="msdyn_projectid">
+          <cell name="msdyn_subject" width="150" />
+          <cell name="msdyn_scheduledstart" width="100" />
+          <cell name="msdyn_finish" width="100" />
+          <cell name="statuscode" width="100" />
+          <cell name="advcellp_deliverablesprogress" width="162" />
+          <cell name="advcellp_projectprogress" width="131" />
+          <cell name="msdyn_projectmanager" width="132" />
+          <cell name="proj_stage" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="msdyn_project">
+          <attribute name="msdyn_subject" />
+          <attribute name="msdyn_scheduledstart" />
+          <order attribute="msdyn_subject" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="msdyn_projectmanager" operator="eq-userid" />
+          </filter>
+          <attribute name="msdyn_finish" />
+          <attribute name="statuscode" />
+          <attribute name="msdyn_projectid" />
+          <attribute name="proj_stage" />
+          <attribute name="advcellp_projectprogress" />
+          <attribute name="advcellp_deliverablesprogress" />
+          <attribute name="msdyn_projectmanager" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.1</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="My Active Plans" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

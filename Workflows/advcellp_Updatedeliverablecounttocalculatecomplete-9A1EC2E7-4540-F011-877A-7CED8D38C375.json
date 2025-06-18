@@ -1,0 +1,549 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_webcontents": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedwebcontents_d3eca"
+        },
+        "api": {
+          "name": "shared_webcontents"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Environment URL (advcellp_EnvironmentURL)": {
+          "defaultValue": "https://cellpakdev.crm11.dynamics.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_EnvironmentURL"
+          }
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "2ec65ace-f872-4b4c-af88-938bd95b972f"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "msdyn_projecttask",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "msdyn_progress,advcellp_isdeliverable,advcellp_workpackage",
+              "subscriptionRequest/filterexpression": "_advcellp_workpackage_value ne null"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "actions": {
+            "Get_a_row_by_ID_-_Project_Task": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "e7bb8635-5fe4-471f-8222-fbba4d0b5f45"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projecttasks",
+                  "recordId": "@triggerOutputs()?['body/msdyn_projecttaskid']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Complete": {
+              "runAfter": {
+                "Get_a_row_by_ID_-_Work_package": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "035ac07b-ebb4-49ae-9a12-4caf28b49c2a"
+              },
+              "type": "Compose",
+              "inputs": "@div(mul(outputs('Get_a_row_by_ID_-_Work_package')?['body/advcellp_completeddeliverablecount'], 100), outputs('Get_a_row_by_ID_-_Work_package')?['body/advcellp_deliverablecount'])\r\n"
+            },
+            "Update_a_row_-_Work_package": {
+              "runAfter": {
+                "Complete": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "96b057b3-ada4-41c7-9b74-280de8bc3339"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "advcellp_workpackages",
+                  "recordId": "@outputs('Get_a_row_by_ID_-_Work_package')?['body/advcellp_workpackageid']",
+                  "item/advcellp_progressdecimal": "@outputs('Complete')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "URI_Deliverable_Count": {
+              "runAfter": {
+                "Get_a_row_by_ID_-_Project_Task": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'advcellp_workpackages(@{outputs('Get_a_row_by_ID_-_Project_Task')?['body/_advcellp_workpackage_value']})'}&@field='advcellp_deliverablecount'"
+            },
+            "URI_Completed_Deliverable_Count": {
+              "runAfter": {
+                "Get_a_row_by_ID_-_Project_Task": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'advcellp_workpackages(@{outputs('Get_a_row_by_ID_-_Project_Task')?['body/_advcellp_workpackage_value']})'}&@field='advcellp_completeddeliverablecount'"
+            },
+            "Invoke_an_HTTP_request_-_Update_Deliverable_Count_Roll_Up": {
+              "runAfter": {
+                "URI_Deliverable_Count": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Deliverable_Count')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Invoke_an_HTTP_request_-_Update_Completed_Deliverable_Count_Roll_Up": {
+              "runAfter": {
+                "URI_Completed_Deliverable_Count": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Completed_Deliverable_Count')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Get_a_row_by_ID_-_Work_package": {
+              "runAfter": {
+                "Invoke_an_HTTP_request_-_Update_Deliverable_Count_Roll_Up": [
+                  "Succeeded"
+                ],
+                "Invoke_an_HTTP_request_-_Update_Completed_Deliverable_Count_Roll_Up": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "c0be84f3-2460-444a-bfa7-c1d794c67ac4"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "advcellp_workpackages",
+                  "recordId": "@outputs('Get_a_row_by_ID_-_Project_Task')?['body/_advcellp_workpackage_value']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "URI_Deliverable_Count_Project": {
+              "runAfter": {
+                "Update_a_row_-_Work_package": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'msdyn_projects(@{outputs('Get_a_row_by_ID_-_Project_Task')?['body/_msdyn_project_value']})'}&@field='advcellp_deliverablecount'"
+            },
+            "URI_Completed_Deliverable_Count_Project": {
+              "runAfter": {
+                "Update_a_row_-_Work_package": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'msdyn_projects(@{outputs('Get_a_row_by_ID_-_Project_Task')?['body/_msdyn_project_value']})'}&@field='advcellp_completeddeliverablecount'"
+            },
+            "URI_Work_Package_Count_Project": {
+              "runAfter": {
+                "Update_a_row_-_Work_package": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'msdyn_projects(@{outputs('Get_a_row_by_ID_-_Project_Task')?['body/_msdyn_project_value']})'}&@field='advcellp_workpackagecount'"
+            },
+            "URI_Sum_of_all_work_package_progress_count_Project": {
+              "runAfter": {
+                "Update_a_row_-_Work_package": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'msdyn_projects(@{outputs('Get_a_row_by_ID_-_Project_Task')?['body/_msdyn_project_value']})'}&@field='advcellp_sumofallworkpackageprogress'"
+            },
+            "Invoke_an_HTTP_request_-_Update__Deliverable_Count_Project_Roll_Up": {
+              "runAfter": {
+                "URI_Deliverable_Count_Project": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Deliverable_Count_Project')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Invoke_an_HTTP_request_-_Update_Completed_Deliverable_Count_Project_Roll_Up": {
+              "runAfter": {
+                "URI_Completed_Deliverable_Count_Project": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Completed_Deliverable_Count_Project')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Invoke_an_HTTP_request_-_Update_Work_Package_Count_Project_Roll_Up": {
+              "runAfter": {
+                "URI_Work_Package_Count_Project": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Work_Package_Count_Project')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Invoke_an_HTTP_request_-_Update_Sum_of_Work_Package_Count_Project_Roll_Up": {
+              "runAfter": {
+                "URI_Sum_of_all_work_package_progress_count_Project": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Sum_of_all_work_package_progress_count_Project')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "List_rows_-_All_Work_Package_Roll_Up_Field": {
+              "runAfter": {
+                "Invoke_an_HTTP_request_-_Update__Deliverable_Count_Project_Roll_Up": [
+                  "Succeeded"
+                ],
+                "Invoke_an_HTTP_request_-_Update_Completed_Deliverable_Count_Project_Roll_Up": [
+                  "Succeeded"
+                ],
+                "Invoke_an_HTTP_request_-_Update_Work_Package_Count_Project_Roll_Up": [
+                  "Succeeded"
+                ],
+                "Invoke_an_HTTP_request_-_Update_Sum_of_Work_Package_Count_Project_Roll_Up": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "432c5ef0-913e-4873-8b02-527de0a14271"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "advcellp_workpackages",
+                  "$filter": "_advcellp_project_value eq @{outputs('Get_a_row_by_ID_-_Project_Task')?['body/_msdyn_project_value']}"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Apply_to_each": {
+              "foreach": "@outputs('List_rows_-_All_Work_Package_Roll_Up_Field')?['body/value']",
+              "actions": {
+                "URI_Deliverable_Count_2": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+                  },
+                  "type": "Compose",
+                  "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'advcellp_workpackages(@{items('Apply_to_each')?['advcellp_workpackageid']})'}&@field='advcellp_deliverablecount'"
+                },
+                "URI_Completed_Deliverable_Count_2": {
+                  "runAfter": {
+                    "URI_Deliverable_Count_2": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+                  },
+                  "type": "Compose",
+                  "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'advcellp_workpackages(@{items('Apply_to_each')?['advcellp_workpackageid']})'}&@field='advcellp_completeddeliverablecount'"
+                },
+                "Invoke_an_HTTP_request_-_Update_Deliverable_Count_Roll_Up_2": {
+                  "runAfter": {
+                    "URI_Completed_Deliverable_Count_2": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_webcontents",
+                      "operationId": "InvokeHttp",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                    },
+                    "parameters": {
+                      "request/method": "GET",
+                      "request/url": "@outputs('URI_Deliverable_Count_2')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Invoke_an_HTTP_request_-_Update_Completed_Deliverable_Count_Roll_Up_2": {
+                  "runAfter": {
+                    "URI_Completed_Deliverable_Count_2": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_webcontents",
+                      "operationId": "InvokeHttp",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                    },
+                    "parameters": {
+                      "request/method": "GET",
+                      "request/url": "@outputs('URI_Completed_Deliverable_Count_2')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_All_Work_Package_Roll_Up_Field": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "080df3a6-41b6-421c-bc76-13def015aa04"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "11890b95-f1dd-49e0-9205-8e23e01555b3"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Create_item_-_Error_Log": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PostItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                  "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                  "item/Title": "Error in advcellp_Update deliverable count to calculate % complete (Project Task)",
+                  "item/ErrorLogType/Value": "Power automate",
+                  "item/PowerAutomateorJavascriptName": "advcellp_Update deliverable count to calculate % complete (Project Task)",
+                  "item/ErrorMessage": "Flow got fail when the user Update deliverable count to calculate % complete (Project Task)",
+                  "item/ErrorOccurredInEntity": "Project Task",
+                  "item/EntityRecordID": "@triggerOutputs()?['body/msdyn_projecttaskid']",
+                  "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                  "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                  "item/OtherInformation": "Flow got fail when the user Update deliverable count to calculate % complete (Project Task)"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+          },
+          "type": "Scope"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

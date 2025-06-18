@@ -1,0 +1,65 @@
+function StageButtonVisibility(executionContext) {
+    debugger;
+    "use strict";
+    try {
+        var formContext = executionContext.getFormContext();
+        var activeStage = formContext.data.process.getActiveStage();
+        var stagename = activeStage.getName();
+        // Add an event handler for the stage selection
+        formContext.data.process.addOnStageSelected(onStageClicked);
+    } catch (error) {
+        // Handle any errors that occur during the execution
+    }
+}
+
+function onStageClicked(executionContext) {
+    try {
+        var formContext = executionContext.getFormContext();
+        
+        var hide = true;
+        var interval = null;
+
+        // Set an interval to check for the presence of the setActiveButtonContainer element
+        interval = setInterval(function () {
+            // Get the elements on the BPF stage
+
+        
+            var SetActiveButton = parent.document.getElementById("MscrmControls.Containers.ProcessStageControl-setActiveButtonContainer");
+            var NextStageButton = parent.document.getElementById("MscrmControls.Containers.ProcessStageControl-businessProcessFlowFlyoutFooterContainer");
+            var ExpandButton = parent.document.getElementById("MscrmControls.Containers.ProcessStageControl-stageDockModeButton");
+            var StageColumn = parent.document.getElementById("header_process_proj_stage-header_process_proj_stage-FieldSectionItemContainer");
+    
+
+            if ((SetActiveButton != null || ExpandButton != null) && hide === true) {
+                // Hide the "Set Active" button container
+                if (SetActiveButton != null) {
+                    console.log("Hiding setActiveButtonContainer:", SetActiveButton); // Log the element
+                    SetActiveButton.style.display = "none";
+                }
+
+                // Hide the expand button
+                if (ExpandButton != null) {
+                    console.log("Hiding ExpandButton:", ExpandButton); // Log the element
+                    ExpandButton.style.display = "none";
+                }
+
+                // Hide the next stage button (footer container)
+                if (NextStageButton != null) {
+                    console.log("Hiding businessProcessFlowFlyoutFooterContainer:", NextStageButton); // Log the element
+                    NextStageButton.style.display = "none";
+                }
+
+                // Hide the stage column
+                if (StageColumn != null) {
+                    console.log("Hiding StageColumn:", StageColumn); // Log the element
+                    StageColumn.style.display = "none";
+                }
+
+                hide = false; // Set hide to false after the elements are hidden
+                clearInterval(interval); // Clear the interval
+            }
+        }, 1);
+    } catch (error) {
+        // Handle any errors that occur during the execution
+    }
+}

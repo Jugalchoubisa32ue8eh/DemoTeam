@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModule>
+  <UniqueName>msdyn_ProjectServiceCore</UniqueName>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <WebResourceId>8e8a575a-2a2d-4db2-9b80-cc4f30d6e5f1</WebResourceId>
+  <OptimizedFor></OptimizedFor>
+  <statecode>1</statecode>
+  <statuscode>2</statuscode>
+  <FormFactor>1</FormFactor>
+  <ClientType>4</ClientType>
+  <NavigationType>0</NavigationType>
+  <AppModuleComponents>
+    <AppModuleComponent type="1" schemaName="advcellp_approvalworkflowproject" solutionaction="Added" />
+    <AppModuleComponent type="1" schemaName="advcellp_changerequestw" solutionaction="Added" />
+    <AppModuleComponent type="1" schemaName="expiredprocess" solutionaction="Added" />
+    <AppModuleComponent type="1" schemaName="knowledgearticle" solutionaction="Added" />
+    <AppModuleComponent type="1" schemaName="msdyn_projectteampermission" solutionaction="Added" />
+    <AppModuleComponent type="1" schemaName="msdyn_useraccesspermission" solutionaction="Added" />
+    <AppModuleComponent type="1" schemaName="newprocess" solutionaction="Added" />
+    <AppModuleComponent type="1" schemaName="translationprocess" solutionaction="Added" />
+    <AppModuleComponent type="29" id="{ab81c1af-1a45-48d9-8133-3edc033dbeef}" solutionaction="Added" />
+    <AppModuleComponent type="29" id="{05ac4747-823f-f011-877a-6045bdc1fe02}" solutionaction="Added" />
+    <AppModuleComponent type="29" id="{c98b491f-fc3a-f011-8c4e-7ced8d38c375}" solutionaction="Added" />
+    <AppModuleComponent type="29" id="{bd57803e-0408-44d6-b21d-ae7158ec6555}" solutionaction="Added" />
+    <AppModuleComponent type="29" id="{bcd43793-5686-4fd4-b3b4-c0c26d6f7e40}" solutionaction="Added" />
+  </AppModuleComponents>
+  <AppModuleRoleMaps>
+    <Role id="{68210045-6a47-f011-877a-7ced8d38c375}" solutionaction="Added" />
+    <Role id="{9d9e7c21-6a47-f011-877a-7c1e522e8518}" solutionaction="Added" />
+    <Role id="{236750cd-45ae-4939-ab12-b24b920ced93}" solutionaction="Added" />
+    <Role id="{44a6710f-2435-eb11-a813-000d3a33232a}" solutionaction="Removed" />
+    <Role id="{ef0ed153-f56c-e911-a818-000d3a1cac04}" solutionaction="Removed" />
+  </AppModuleRoleMaps>
+  <LocalizedNames>
+    <LocalizedName description="Project" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Manage projects from creation to delivery." languagecode="1033" />
+  </Descriptions>
+  <appelements>
+    <appelement uniquename="advcellp_msdyn_ProjectServiceCore_canvasappid_advcellp_projectservicecoredefaultcommandlibrary_243c0">
+      <canvasappid>
+        <name>advcellp_projectservicecoredefaultcommandlibrary_243c0</name>
+      </canvasappid>
+      <iscustomizable>1</iscustomizable>
+      <name>advcellp_msdyn_ProjectServiceCore_canvasappid_advcellp_projectservicecoredefaultcommandlibrary_243c0</name>
+    </appelement>
+  </appelements>
+</AppModule>

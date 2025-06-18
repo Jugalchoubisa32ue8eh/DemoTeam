@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{160c8331-6e44-f011-877a-6045bdc1fe02}</WebResourceId>
+  <Name>advcellp_FieldEditabilityBasedOnStage</Name>
+  <DisplayName>Field Editability Based On Stage</DisplayName>
+  <Description>This script disables specific header fields on a project charter form form based on the current stage and approval status in the business process flow, helping enforce field editability rules.</Description>
+  <LanguageCode>0</LanguageCode>
+  <WebResourceType>3</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/advcellp_FieldEditabilityBasedOnStage160C8331-6E44-F011-877A-6045BDC1FE02</FileName>
+</WebResource>

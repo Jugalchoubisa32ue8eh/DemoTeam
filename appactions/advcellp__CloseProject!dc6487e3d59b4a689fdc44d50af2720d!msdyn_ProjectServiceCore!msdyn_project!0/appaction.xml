@@ -1,0 +1,37 @@
+<appaction uniquename="advcellp__CloseProject!dc6487e3d59b4a689fdc44d50af2720d!msdyn_ProjectServiceCore!msdyn_project!0">
+  <appmoduleid>
+    <uniquename>msdyn_ProjectServiceCore</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Close Project">
+    <label description="Close Project" languagecode="1033" />
+  </buttonlabeltext>
+  <context>1</context>
+  <contextentity>
+    <logicalname>msdyn_project</logicalname>
+  </contextentity>
+  <contextvalue>msdyn_project</contextvalue>
+  <fonticon>CloseQuote</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>0</location>
+  <name>CloseProject!dc6487e3d59b4a689fdc44d50af2720d</name>
+  <onclickeventformulacomponentlibraryid>
+    <name>advcellp_projectservicecoredefaultcommandlibrary_243c0</name>
+  </onclickeventformulacomponentlibraryid>
+  <onclickeventformulacomponentname>99bfa0505d4049fb8d5ccc3aceebbc01</onclickeventformulacomponentname>
+  <onclickeventformulafunctionname>OnSelect</onclickeventformulafunctionname>
+  <onclickeventtype>1</onclickeventtype>
+  <origin>0</origin>
+  <sequence>100100041.2500000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilityformulacomponentlibraryid>
+    <name>advcellp_projectservicecoredefaultcommandlibrary_243c0</name>
+  </visibilityformulacomponentlibraryid>
+  <visibilityformulacomponentname>99bfa0505d4049fb8d5ccc3aceebbc01</visibilityformulacomponentname>
+  <visibilityformulafunctionname>Visible</visibilityformulafunctionname>
+  <visibilitytype>1</visibilitytype>
+</appaction>

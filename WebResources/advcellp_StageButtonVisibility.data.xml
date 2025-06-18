@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{438dab11-7744-f011-877a-7ced8d38c375}</WebResourceId>
+  <Name>advcellp_StageButtonVisibility</Name>
+  <DisplayName>Stage Button Visibility</DisplayName>
+  <Description>This script hides the "Set Active", "Next Stage", and "Expand" buttons on a Dynamics 365 business process flow when a stage is selected, improving control over stage navigation visibility.</Description>
+  <LanguageCode>0</LanguageCode>
+  <WebResourceType>3</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/advcellp_StageButtonVisibility438DAB11-7744-F011-877A-7CED8D38C375</FileName>
+</WebResource>

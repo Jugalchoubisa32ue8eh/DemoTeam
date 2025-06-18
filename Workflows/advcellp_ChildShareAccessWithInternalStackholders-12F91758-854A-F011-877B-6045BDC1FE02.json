@@ -1,0 +1,232 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "2277e736-d2b4-4e21-8378-d7bcfbecb094"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text_1": {
+                  "title": "ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "Entity Logical Name",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text": {
+                  "title": "Project ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text_1",
+                "text_3",
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "actions": {
+            "Run_a_Child_Flow_-_Get_stakeholders": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "b066eb09-0003-4eb5-b65b-e2f6e88d0efb"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "bd9dae7b-3541-f011-877a-7c1e522e8518"
+                },
+                "body": {
+                  "text": "@triggerBody()['text']"
+                }
+              }
+            },
+            "Run_a_Child_Flow_-_Grant_Access_To_PMO_Head": {
+              "runAfter": {
+                "Run_a_Child_Flow_-_Get_stakeholders": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "4f5d8783-2f4d-44ae-87e7-e836e98ea2fc"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "ac05e816-b24a-f011-877a-7ced8d3a90cb"
+                },
+                "body": {
+                  "text": "@triggerBody()['text_1']",
+                  "text_1": "@body('Run_a_Child_Flow_-_Get_stakeholders')?['pmo_head']",
+                  "text_2": "@triggerBody()['text_3']"
+                }
+              }
+            },
+            "Run_a_Child_Flow_-_Grant_Access_To_Department_Head": {
+              "runAfter": {
+                "Run_a_Child_Flow_-_Grant_Access_To_PMO_Head": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "dfa78d72-6aeb-4102-9118-3f0d9e02e643"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "ac05e816-b24a-f011-877a-7ced8d3a90cb"
+                },
+                "body": {
+                  "text": "@triggerBody()['text_1']",
+                  "text_1": "@body('Run_a_Child_Flow_-_Get_stakeholders')?['department_head_id']",
+                  "text_2": "@triggerBody()['text_3']"
+                }
+              }
+            },
+            "Run_a_Child_Flow_-_Grant_Access_To_CTO_Head": {
+              "runAfter": {
+                "Run_a_Child_Flow_-_Grant_Access_To_Department_Head": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b2df27a2-5f8c-4ebd-8e55-39897a0f8107"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "ac05e816-b24a-f011-877a-7ced8d3a90cb"
+                },
+                "body": {
+                  "text": "@triggerBody()['text_1']",
+                  "text_1": "@body('Run_a_Child_Flow_-_Get_stakeholders')?['cto_id']",
+                  "text_2": "@triggerBody()['text_3']"
+                }
+              }
+            },
+            "Run_a_Child_Flow_-_Grant_Access_To_Executive_Sponsor": {
+              "runAfter": {
+                "Run_a_Child_Flow_-_Grant_Access_To_CTO_Head": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "611e4bbb-ff13-46a6-b0eb-794329e75b70"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "ac05e816-b24a-f011-877a-7ced8d3a90cb"
+                },
+                "body": {
+                  "text": "@triggerBody()['text_1']",
+                  "text_1": "@body('Run_a_Child_Flow_-_Get_stakeholders')?['executive_sponsor_id']",
+                  "text_2": "@triggerBody()['text_3']"
+                }
+              }
+            },
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Run_a_Child_Flow_-_Grant_Access_To_Project_Manager": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "5e6aee59-6740-4b52-ac47-49c745eaa684"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {},
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "Run_a_Child_Flow_-_Grant_Access_To_Project_Lead": {
+              "runAfter": {
+                "Run_a_Child_Flow_-_Grant_Access_To_Executive_Sponsor": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "611e4bbb-ff13-46a6-b0eb-794329e75b70"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "ac05e816-b24a-f011-877a-7ced8d3a90cb"
+                },
+                "body": {
+                  "text": "@triggerBody()['text_1']",
+                  "text_1": "@body('Run_a_Child_Flow_-_Get_stakeholders')?['project_lead']",
+                  "text_2": "@triggerBody()['text_3']"
+                }
+              }
+            },
+            "Run_a_Child_Flow_-_Grant_Access_To_Project_Manager": {
+              "runAfter": {
+                "Run_a_Child_Flow_-_Grant_Access_To_Project_Lead": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "611e4bbb-ff13-46a6-b0eb-794329e75b70"
+              },
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "ac05e816-b24a-f011-877a-7ced8d3a90cb"
+                },
+                "body": {
+                  "text": "@triggerBody()['text_1']",
+                  "text_1": "@body('Run_a_Child_Flow_-_Get_stakeholders')?['project_manager']",
+                  "text_2": "@triggerBody()['text_3']"
+                }
+              }
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "a271403f-b530-4afd-bdb5-4590964bb4d1"
+          },
+          "type": "Scope"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

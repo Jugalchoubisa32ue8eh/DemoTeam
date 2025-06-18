@@ -1,0 +1,3 @@
+advcellp_deliverablesprogress: =(advcellp_completeddeliverablecount/advcellp_deliverablecount)*100
+advcellp_projectprogress: =advcellp_sumofallworkpackageprogress/advcellp_workpackagecount
+advcellp_workpackageprogress: =(advcellp_completedworkpackagecount/advcellp_workpackagecount)*100

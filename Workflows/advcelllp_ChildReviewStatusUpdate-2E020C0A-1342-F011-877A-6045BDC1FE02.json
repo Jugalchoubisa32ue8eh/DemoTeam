@@ -1,0 +1,1106 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "ee3bbe95-ce77-4285-85cf-85c29a2e120a"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Stage name",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "Outcome",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "Comment",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "Entity",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_4": {
+                  "title": "ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3",
+                "text_4"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Try_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "23c5868c-1827-414a-8dfd-a5926f596dae"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "isrejectedrevision": "@variables('IsRejectedRevision')"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isrejectedrevision": {
+                  "title": "IsRejectedRevision",
+                  "x-ms-dynamically-added": true,
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "Try_2": {
+          "actions": {
+            "Switch_Entity": {
+              "runAfter": {},
+              "cases": {
+                "Case_-_Projects": {
+                  "case": "Project",
+                  "actions": {
+                    "Try": {
+                      "actions": {
+                        "Switch_to_Update_Status": {
+                          "runAfter": {},
+                          "cases": {
+                            "Case_-_Approve": {
+                              "case": "Approve",
+                              "actions": {
+                                "Switch_Stage_Name": {
+                                  "runAfter": {},
+                                  "cases": {
+                                    "Case_-_Update_Department_Head_Status": {
+                                      "case": "Department Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Department_Head_Approved_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_departmentheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_departmentreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_PMO_Head_Status": {
+                                      "case": "PMO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_PMO_Head_Approved_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_pmoheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_pmoheadreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_Executive_Sponsor_Head_Status": {
+                                      "case": "Executive Sponsor",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Executive_Sponsor_Approved_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_executivesponsorcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_executivesponsorreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_CTO_Head_Status": {
+                                      "case": "CTO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_CTO_Approved_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_ctocomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_ctoreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": {
+                                    "actions": {}
+                                  },
+                                  "expression": "@triggerBody()['text']",
+                                  "metadata": {
+                                    "operationMetadataId": "74ddf16c-8aec-45f5-80cb-4a54d07d9cef"
+                                  },
+                                  "type": "Switch"
+                                }
+                              }
+                            },
+                            "Case_-_Reject": {
+                              "case": "Reject",
+                              "actions": {
+                                "Switch_Stage_Name_2": {
+                                  "runAfter": {},
+                                  "cases": {
+                                    "Case_-_Update_Department_Head_Status": {
+                                      "case": "Department Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Department_Head_Rejected_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_departmentheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_departmentreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/proj_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_PMO_Head_Status": {
+                                      "case": "PMO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_PMO_Head_Rejected_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_pmoheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_pmoheadreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/proj_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_Executive_Sponsor_Head_Status": {
+                                      "case": "Executive Sponsor",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Executive_Sponsor_Rejected_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_executivesponsorcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_executivesponsorreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/proj_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_CTO_Head_Status": {
+                                      "case": "CTO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_CTO_Rejected_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_ctocomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_ctoreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/proj_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": {
+                                    "actions": {}
+                                  },
+                                  "expression": "@triggerBody()['text']",
+                                  "metadata": {
+                                    "operationMetadataId": "1cdd829d-f118-40aa-b2e8-41acd0b5d23b"
+                                  },
+                                  "type": "Switch"
+                                },
+                                "Set_variable_-_IsRejectedRevision_to_True": {
+                                  "runAfter": {
+                                    "Switch_Stage_Name_2": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "96dbaa7a-2c9e-4c92-9869-ffc44f1010ae"
+                                  },
+                                  "type": "SetVariable",
+                                  "inputs": {
+                                    "name": "IsRejectedRevision",
+                                    "value": "@true"
+                                  }
+                                }
+                              }
+                            },
+                            "Case_-_Revision_Needed": {
+                              "case": "Revision needed",
+                              "actions": {
+                                "Switch_Stage_Name_3": {
+                                  "runAfter": {},
+                                  "cases": {
+                                    "Case_-_Update_Department_Head_Status": {
+                                      "case": "Department Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Department_Head_Revision_Needed_Status_3": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_departmentheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_departmentreviewstatus": 468910002,
+                                              "item/proj_stage": 189330005
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_PMO_Head_Status": {
+                                      "case": "PMO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_PMO_Head_Revision_Needed_Status_3": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_pmoheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_pmoheadreviewstatus": 468910002,
+                                              "item/proj_stage": 189330005
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_Executive_Sponsor_Head_Status": {
+                                      "case": "Executive Sponsor",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Executive_Sponsor_Revision_Needed_Status_3": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_executivesponsorcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_executivesponsorreviewstatus": 468910002,
+                                              "item/proj_stage": 189330006
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_CTO_Head_Status": {
+                                      "case": "CTO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_CTO_Revision_Needed_Status_3": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projects",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_ctocomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_ctoreviewstatus": 468910002,
+                                              "item/proj_stage": 189330007
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": {
+                                    "actions": {}
+                                  },
+                                  "expression": "@triggerBody()['text']",
+                                  "metadata": {
+                                    "operationMetadataId": "15a6b798-eef5-40fd-b122-7411ae88e4bb"
+                                  },
+                                  "type": "Switch"
+                                },
+                                "Set_variable_-_IsRejectedRevision_to_True_2": {
+                                  "runAfter": {
+                                    "Switch_Stage_Name_3": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "cbd5b29c-ff4f-4223-9ca2-231ea62e1aac"
+                                  },
+                                  "type": "SetVariable",
+                                  "inputs": {
+                                    "name": "IsRejectedRevision",
+                                    "value": "@true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "default": {
+                            "actions": {}
+                          },
+                          "expression": "@triggerBody()['text_1']",
+                          "metadata": {
+                            "operationMetadataId": "995bdb89-ce58-4a0e-b5a4-d362209c0535"
+                          },
+                          "type": "Switch"
+                        }
+                      },
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "a014aa31-5863-4c14-9a4a-536381b3668e"
+                      },
+                      "type": "Scope"
+                    },
+                    "Catch": {
+                      "actions": {
+                        "Create_item_-_Error_Log": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_sharepointonline",
+                              "operationId": "PostItem",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                            },
+                            "parameters": {
+                              "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                              "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                              "item/Title": "Error in advcelllp_Child Review Status Update",
+                              "item/ErrorLogType/Value": "Power automate",
+                              "item/PowerAutomateorJavascriptName": "advcelllp_Child Review Status Update",
+                              "item/ErrorMessage": "Child automate to update the status of stages and send the response to the parent automate",
+                              "item/ErrorOccurredInEntity": "Project",
+                              "item/EntityRecordID": " @{outputs('Update_a_row_-_Update_Department_Head_Approved_Status')?['body/msdyn_projectid']}",
+                              "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                              "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                              "item/OtherInformation": "Child automate to update the status of stages and send the response to the parent automate"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Try": [
+                          "Failed"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+                      },
+                      "type": "Scope"
+                    }
+                  }
+                },
+                "Case_2_-_Change": {
+                  "case": "Change",
+                  "actions": {
+                    "Try_3": {
+                      "actions": {
+                        "Switch_to_Update_Status_2": {
+                          "runAfter": {},
+                          "cases": {
+                            "Case_-_Approve": {
+                              "case": "Approve",
+                              "actions": {
+                                "Switch_Stage_Name_4": {
+                                  "runAfter": {},
+                                  "cases": {
+                                    "Case_-_Update_Department_Head_Status": {
+                                      "case": "Department Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Department_Head_Approved_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_departmentheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_departmentheadreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_PMO_Head_Status": {
+                                      "case": "PMO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_PMO_Head_Approved_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_pmoheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_pmoheadreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_Executive_Sponsor_Head_Status": {
+                                      "case": "Executive Sponsor",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Executive_Sponsor_Approved_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_executivesponsorcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_executivesponsorreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_CTO_Head_Status": {
+                                      "case": "CTO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_CTO_Approved_Status_2": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_ctocomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_ctoreviewstatus": 468910000
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": {
+                                    "actions": {}
+                                  },
+                                  "expression": "@triggerBody()['text']",
+                                  "metadata": {
+                                    "operationMetadataId": "74ddf16c-8aec-45f5-80cb-4a54d07d9cef"
+                                  },
+                                  "type": "Switch"
+                                }
+                              }
+                            },
+                            "Case_-_Reject": {
+                              "case": "Reject",
+                              "actions": {
+                                "Switch_Stage_Name_5": {
+                                  "runAfter": {},
+                                  "cases": {
+                                    "Case_-_Update_Department_Head_Status": {
+                                      "case": "Department Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Department_Head_Rejected_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_departmentheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_departmentheadreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/advcellp_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_PMO_Head_Status": {
+                                      "case": "PMO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_PMO_Head_Rejected_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_pmoheadcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_pmoheadreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/advcellp_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_Executive_Sponsor_Head_Status": {
+                                      "case": "Executive Sponsor",
+                                      "actions": {
+                                        "Update_a_row_-_Update_Executive_Sponsor_Rejected_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_executivesponsorcomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_executivesponsorreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/advcellp_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Case_-_Update_CTO_Head_Status": {
+                                      "case": "CTO Head",
+                                      "actions": {
+                                        "Update_a_row_-_Update_CTO_Rejected_Status": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8f28839c-f378-47e5-b391-172507526a46"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "UpdateOnlyRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "msdyn_projectchanges",
+                                              "recordId": "@triggerBody()['text_4']",
+                                              "item/advcellp_ctocomment": "@triggerBody()['text_2']",
+                                              "item/advcellp_ctoreviewstatus": 468910001,
+                                              "item/advcellp_rejected": true,
+                                              "item/advcellp_stage": 468910001
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": {
+                                    "actions": {}
+                                  },
+                                  "expression": "@triggerBody()['text']",
+                                  "metadata": {
+                                    "operationMetadataId": "1cdd829d-f118-40aa-b2e8-41acd0b5d23b"
+                                  },
+                                  "type": "Switch"
+                                },
+                                "Set_variable_-_IsRejectedRevision_to_True_3": {
+                                  "runAfter": {
+                                    "Switch_Stage_Name_5": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "96dbaa7a-2c9e-4c92-9869-ffc44f1010ae"
+                                  },
+                                  "type": "SetVariable",
+                                  "inputs": {
+                                    "name": "IsRejectedRevision",
+                                    "value": "@true"
+                                  }
+                                }
+                              }
+                            },
+                            "Case_-_Escalate_To_CTO": {
+                              "case": "Escalate To CTO",
+                              "actions": {
+                                "Update_a_row_-_Escalate_To_CTO": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "110f5c45-6ea5-4506-ad2d-dc9849c33b4c"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_commondataserviceforapps",
+                                      "operationId": "UpdateOnlyRecord",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                    },
+                                    "parameters": {
+                                      "entityName": "msdyn_projectchanges",
+                                      "recordId": "@triggerBody()['text_4']",
+                                      "item/advcellp_executivesponsorcomment": "@triggerBody()['text_2']",
+                                      "item/advcellp_executivesponsorreviewstatus": 468910003
+                                    },
+                                    "authentication": {
+                                      "type": "Raw",
+                                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                    }
+                                  }
+                                },
+                                "Set_variable_-_IsRejectedRevision_to_True_5": {
+                                  "runAfter": {
+                                    "Update_a_row_-_Escalate_To_CTO": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "e79c942e-6723-4cbc-98f8-b673e6f1e89d"
+                                  },
+                                  "type": "SetVariable",
+                                  "inputs": {
+                                    "name": "IsRejectedRevision",
+                                    "value": "@true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "default": {
+                            "actions": {}
+                          },
+                          "expression": "@triggerBody()['text_1']",
+                          "metadata": {
+                            "operationMetadataId": "995bdb89-ce58-4a0e-b5a4-d362209c0535"
+                          },
+                          "type": "Switch"
+                        }
+                      },
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "a014aa31-5863-4c14-9a4a-536381b3668e"
+                      },
+                      "type": "Scope"
+                    },
+                    "Catch_2": {
+                      "actions": {
+                        "Create_item_-_Error_Log_2": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_sharepointonline",
+                              "operationId": "PostItem",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                            },
+                            "parameters": {
+                              "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                              "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                              "item/Title": "Error in advcelllp_Child Review Status Update",
+                              "item/ErrorLogType/Value": "Power automate",
+                              "item/PowerAutomateorJavascriptName": "advcelllp_Child Review Status Update",
+                              "item/ErrorMessage": "Child automate to update the status of stages and send the response to the parent automate",
+                              "item/ErrorOccurredInEntity": "Change",
+                              "item/EntityRecordID": " @{outputs('Update_a_row_-_Update_Department_Head_Approved_Status_2')?['body/msdyn_projectchangeid']}",
+                              "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                              "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                              "item/OtherInformation": "Child automate to update the status of stages and send the response to the parent automate"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Try_3": [
+                          "Failed"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+                      },
+                      "type": "Scope"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {}
+              },
+              "expression": "@triggerBody()['text_3']",
+              "metadata": {
+                "operationMetadataId": "3bf3daf3-f8d2-409b-8782-a710b77256aa"
+              },
+              "type": "Switch"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable_-_IsRejectedRevision": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "8db59fb8-3712-41b4-ba54-89ca0679ee01"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable_-_IsRejectedRevision": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "a25cca8e-67a4-4052-800b-505c80470a8f"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IsRejectedRevision",
+                "type": "boolean",
+                "value": "@false"
+              }
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

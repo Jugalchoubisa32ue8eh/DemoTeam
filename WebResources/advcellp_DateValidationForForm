@@ -1,0 +1,50 @@
+function ValidateDates(executionContext) {
+    try {
+        "use strict";
+        var formContext = executionContext.getFormContext();
+
+        var startDateAttr = null;
+        var endDateAttr = null;
+        var endDateControl = null;
+
+        // Detect which form based on field existence
+        if (formContext.getAttribute("advcellp_estimatedstarttime") != null) {
+            // Resource Form
+            startDateAttr = formContext.getAttribute("advcellp_estimatedstarttime").getValue();
+            endDateAttr = formContext.getAttribute("advcellp_estimatedendtime").getValue();
+            endDateControl = formContext.getControl("advcellp_estimatedendtime");
+        } 
+        else if (formContext.getAttribute("proj_plannedstartdate") != null) {
+            // Change Form
+            startDateAttr = formContext.getAttribute("proj_plannedstartdate").getValue();
+            endDateAttr = formContext.getAttribute("proj_plannedduedate").getValue();
+            endDateControl = formContext.getControl("proj_plannedduedate");
+        } 
+        else {
+            // Unknown form - fields not found
+            console.warn("ValidateDates: StartDate fields not found on form.");
+            return;
+        }
+
+        // Clear previous notification
+        endDateControl.clearNotification("ErrEndDate");
+
+        if (startDateAttr != null && endDateAttr != null) {
+            // Compare dates
+            if (endDateAttr < startDateAttr) {
+                endDateControl.setNotification("End date cannot be smaller than Start date.", "ErrEndDate");
+            } else {
+                endDateControl.clearNotification("ErrEndDate");
+            }
+        }
+    }
+    catch (error) {
+        // Handle any errors that occur during the execution
+        ErrorLogCreation(
+            "JavaScript function - ValidateDates",
+            "advtmf_ValidateDates",
+            "Responsible for checking end date is not greater than start date across forms",
+            error
+        );
+    }
+}

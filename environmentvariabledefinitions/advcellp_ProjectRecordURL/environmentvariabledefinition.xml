@@ -1,0 +1,11 @@
+<environmentvariabledefinition schemaname="advcellp_ProjectRecordURL">
+  <defaultvalue>https://cellpakdev.crm11.dynamics.com/main.aspx?appid=fcc0a086-7634-f011-8c4c-7c1e5264d2dd&amp;pagetype=entityrecord&amp;etn=msdyn_project&amp;id=</defaultvalue>
+  <displayname default="Project Record URL">
+    <label description="Project Record URL" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

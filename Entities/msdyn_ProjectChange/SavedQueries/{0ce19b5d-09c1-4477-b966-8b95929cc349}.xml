@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{0ce19b5d-09c1-4477-b966-8b95929cc349}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="msdyn_name" select="1" icon="1" preview="1">
+        <row name="result" id="msdyn_projectchangeid">
+          <cell name="msdyn_name" width="300" />
+          <cell name="proj_state" width="100" />
+          <cell name="proj_approval" width="100" />
+          <cell name="proj_changetype" width="100" />
+          <cell name="proj_requestedby" width="100" />
+          <cell name="proj_assignedto" width="100" />
+          <cell name="proj_changeimpact" width="100" />
+          <cell name="proj_costimpact" width="100" />
+          <cell name="proj_changerisk" width="100" />
+          <cell name="proj_priority" width="100" />
+          <cell name="proj_plannedduedate" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="msdyn_projectchange">
+          <attribute name="msdyn_projectchangeid" />
+          <attribute name="msdyn_name" />
+          <order attribute="msdyn_name" descending="false" />
+          <attribute name="proj_state" />
+          <attribute name="proj_approval" />
+          <attribute name="proj_changetype" />
+          <attribute name="proj_requestedby" />
+          <attribute name="proj_assignedto" />
+          <attribute name="proj_changeimpact" />
+          <attribute name="proj_costimpact" />
+          <attribute name="proj_changerisk" />
+          <attribute name="proj_priority" />
+          <attribute name="proj_plannedduedate" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.6.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Changes" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

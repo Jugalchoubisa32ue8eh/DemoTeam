@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{cb454a1f-68f9-429a-b96d-32e68dd81321}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{ae5313b6-9e19-4584-af4f-9d0a6cd6a851}" IsUserDefined="1" name="General">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{2480b200-09a8-4d19-954c-e55d3105521a}" columns="11">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4773e9c9-7416-4807-bc43-099426408a19}" colspan="1">
+                        <labels>
+                          <label description="Work package name" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_workpackagename" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="advcellp_workpackagename" />
+                      </cell>
+                      <cell id="{8947a092-aa49-428c-b09a-b0dd1c099143}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="% Complete " languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_progressdecimal" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_progressdecimal" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0b76f047-6279-4fd1-9795-1c87214e70ed}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Deliverable count" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_deliverablecount" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_deliverablecount" disabled="false" />
+                      </cell>
+                      <cell id="{4ccc2669-a331-4d66-80a4-741ba36c8814}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Completed deliverable count" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_completeddeliverablecount" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_completeddeliverablecount" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8e00766a-41b3-4401-a20d-35c5fbe47952}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_project" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_project" disabled="true" />
+                      </cell>
+                      <cell id="{ebb52f7d-33e5-414d-a956-0ec9eabb4434}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Project Request" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectrequest" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_projectrequest" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5ef71557-0da9-49c9-8773-daa3fdbc3601}" visible="false">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                      <cell id="{802ec522-445d-3472-33eb-022a8b5ea305}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_13_section_3" id="92e7f53b-ca1e-4769-8bde-f4c12171baf1" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" height="auto">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{1d138cbe-9299-4be9-8bc1-7c8f07d689d5}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{3817117c-a5a7-4a68-8b36-0c0730685b68}" rowspan="4" colspan="1" auto="true" showlabel="true">
+                        <labels>
+                          <label description="Deliverables" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_1" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{fa1f76a8-811d-4bc0-9db2-9a1f5a529cab}">
+                          <parameters>
+                            <RecordsPerPage>10</RecordsPerPage>
+                            <AutoExpand>Auto</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_msdyn_projecttask_Workpackage_advcellp_workpackage</RelationshipName>
+                            <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                            <ViewId>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewId>
+                            <ViewIds>{41AD6900-D1B4-E511-80E4-00155DB8D81D},{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewIds>
+                            <VisualizationId>{e869f2ba-4a71-e511-80f0-00155db99003}</VisualizationId>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row height="auto" />
+                    <row>
+                      <cell id="{aba18f6e-135e-4534-afe2-38da6a7fbe5a}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{106a755e-787a-4f60-814e-44f04163572b}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{933659e5-c6e9-462a-9eaa-9dcea55fbdb0}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{8f7f4a34-f22d-4cda-ae8b-b9dbaf106026}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{3ba98955-a199-4336-b8f4-360ff44d083a}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{6b94332b-7325-4e72-a85a-66e14c97f8a3}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{149ce665-c0f3-4d72-861b-9755df1d86cb}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{77006430-08e0-4b77-a6a7-af1c713e676f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{7bc275e9-97bf-4823-870c-3741ab95f288}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <Navigation>
+        <NavBar>
+          <NavBarByRelationshipItem RelationshipName="hardcoded_{B7196B13-6B9D-42CD-BD58-B19A3953126F}navAsyncOperations" Sequence="9500" Area="ProcessCenter" Id="navAsyncOperations" Show="false">
+            <Titles>
+              <Title LCID="1033" Text="Background Processes" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="hardcoded_{B7196B13-6B9D-42CD-BD58-B19A3953126F}navProcessSessions" Sequence="9700" Area="ProcessCenter" Id="navProcessSessions" Show="false">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="advcellp_msdyn_projecttask_Workpackage_advcellp_workpackage" Sequence="10000" Area="Info" Id="nav_advcellp_msdyn_projecttask_Workpackage_advcellp_workpackage" Show="false">
+            <Titles>
+              <Title LCID="1033" Text="Project Tasks" />
+            </Titles>
+          </NavBarByRelationshipItem>
+        </NavBar>
+        <NavBarAreas>
+          <NavBarArea Id="Info">
+            <Titles>
+              <Title LCID="1033" Text="Common" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Sales">
+            <Titles>
+              <Title LCID="1033" Text="Sales" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Service">
+            <Titles>
+              <Title LCID="1033" Text="Service" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Marketing">
+            <Titles>
+              <Title LCID="1033" Text="Marketing" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="ProcessCenter">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarArea>
+        </NavBarAreas>
+      </Navigation>
+      <controlDescriptions>
+        <controlDescription forControl="{fa1f76a8-811d-4bc0-9db2-9a1f5a529cab}">
+          <customControl id="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+            <parameters>
+              <RecordsPerPage>10</RecordsPerPage>
+              <AutoExpand>Auto</AutoExpand>
+              <EnableQuickFind>false</EnableQuickFind>
+              <EnableViewPicker>false</EnableViewPicker>
+              <EnableChartPicker>true</EnableChartPicker>
+              <ChartGridMode>All</ChartGridMode>
+              <RelationshipName>advcellp_msdyn_projecttask_Workpackage_advcellp_workpackage</RelationshipName>
+              <TargetEntityType>msdyn_projecttask</TargetEntityType>
+              <ViewId>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewId>
+              <ViewIds>{41AD6900-D1B4-E511-80E4-00155DB8D81D},{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewIds>
+              <VisualizationId>{e869f2ba-4a71-e511-80f0-00155db99003}</VisualizationId>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.Grid.GridControl">
+            <parameters>
+              <data-set name="Grid">
+                <ViewId>{4dfb3c4a-7635-f011-8c4d-7c1e522e8518}</ViewId>
+                <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>advcellp_msdyn_projecttask_Workpackage_advcellp_workpackage</RelationshipName>
+                <FilteredViewIds>{41AD6900-D1B4-E511-80E4-00155DB8D81D},{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</FilteredViewIds>
+              </data-set>
+              <EnableGroupBy type="Enum" static="true">yes</EnableGroupBy>
+              <EnableEditing type="Enum" static="true">yes</EnableEditing>
+              <ReflowBehavior type="Enum" static="true">GridOnly</ReflowBehavior>
+              <ListLayoutDirection type="Enum" static="true">Vertical</ListLayoutDirection>
+              <EnableSubGridAutoCollapse type="Enum" static="true">false</EnableSubGridAutoCollapse>
+              <EnableFiltering type="Enum" static="true">yes</EnableFiltering>
+              <HideNestedGridColumnHeader type="Enum" static="true">no</HideNestedGridColumnHeader>
+              <EnableJumpBar type="Enum" static="true">yes</EnableJumpBar>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+            <parameters>
+              <data-set name="Grid">
+                <ViewId>{4dfb3c4a-7635-f011-8c4d-7c1e522e8518}</ViewId>
+                <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>advcellp_msdyn_projecttask_Workpackage_advcellp_workpackage</RelationshipName>
+                <FilteredViewIds>{41AD6900-D1B4-E511-80E4-00155DB8D81D},{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</FilteredViewIds>
+              </data-set>
+              <EnableGroupBy type="Enum" static="true">yes</EnableGroupBy>
+              <EnableEditing type="Enum" static="true">yes</EnableEditing>
+              <ReflowBehavior type="Enum" static="true">GridOnly</ReflowBehavior>
+              <ListLayoutDirection type="Enum" static="true">Vertical</ListLayoutDirection>
+              <EnableSubGridAutoCollapse type="Enum" static="true">false</EnableSubGridAutoCollapse>
+              <EnableFiltering type="Enum" static="true">yes</EnableFiltering>
+              <HideNestedGridColumnHeader type="Enum" static="true">no</HideNestedGridColumnHeader>
+              <EnableJumpBar type="Enum" static="true">yes</EnableJumpBar>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+            <parameters>
+              <data-set name="Grid">
+                <ViewId>{4dfb3c4a-7635-f011-8c4d-7c1e522e8518}</ViewId>
+                <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>advcellp_msdyn_projecttask_Workpackage_advcellp_workpackage</RelationshipName>
+                <FilteredViewIds>{41AD6900-D1B4-E511-80E4-00155DB8D81D},{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</FilteredViewIds>
+              </data-set>
+              <EnableGroupBy type="Enum" static="true">yes</EnableGroupBy>
+              <EnableEditing type="Enum" static="true">yes</EnableEditing>
+              <ReflowBehavior type="Enum" static="true">GridOnly</ReflowBehavior>
+              <ListLayoutDirection type="Enum" static="true">Vertical</ListLayoutDirection>
+              <EnableSubGridAutoCollapse type="Enum" static="true">false</EnableSubGridAutoCollapse>
+              <EnableFiltering type="Enum" static="true">yes</EnableFiltering>
+              <HideNestedGridColumnHeader type="Enum" static="true">no</HideNestedGridColumnHeader>
+              <EnableJumpBar type="Enum" static="true">yes</EnableJumpBar>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+      <formLibraries>
+        <Library name="advcellp_ControlRelatedEntityAccess" libraryUniqueId="{8daaa76a-8639-4e97-bd05-8da205613fa0}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="ControlRelatedEntityAccess" libraryName="advcellp_ControlRelatedEntityAccess" handlerUniqueId="{2cbc5e84-fb28-4918-b5d2-ee4a23f9ccaa}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{c0e7f261-708e-45e8-ad3f-08952105fb1e}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="advcellp_newcolumn" select="1" icon="1" preview="1">
+        <row name="result" id="advcellp_externalresourceid">
+          <cell name="advcellp_newcolumn" width="112" />
+          <cell name="advcellp_resourcetype" width="124" />
+          <cell name="advcellp_estimatedstarttime" width="156" />
+          <cell name="advcellp_estimatedendtime" width="152" />
+          <cell name="advcellp_estimatedcost" width="123" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="advcellp_externalresource">
+          <attribute name="advcellp_externalresourceid" />
+          <attribute name="createdon" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="advcellp_resourcetype" />
+          <attribute name="advcellp_estimatedstarttime" />
+          <attribute name="advcellp_estimatedendtime" />
+          <attribute name="advcellp_estimatedcost" />
+          <attribute name="advcellp_newcolumn" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active External Resources" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

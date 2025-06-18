@@ -1,0 +1,333 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Department And PMO Head Review Stage ID (advcellp_DepartmentAndPMOHeadReviewStageID)": {
+          "defaultValue": "aae711e3-e816-4e6b-bc53-ac50b77685aa",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_DepartmentAndPMOHeadReviewStageID"
+          }
+        },
+        "CTO Review Stage ID (advcellp_CTOReviewStageID)": {
+          "defaultValue": "327a80ce-c32a-4497-a4c9-c60fd887d810",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_CTOReviewStageID"
+          }
+        },
+        "Executive Sponsor Review Stage ID (advcellp_ExecutiveSponsorReviewStageID)": {
+          "defaultValue": "339da459-40c5-42d4-ba1c-611576dce5f8",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ExecutiveSponsorReviewStageID"
+          }
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "7c274011-39ba-42be-b07e-3ddc7e4565b1"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "msdyn_project",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "advcellp_isresubmitted",
+              "subscriptionRequest/filterexpression": "advcellp_isresubmitted eq true"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "actions": {
+            "Get_a_row_by_ID_-_Projects": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "4ff32219-6354-4f63-9800-1d19ff4231ce"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projects",
+                  "recordId": "@triggerOutputs()?['body/msdyn_projectid']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Switch_Revision_Needed": {
+              "runAfter": {
+                "Get_a_row_by_ID_-_Projects": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Case_-_Start_Approval_From_Department_and_PMO_Stage": {
+                  "case": 189330005,
+                  "actions": {
+                    "Update_a_row_-_Stage_field_to_Department_And_PMO_Head_Review": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "7f33443b-2d0e-46dd-a3cc-123f8f6fd195"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "msdyn_projects",
+                          "recordId": "@outputs('Get_a_row_by_ID_-_Projects')?['body/msdyn_projectid']",
+                          "item/advcellp_departmentheadcomment": "@null",
+                          "item/advcellp_departmentreviewstatus": "@null",
+                          "item/advcellp_pmoheadcomment": "@null",
+                          "item/advcellp_pmoheadreviewstatus": "@null",
+                          "item/advcellp_readyforapproval": true,
+                          "item/proj_stage": 189330001
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Run_a_Child_Flow_-_Active_Department_and_PMO_Review_Stage": {
+                      "runAfter": {
+                        "Update_a_row_-_Stage_field_to_Department_And_PMO_Head_Review": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "d19f7d96-e715-4535-8abf-1f77e75d2683"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                        },
+                        "body": {
+                          "text": "@outputs('Get_a_row_by_ID_-_Projects')?['body/msdyn_projectid']",
+                          "text_1": "@parameters('Department And PMO Head Review Stage ID (advcellp_DepartmentAndPMOHeadReviewStageID)')"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Case_-__Start_Approval_From_Executive_Sponsor_Stage": {
+                  "case": 189330006,
+                  "actions": {
+                    "Update_a_row_-_Stage_field_to_Executive_Sponsor_Review": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "b9ac367d-4165-4961-b362-546a444fb28d"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "msdyn_projects",
+                          "recordId": "@outputs('Get_a_row_by_ID_-_Projects')?['body/msdyn_projectid']",
+                          "item/advcellp_executivesponsorcomment": "@null",
+                          "item/advcellp_executivesponsorreviewstatus": "@null",
+                          "item/advcellp_readyforapproval": true,
+                          "item/proj_stage": 189330002
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Run_a_Child_Flow_-_Active_Executive_Sponsor_Review_Stage": {
+                      "runAfter": {
+                        "Update_a_row_-_Stage_field_to_Executive_Sponsor_Review": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "3ae10310-f4bc-4568-bd81-f45d902ab068"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                        },
+                        "body": {
+                          "text": "@outputs('Get_a_row_by_ID_-_Projects')?['body/msdyn_projectid']",
+                          "text_1": "@parameters('Executive Sponsor Review Stage ID (advcellp_ExecutiveSponsorReviewStageID)')"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Case_-__Start_Approval_From_CTO_Head_Stage": {
+                  "case": 189330007,
+                  "actions": {
+                    "Update_a_row_-_Stage_field_to_CTO_Head_Review": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "a8acb606-48c8-4643-88cf-19c7a2bcbe7e"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "msdyn_projects",
+                          "recordId": "@outputs('Get_a_row_by_ID_-_Projects')?['body/msdyn_projectid']",
+                          "item/advcellp_ctocomment": "@null",
+                          "item/advcellp_ctoreviewstatus": "@null",
+                          "item/advcellp_readyforapproval": true,
+                          "item/proj_stage": 189330003
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Run_a_Child_Flow_-_Active_CTO_Review_Stage": {
+                      "runAfter": {
+                        "Update_a_row_-_Stage_field_to_CTO_Head_Review": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "d18ace98-8371-479f-9949-04c718c1938b"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "6cbc5960-7043-f011-877a-7ced8d38c375"
+                        },
+                        "body": {
+                          "text": "@outputs('Get_a_row_by_ID_-_Projects')?['body/msdyn_projectid']",
+                          "text_1": "@parameters('CTO Review Stage ID (advcellp_CTOReviewStageID)')"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {}
+              },
+              "expression": "@outputs('Get_a_row_by_ID_-_Projects')?['body/proj_stage']",
+              "metadata": {
+                "operationMetadataId": "9848f569-8f77-42ec-b43b-bc7447352b3b"
+              },
+              "type": "Switch"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "541bfc82-a7c1-4c6b-a4a0-6bac8db0f8c8"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Create_item_-_Error_Log": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PostItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                  "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                  "item/Title": "Error in advcellp_Resubmit Charter back to revision needed",
+                  "item/ErrorLogType/Value": "Power automate",
+                  "item/PowerAutomateorJavascriptName": "advcellp_Resubmit Charter back to revision needed",
+                  "item/ErrorMessage": "Flow got fail when the user resubmit the chater back to revision needed",
+                  "item/ErrorOccurredInEntity": "Project",
+                  "item/EntityRecordID": "@outputs('Get_a_row_by_ID_-_Projects')?['body/msdyn_projectid']",
+                  "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                  "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                  "item/OtherInformation": "Flow got fail when the user resubmit the chater back to revision needed"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+          },
+          "type": "Scope"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

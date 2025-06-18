@@ -1,0 +1,1076 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{357d4a0f-0a60-419d-82c3-28a236b24b4a}</formid>
+    <IntroducedVersion>1.0.6.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{57d318b5-edac-4d26-b058-c89f0a2fb416}" IsUserDefined="1" name="Summary" ordinalvalue="0" solutionaction="Modified">
+          <labels>
+            <label description="Summary" languagecode="1033" solutionaction="Modified" />
+          </labels>
+          <columns>
+            <column width="34%" id="0" solutionaction="Modified">
+              <sections>
+                <section showlabel="true" showbar="false" IsUserDefined="0" id="{10b085e9-862e-4543-9d4c-f263eb3ced9c}" name="General" columns="11" ordinalvalue="0" solutionaction="Modified">
+                  <rows>
+                    <row>
+                      <cell id="{a0da8ef4-feb8-42d2-9a82-299e9d309628}" ordinalvalue="10000">
+                        <control id="msdyn_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="msdyn_name" disabled="true" solutionaction="Modified" />
+                      </cell>
+                      <cell id="{d7653f6c-5760-4cc9-9347-a27d89e7eb92}" colspan="1" rowspan="1" ordinalvalue="10001" solutionaction="Modified">
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="true" solutionaction="Modified" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{780318af-8253-4d42-af84-b92ae305c787}" locklevel="0" ordinalvalue="10005" solutionaction="Modified">
+                        <control id="proj_requeststate" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_requeststate" disabled="true" solutionaction="Modified" />
+                      </cell>
+                      <cell id="{80a880bb-a624-4b39-86b2-4069e1dfdc30}" locklevel="0" ordinalvalue="20003" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{5831fdcc-765b-4691-bac6-e36b53b1415a}" locklevel="0" ordinalvalue="10007" solutionaction="Modified">
+                        <control id="proj_priority" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_priority" disabled="true" solutionaction="Modified" />
+                      </cell>
+                      <cell id="{10a35b04-ecd4-4591-affa-4ad548d84321}" locklevel="0" ordinalvalue="20005" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{770adbb0-6c03-4af4-855e-942ec870105d}" locklevel="0" ordinalvalue="10006" solutionaction="Removed" />
+                      <cell locklevel="0" id="{4db84599-fc4a-4712-9f69-02b74284cf74}" ordinalvalue="20007" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{3302fb4a-5636-47a1-b332-749c812bf68e}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002" solutionaction="Added">
+                        <labels>
+                          <label description="Project category" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectcategory" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="advcellp_projectcategory" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7737d7e5-2cbf-44c5-bfbe-cf4485b45e9d}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10003" solutionaction="Added">
+                        <labels>
+                          <label description="Program" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_program" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_program" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ab38f5b4-c632-41f2-90e4-81625a888eae}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10004" solutionaction="Added">
+                        <labels>
+                          <label description="Business Unit / Department" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_businessunitdepartment" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_businessunitdepartment" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{a279f2ef-958f-40da-bc75-320420fc17c2}" ordinalvalue="20006" solutionaction="Added">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{cdc17803-c9d8-46cb-bfe1-404442df3736}" ordinalvalue="20008" solutionaction="Added">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{bac98138-fc7f-49cd-a6b9-558777e0ef40}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10009" solutionaction="Added">
+                        <labels>
+                          <label description="Cost center" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_costcenter" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_costcenter" disabled="true" />
+                      </cell>
+                      <cell locklevel="0" id="{98123f3b-be80-4416-a1d4-a81379583eaa}" ordinalvalue="20010" solutionaction="Added">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Request Information_section_3" id="3324bcef-2b92-460a-8586-428a89ebc84d" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="1" solutionaction="Removed" />
+                <section name="Request Information_section_4" id="881eeac9-58c2-4e4a-8746-996ff365fe78" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" ordinalvalue="2" solutionaction="Removed" />
+              </sections>
+            </column>
+            <column width="33%" id="1" solutionaction="Added">
+              <sections>
+                <section name="Summary_section_6" id="898a3561-20aa-4c4f-baad-eca1291a5372" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Internal key stakeholders" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{f4c45862-68ba-4c67-91a3-61175524d4b6}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="CTO" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_cto" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_cto" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9d5b4ade-2e1e-4bbe-acb7-72ec3affddc0}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Executive Sponsor" languagecode="1033" />
+                        </labels>
+                        <control id="proj_executivesponsor" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="proj_executivesponsor" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{63b96841-6277-462d-b596-34d404958a63}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Department head" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_departmenthead" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_departmenthead" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c51ce93e-0264-4533-b58a-8370ae8af607}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10003">
+                        <labels>
+                          <label description="PMO head" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_pmohead" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_pmohead" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6b867735-6c0a-4224-8a53-96b8b9352a03}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10004">
+                        <labels>
+                          <label description="Project lead" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectlead" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_projectlead" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{17a37f76-710e-4744-8839-5aa56462313d}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10005">
+                        <labels>
+                          <label description="Project manager" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectmanager" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_projectmanager" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Request Information_section_3" id="3324bcef-2b92-460a-8586-428a89ebc84d" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" height="auto" ordinalvalue="1">
+                  <labels>
+                    <label description="Effort" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{de68ed33-92fc-48fb-b460-94fec3b85b59}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="Effort (Hours)" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_efforthours" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_efforthours" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ce6cead7-484a-4b09-baff-c082d73f928d}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Effort remaining (Hours)" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_effortremaininghours" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_effortremaininghours" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{54bfacfc-ef00-426e-9025-33579c0088a3}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Effort completed (Hours)" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_effortcompletedhours" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_effortcompletedhours" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="33%" id="2" solutionaction="Added">
+              <sections>
+                <section name="_section_962" id="6ac53331-d963-4dac-b6ba-8da26f7927ab" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Progress" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{8247bfb2-16d0-4937-8967-3bfafe745714}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="Deliverables progress" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_deliverablesprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_deliverablesprogress" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{16670e3e-581c-4652-b645-6402bda391b5}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Project Progress" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_projectprogress" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="_section_561" id="491e83cc-fe91-4ea1-8c34-f9eb487f4a8a" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="1">
+                  <labels>
+                    <label description="Schedule" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{fe8b7238-806e-49d4-8380-fd143f613a49}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="Estimate start date" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_estimatestartdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="advcellp_estimatestartdate" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c2b45b09-7888-4622-8c59-98b42c8694cc}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Finish date" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_finishdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="advcellp_finishdate" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{534ed1f8-ea5a-4ee3-a387-f994eae8c940}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Duration (Days)" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_durationdays" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_durationdays" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Business case" id="b40e3ece-0838-4ec7-a0c7-0c5829d88e7d" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="1" solutionaction="Added">
+          <labels>
+            <label description="Business case" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="50%" id="0">
+              <sections>
+                <section name="Narrative" id="49e82657-186c-456b-a02e-88f32e02c67e" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Narrative" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{635eebaf-b45d-475c-8d3d-8467cf1eb3b6}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="Objective &amp; scope" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="advcellp_description" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1fb3d666-867e-458f-ae01-b8a2c13d9a05}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Business case" languagecode="1033" />
+                        </labels>
+                        <control id="msdyn_businesscase" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="msdyn_businesscase" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{171ecc0d-9f86-46be-a488-3517c60971e0}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Value Statement" languagecode="1033" />
+                        </labels>
+                        <control id="proj_valuestatement" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="proj_valuestatement" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="50%" id="1">
+              <sections>
+                <section name="Prioritization" id="939a91d8-4c1f-4682-9e90-3cd97a1c1d66" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Prioritization" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{def8dbaf-398c-4f67-b1ef-efa9a5a33f6f}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="Strategic aignment" languagecode="1033" />
+                        </labels>
+                        <control id="proj_strategicalignment" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_strategicalignment" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{09fbfcd5-98da-485a-912c-7ecf3527e33b}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Improve employee retention" languagecode="1033" />
+                        </labels>
+                        <control id="proj_improveemployeeretention" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_improveemployeeretention" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{83aaef5d-a977-42a0-b50a-eaa19970bd58}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Lower cost" languagecode="1033" />
+                        </labels>
+                        <control id="proj_lowercost" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_lowercost" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{21da6760-cba4-45d0-8e87-2bfb52502fb2}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10003">
+                        <labels>
+                          <label description="Risk" languagecode="1033" />
+                        </labels>
+                        <control id="proj_risk" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_risk" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b67dfe1a-b3a2-4df7-9977-d257b40925c1}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10004">
+                        <labels>
+                          <label description="Prioritization Score" languagecode="1033" />
+                        </labels>
+                        <control id="proj_prioritizationscore" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="proj_prioritizationscore" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Financials" id="cd2aa7f4-2846-4b3b-8a25-f2c274747a8c" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="2" solutionaction="Added">
+          <labels>
+            <label description="Financials" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_3_section_1" id="ad61c5ff-26ab-4773-90fc-812d80e823c7" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Financials" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{f5bfb17d-6abf-4e51-86aa-fb3d1ab77935}" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{9a370f82-016f-42bb-a9d9-87d448288bb7}" ordinalvalue="20001">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{10603d4c-32e7-4247-936f-4826fa5ac84d}" ordinalvalue="30002">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9d4fff73-64f6-4574-8ffe-5e3973d68310}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10003">
+                        <labels>
+                          <label description="Capex total" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_capextotal" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_capextotal" disabled="true" />
+                      </cell>
+                      <cell id="{5e535aea-8e90-4cee-868d-c950c8359014}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20004">
+                        <labels>
+                          <label description="Opex total" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_opextotal" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_opextotal" disabled="true" />
+                      </cell>
+                      <cell id="{b55645ec-f1d9-4f53-a638-342e0c6a3aef}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30005">
+                        <labels>
+                          <label description="External resource total" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_externalresourcetotal" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_externalresourcetotal" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7681546d-2c1c-45eb-85d7-b27112e28db5}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10006">
+                        <labels>
+                          <label description="Budget" languagecode="1033" />
+                        </labels>
+                        <control id="msdyn_budget" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="msdyn_budget" disabled="true" />
+                      </cell>
+                      <cell id="{d253691a-ad58-42df-a42d-7b7951aa5057}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20007">
+                        <labels>
+                          <label description="Actual cost" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_actualcost" disabled="true" />
+                      </cell>
+                      <cell id="{cd162ad1-95fe-4f8f-b9d2-27024b53804f}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30008">
+                        <labels>
+                          <label description="Remaining budget" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_remainingbudget" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_remainingbudget" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9710e206-23fd-45a1-93e4-908a34f3a160}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10009">
+                        <labels>
+                          <label description="Budget variance" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_budgetvariance" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_budgetvariance" disabled="true" />
+                      </cell>
+                      <cell locklevel="0" id="{65885b83-e409-4b78-b855-60067911172b}" ordinalvalue="20010">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{7ef35806-3b9f-42ac-9ac6-d3f4ff551cd9}" ordinalvalue="30011">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Benefit " id="30993cd2-1b08-4054-95eb-24ab376d68dc" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" ordinalvalue="1">
+                  <labels>
+                    <label description="Benefit " languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{b2975fb2-055e-4f81-8c15-5209b697e7b3}" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{c238ae93-625f-41d1-883e-fb4bcfda664e}" ordinalvalue="20001">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7749330e-7409-4222-8f2a-b142a921f4e0}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Benefit" languagecode="1033" />
+                        </labels>
+                        <control id="msdyn_benefit" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="msdyn_benefit" disabled="true" />
+                      </cell>
+                      <cell id="{9c021e37-4076-4866-a525-5ddfbedbe8a0}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20003">
+                        <labels>
+                          <label description="ROI" languagecode="1033" />
+                        </labels>
+                        <control id="msdyn_roi" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="msdyn_roi" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Financials_section_4" id="c65542bd-ff7f-4b14-bde7-9aa19cb852cb" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" ordinalvalue="2">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{a1433337-d7bc-4c8e-9411-65c36cedf7ac}" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{86c6daf6-a2c2-467f-8662-ddcf3c88c7d3}" ordinalvalue="20001">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8523cca4-f207-4aae-b108-8ed45cd4339a}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Funding Available" languagecode="1033" />
+                        </labels>
+                        <control id="proj_fundingavailable" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="proj_fundingavailable" disabled="true" />
+                      </cell>
+                      <cell id="{e6f6cfb6-2ca1-4623-8762-be3f54e51729}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20003">
+                        <labels>
+                          <label description="Funding Source" languagecode="1033" />
+                        </labels>
+                        <control id="proj_fundingsource" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_fundingsource" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Financials_section_5" id="34112677-4bd6-4ce6-a5b1-db8404c624e5" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="3">
+                  <labels>
+                    <label description="Financials line item" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{e2269b2c-e5dd-40c8-b46c-b54c80751e2c}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749809878146" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_1" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_lineitem_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>advcellp_lineitem</TargetEntityType>
+                            <ViewId>{1D13D44F-4001-4B91-9017-777D203B05A4}</ViewId>
+                            <ViewIds>{1D13D44F-4001-4B91-9017-777D203B05A4}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Resource" id="0e6e8c1b-089b-47aa-9274-5baedde17d42" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="3" solutionaction="Added">
+          <labels>
+            <label description="Resource" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="Resources" id="bdc63df1-4871-4b94-9914-ea84352f2364" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Resources" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{ab6a05cb-8282-4c90-b2b5-ef90466a428b}" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{291b6480-b3d2-4927-9e8d-92682c8405dc}" ordinalvalue="20001">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{fea44d17-b36e-44b4-8b7f-6959f8596aa2}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Facility" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_facility" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="advcellp_facility" disabled="true" />
+                      </cell>
+                      <cell id="{78efcf7a-1c8c-4349-ae2d-dda374eaacac}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20003">
+                        <labels>
+                          <label description="Material" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_material" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="advcellp_material" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="External resource" id="647a62e2-1542-41f8-abc1-a9ebfdf39572" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="1">
+                  <labels>
+                    <label description="External resource" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{7ac3f4d2-ad42-4e81-bee3-c5582a4c8d13}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749815198554" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_2" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_externalresource_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>advcellp_externalresource</TargetEntityType>
+                            <ViewId>{C0E7F261-708E-45E8-AD3F-08952105FB1E}</ViewId>
+                            <ViewIds>{C0E7F261-708E-45E8-AD3F-08952105FB1E}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Work package" id="3a267ba0-5044-4dab-ad26-2c3eee7595f8" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="4" solutionaction="Added">
+          <labels>
+            <label description="Work package" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_5_section_1" id="76a0f45f-45bf-4109-bcf1-d22b23026d0b" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{007faa27-12c2-4769-ab29-2c12999bdbb1}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749815589479" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_3" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_workpackage_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>advcellp_workpackage</TargetEntityType>
+                            <ViewId>{A405B446-CB3B-43A4-AB7B-E1C97FB5D131}</ViewId>
+                            <ViewIds>{A405B446-CB3B-43A4-AB7B-E1C97FB5D131}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Deliverable" id="2c967a76-5236-4a67-9081-fadacf64bd4b" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="5" solutionaction="Added">
+          <labels>
+            <label description="Deliverable" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_6_section_1" id="037bac50-c521-495b-8aad-ccf787f1fef3" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{295b0cf9-33c8-496f-8239-3e5a8f4963d9}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749820564064" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_7" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_msdyn_projecttask_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                            <ViewId>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewId>
+                            <ViewIds>{D0A93DF9-04FE-47C9-9E5D-BB7AEFF65A0A},{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewIds>
+                            <VisualizationId>{E869F2BA-4A71-E511-80F0-00155DB99003}</VisualizationId>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Risks" id="08d45069-8f28-4e48-ac46-a2c403d4b4d8" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="6" solutionaction="Added">
+          <labels>
+            <label description="Risks" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_8_section_1" id="9445ec97-51b4-453e-86f3-31ce7a06ebf8" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Risks" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{60eceb7e-ab5a-4144-8532-dd443b7e51ae}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749816483267" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_4" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_msdyn_projectrisk_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>msdyn_projectrisk</TargetEntityType>
+                            <ViewId>{D26441E4-793A-4971-AC5F-60CC0788B5BD}</ViewId>
+                            <ViewIds>{D26441E4-793A-4971-AC5F-60CC0788B5BD}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Issues" id="2254f3c3-df90-48a0-9e1b-07484f7612aa" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="7" solutionaction="Added">
+          <labels>
+            <label description="Issues" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_9_section_1" id="9b11ea7e-7988-465c-8bce-2e98d513a15c" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Issues" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{f5846222-4d29-4190-bd33-8dd2d1851fa4}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749816547888" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_5" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_msdyn_projectissue_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>msdyn_projectissue</TargetEntityType>
+                            <ViewId>{44D90E4B-E445-42F1-801C-5C6898F88FB6}</ViewId>
+                            <ViewIds>{44D90E4B-E445-42F1-801C-5C6898F88FB6}</ViewIds>
+                            <VisualizationId>{91AF26DE-9859-EB11-A812-000D3A31E53D}</VisualizationId>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Change" id="6b1bf086-3dc6-438d-acff-bca11cdb8bb4" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="8" solutionaction="Added">
+          <labels>
+            <label description="Change" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_10_section_1" id="a91727f2-4d86-4a00-a1b7-4dc76aff2c72" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Changes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{b8e643b4-d497-456d-9a13-5dd3ce7022f9}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749816599016" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_6" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_msdyn_projectchange_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>msdyn_projectchange</TargetEntityType>
+                            <ViewId>{0CE19B5D-09C1-4477-B966-8B95929CC349}</ViewId>
+                            <ViewIds>{0CE19B5D-09C1-4477-B966-8B95929CC349}</ViewIds>
+                            <VisualizationId>{5FF6D8AC-9859-EB11-A812-000D3A31E53D}</VisualizationId>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Status" id="b9c88d4c-4e89-41cf-8a28-2c99832cbdb9" IsUserDefined="0" locklevel="0" showlabel="true" ordinalvalue="9" solutionaction="Added">
+          <labels>
+            <label description="Status" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_11_section_1" id="fc1e49fa-2deb-4c7b-9c26-ba2d6d847d20" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1111" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Status" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{b80a2299-4bb6-49a7-88c0-9cdf9276e447}" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{5570cf3b-3371-42c4-b9a0-1f2d565f2b63}" ordinalvalue="20001">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{2b52236a-cdf5-4227-9130-5b167857347f}" ordinalvalue="30002">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{b5c146e0-3e2a-416a-8c6b-c9e70baa9716}" ordinalvalue="40003">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6792c5f7-c49a-4b02-88df-97b58a0be69d}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10004">
+                        <labels>
+                          <label description="Deliverables progress" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_deliverablesprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_deliverablesprogress" disabled="true" />
+                      </cell>
+                      <cell id="{5cec5dc7-e175-4eff-aa58-29aec9709357}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20005">
+                        <labels>
+                          <label description="Overall health" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_overallhealth" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_overallhealth" disabled="true" />
+                      </cell>
+                      <cell id="{ebc24907-f01a-46c6-ad5c-f4903c56e417}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30006">
+                        <labels>
+                          <label description="Overall health" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_overallhealth" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_overallhealth" disabled="true" />
+                      </cell>
+                      <cell id="{f541aa64-c239-4758-aaae-c88a9a5eee1d}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="40007">
+                        <labels>
+                          <label description="Financial health" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_financialhealth" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_financialhealth" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cd56d96f-84a7-4dff-a398-11508264a457}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10008">
+                        <labels>
+                          <label description="Work package progress" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_workpackageprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_workpackageprogress" disabled="true" />
+                      </cell>
+                      <cell id="{9c8fbb9e-bd6f-427d-9201-148bfb551b22}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20009">
+                        <labels>
+                          <label description="Issue health" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_issuehealth" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_issuehealth" disabled="true" />
+                      </cell>
+                      <cell id="{49a55297-48b1-4f17-bd13-2243c37f3131}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30010">
+                        <labels>
+                          <label description="Effort health" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_efforthealth" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_efforthealth" disabled="true" />
+                      </cell>
+                      <cell id="{5a8ecd3c-8942-49f1-b728-2e55d2b6cfb5}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="40011">
+                        <labels>
+                          <label description="Needs staffing" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_needsstaffing" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="advcellp_needsstaffing" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{06a2aa5d-7d32-41d6-a4a4-734f2b60fae6}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10012">
+                        <labels>
+                          <label description="Overdue work packages" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_overdueworkpackages" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_overdueworkpackages" disabled="true" />
+                      </cell>
+                      <cell id="{2c8ef82f-421f-47e1-bf50-7d471877451f}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20013">
+                        <labels>
+                          <label description="Active Risks" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_activerisks" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_activerisks" disabled="true" />
+                      </cell>
+                      <cell id="{ace231be-d8cb-4e66-9c33-ad7d7afa7af0}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30014">
+                        <labels>
+                          <label description="Active Issues" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_activeissues" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_activeissues" disabled="true" />
+                      </cell>
+                      <cell id="{67b16863-91f7-4e42-8b3d-71b479c9fa7f}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="40015">
+                        <labels>
+                          <label description="Active Changes" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_activechanges" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_activechanges" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Status_section_3" id="6c340817-36e1-41fa-94d9-9dc7192cbb83" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="1">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{86f34064-aca2-484d-afd9-61b26756d01e}" rowspan="4" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1749890995661" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_8" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_msdyn_projectstatusreport_ProjectRequest_msdyn_projectrequest</RelationshipName>
+                            <TargetEntityType>msdyn_projectstatusreport</TargetEntityType>
+                            <ViewId>{A61CA433-F9EE-4ADF-8E3C-336819D53C2F}</ViewId>
+                            <ViewIds>{A61CA433-F9EE-4ADF-8E3C-336819D53C2F}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{6be864a3-c02f-42b0-8dc5-00ca854f38fb}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{493d9607-126f-4123-b8ed-c42897b0f77b}" ordinalvalue="10000" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{feae0675-6f21-45f5-b83d-885bd3493e83}" ordinalvalue="20001" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{e7073e58-5a14-4889-907c-5d1f184539c0}" ordinalvalue="30002" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{34558b6e-b404-4b0e-967b-1669b25a4b9a}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{73ce4f41-d679-449f-bbce-9502678f1e68}" ordinalvalue="10000" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{3b3df4a4-1bde-40b3-b4a2-7789f6e7ce11}" ordinalvalue="20001" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{146b483b-dbad-4993-8474-86ba7a69c8c1}" ordinalvalue="30002" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <Navigation solutionaction="Added">
+        <NavBar>
+          <NavBarByRelationshipItem RelationshipName="hardcoded_{B7196B13-6B9D-42CD-BD58-B19A3953126F}navAsyncOperations" Sequence="9500" Area="ProcessCenter" Id="navAsyncOperations" Show="false">
+            <Titles>
+              <Title LCID="1033" Text="Background Processes" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="hardcoded_{B7196B13-6B9D-42CD-BD58-B19A3953126F}navProcessSessions" Sequence="9700" Area="ProcessCenter" Id="navProcessSessions" Show="false">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarByRelationshipItem>
+        </NavBar>
+        <NavBarAreas>
+          <NavBarArea Id="Info">
+            <Titles>
+              <Title LCID="1033" Text="Common" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Sales">
+            <Titles>
+              <Title LCID="1033" Text="Sales" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Service">
+            <Titles>
+              <Title LCID="1033" Text="Service" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Marketing">
+            <Titles>
+              <Title LCID="1033" Text="Marketing" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="ProcessCenter">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarArea>
+        </NavBarAreas>
+      </Navigation>
+    </form>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

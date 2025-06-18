@@ -1,0 +1,228 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "46f30a88-d9fc-4842-a097-b5f2c3743ffd"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "msdyn_projectchange",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "advcellp_readyforchange",
+              "subscriptionRequest/filterexpression": "advcellp_readyforchange eq true"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "actions": {
+            "Get_a_row_by_ID_-_Change": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dd2fba12-ddf2-4f87-bf6c-0e39f968ba53"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projectchanges",
+                  "recordId": "@triggerOutputs()?['body/msdyn_projectchangeid']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Switch_Approval_Condition": {
+              "runAfter": {
+                "Get_a_row_by_ID_-_Change": [
+                  "Succeeded"
+                ]
+              },
+              "cases": {
+                "Approval_Stage_1": {
+                  "case": 189330000,
+                  "actions": {
+                    "Run_a_Child_Flow_-_Child_Charter_Approval_Stage_1": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "430b3e63-a3c8-488e-a0a3-a962f96bff2b"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "74cdf13e-e93e-f011-877a-6045bdc1fe02"
+                        },
+                        "body": {
+                          "text": "@outputs('Get_a_row_by_ID_-_Change')?['body/msdyn_projectchangeid']",
+                          "text_1": "Change"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Approval_Stage_2": {
+                  "case": 189330002,
+                  "actions": {
+                    "Run_a_Child_Flow_-_Child_Charter_Approval_Stage_2": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "d3723a0e-7d60-4385-9a89-9a5609816b37"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "3f5d4e0f-f13e-f011-877a-7ced8d38c375"
+                        },
+                        "body": {
+                          "text": "@outputs('Get_a_row_by_ID_-_Change')?['body/msdyn_projectchangeid']",
+                          "text_1": "Change"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Approval_Stage_3": {
+                  "case": 189330003,
+                  "actions": {
+                    "Run_a_Child_Flow_-_Child_Charter_Approval_Stage_3": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "88a71a75-285b-48cf-9275-e481d8debff3"
+                      },
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "69ceeb3a-f23e-f011-877a-7c1e522e8518"
+                        },
+                        "body": {
+                          "text": "@outputs('Get_a_row_by_ID_-_Change')?['body/msdyn_projectchangeid']",
+                          "text_1": "Change"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {}
+              },
+              "expression": "@outputs('Get_a_row_by_ID_-_Change')?['body/advcellp_stage']",
+              "metadata": {
+                "operationMetadataId": "b5da5e31-ef61-4910-8cf7-616c809c2465"
+              },
+              "type": "Switch"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "a6e88018-872b-41bc-8132-5a340ef36925"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Create_item_-_Error_Log": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PostItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                  "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                  "item/Title": "Error in advcellp_Change Request approval cycle workflow",
+                  "item/ErrorLogType/Value": "Power automate",
+                  "item/PowerAutomateorJavascriptName": "dvcellp_Change Request approval cycle workflow",
+                  "item/ErrorMessage": "Flow got fail when the user initiate to change request and call the multiple child flows",
+                  "item/ErrorOccurredInEntity": "Change",
+                  "item/EntityRecordID": "@outputs('Get_a_row_by_ID_-_Change')?['body/msdyn_projectchangeid']",
+                  "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                  "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                  "item/OtherInformation": "Flow got fail when the user initiate to change request and call the multiple child flows"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,11 @@
+<environmentvariabledefinition schemaname="advcellp_EnvironmentURL">
+  <defaultvalue>https://cellpakdev.crm11.dynamics.com/</defaultvalue>
+  <displayname default="Environment URL">
+    <label description="Environment URL" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

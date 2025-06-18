@@ -1,0 +1,161 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedoffice365_ff4bc"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Email Tracker List (advcellp_EmailTrackerList)": {
+          "defaultValue": "757c1908-d15e-4367-be2d-b5c37924eb23",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_EmailTrackerList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        }
+      },
+      "triggers": {
+        "When_an_item_is_created": {
+          "recurrence": {
+            "interval": 1,
+            "frequency": "Minute"
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "c3bc3660-7763-4f21-9b21-32bfbb94b795"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline",
+              "operationId": "GetOnNewItems",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+              "table": "@parameters('Email Tracker List (advcellp_EmailTrackerList)')"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "actions": {
+            "Send_an_email_(V2)": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "53a74775-067f-4e3a-9ba7-91e51a2b83b4"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_office365",
+                  "operationId": "SendEmailV2",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                },
+                "parameters": {
+                  "emailMessage/To": "@triggerOutputs()?['body/To']",
+                  "emailMessage/Subject": "@triggerOutputs()?['body/Subject']",
+                  "emailMessage/Body": "<p>@{triggerOutputs()?['body/Emailbody']}</p>",
+                  "emailMessage/Cc": "@triggerOutputs()?['body/CC']",
+                  "emailMessage/Importance": "Normal"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "4feef8cf-12a3-40ec-b41b-742c84bfe492"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Create_item_-_Error_Log": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PostItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                  "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                  "item/Title": "Error in advcellp_Send an Email Notification",
+                  "item/ErrorLogType/Value": "Power automate",
+                  "item/PowerAutomateorJavascriptName": "advcellp_Send an Email Notification",
+                  "item/ErrorMessage": "Child automate to send an email notification when item add in Email Tracker sharepoint list",
+                  "item/ErrorOccurredInEntity": "EMAIL",
+                  "item/EntityRecordID": "EMAIL",
+                  "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')\r\n",
+                  "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                  "item/OtherInformation": "Child automate to send an email notification when item add in Email Tracker sharepoint list"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+          },
+          "type": "Scope"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

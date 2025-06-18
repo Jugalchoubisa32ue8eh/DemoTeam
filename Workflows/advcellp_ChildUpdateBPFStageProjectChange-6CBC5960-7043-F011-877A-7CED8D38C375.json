@@ -1,0 +1,365 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "c2b230e8-f9bc-4613-9880-0a9696dc2030"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Id",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "StageId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "Approval Entity",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Switch_for_Update_stage_in_Entity": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b76a085c-86d3-4b59-8ced-bcf280c792b8"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {},
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "Switch_for_Update_stage_in_Entity": {
+          "runAfter": {},
+          "cases": {
+            "Case_-_Project": {
+              "case": "Project",
+              "actions": {
+                "Try": {
+                  "actions": {
+                    "List_rows_-_Approval_Workflow_Project_Charter": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "405c6264-bc68-4a48-b0b4-de0a1c8dffd5"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "ListRecords",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "advcellp_approvalworkflowprojects",
+                          "$filter": "_bpf_msdyn_projectid_value eq @{triggerBody()['text']}"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Apply_to_each": {
+                      "foreach": "@outputs('List_rows_-_Approval_Workflow_Project_Charter')?['body/value']",
+                      "actions": {
+                        "Update_a_row_-_BPF_Stage": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "359fffa7-ffe1-4991-ab47-d07fc64d6d78"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "UpdateOnlyRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "advcellp_approvalworkflowprojects",
+                              "recordId": "@items('Apply_to_each')?['businessprocessflowinstanceid']",
+                              "item/activestageid@odata.bind": "processstages(@{triggerBody()['text_1']})"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "List_rows_-_Approval_Workflow_Project_Charter": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "61fb8eda-c726-4e4d-9b28-f18b747de74b"
+                      },
+                      "type": "Foreach"
+                    }
+                  },
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "a7da8b0f-4981-42f2-9142-ebd61b94561e"
+                  },
+                  "type": "Scope"
+                },
+                "Catch": {
+                  "actions": {
+                    "Create_item_-_Error_Log_3": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "PostItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                          "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                          "item/Title": "Error in advcellp_Child Update BPF Stage (Project Change)",
+                          "item/ErrorLogType/Value": "Power automate",
+                          "item/PowerAutomateorJavascriptName": "advcellp_Child Update BPF Stage (Project Change)",
+                          "item/ErrorMessage": "Child automate to update the status of BPF Stages of Project",
+                          "item/ErrorOccurredInEntity": "Project",
+                          "item/EntityRecordID": " @{triggerBody()['text']}",
+                          "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                          "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                          "item/OtherInformation": "Child automate to update the status of BPF Stages of Project"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Try": [
+                      "Failed"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+                  },
+                  "type": "Scope"
+                }
+              }
+            },
+            "Case__-_Change": {
+              "case": "Change",
+              "actions": {
+                "Try_2": {
+                  "actions": {
+                    "List_rows_-_Approval_Workflow_Change_Request": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "b1650172-1c8e-485c-9a91-3a9029a770b7"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "ListRecords",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "advcellp_changerequestws",
+                          "$filter": "_bpf_msdyn_projectchangeid_value eq @{triggerBody()['text']}"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Apply_to_each_4": {
+                      "foreach": "@outputs('List_rows_-_Approval_Workflow_Change_Request')?['body/value']",
+                      "actions": {
+                        "Update_a_row_-_BPF_Stage_2": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "037de977-5eda-4e2c-bbce-88140e85f254"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "UpdateOnlyRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "advcellp_changerequestws",
+                              "recordId": "@items('Apply_to_each_4')?['businessprocessflowinstanceid']",
+                              "item/activestageid@odata.bind": "processstages(@{triggerBody()['text_1']})"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "List_rows_-_Approval_Workflow_Change_Request": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "91f7d74e-2051-47e1-a809-8b2539e36905"
+                      },
+                      "type": "Foreach"
+                    }
+                  },
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "927d6a35-434f-4ef7-acfe-479ca9eea3af"
+                  },
+                  "type": "Scope"
+                },
+                "Scope": {
+                  "actions": {
+                    "Create_item_-_Error_Log": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "PostItem",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                          "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                          "item/Title": "Error in advcellp_Child Update BPF Stage (Project Change)",
+                          "item/ErrorLogType/Value": "Power automate",
+                          "item/PowerAutomateorJavascriptName": "advcellp_Child Update BPF Stage (Project Change)",
+                          "item/ErrorMessage": "Child automate to update the status of BPF Stages of Change",
+                          "item/ErrorOccurredInEntity": "Change",
+                          "item/EntityRecordID": " @{triggerBody()['text']}",
+                          "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                          "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                          "item/OtherInformation": "Child automate to update the status of BPF Stages of Change"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Try_2": [
+                      "Failed"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "1d083cb3-6b0d-45a3-8aab-dbbd478a8886"
+                  },
+                  "type": "Scope"
+                }
+              }
+            }
+          },
+          "default": {
+            "actions": {}
+          },
+          "expression": "@triggerBody()['text_2']",
+          "metadata": {
+            "operationMetadataId": "641aa4c3-a856-411d-bb48-141d34f502ff"
+          },
+          "type": "Switch"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

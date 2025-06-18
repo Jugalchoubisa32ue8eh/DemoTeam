@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{3f6010fb-f0ed-4507-b0e7-8245d0cc9a12}</savedqueryid>
+    <layoutxml>
+      <grid name="advcellp_workpackages" jump="advcellp_workpackagename" select="1" icon="1" preview="1">
+        <row name="advcellp_workpackage" id="advcellp_workpackageid">
+          <cell name="advcellp_workpackagename" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="advcellp_workpackage">
+          <attribute name="advcellp_workpackageid" />
+          <attribute name="advcellp_workpackagename" />
+          <attribute name="createdon" />
+          <order attribute="advcellp_workpackagename" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Work package Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

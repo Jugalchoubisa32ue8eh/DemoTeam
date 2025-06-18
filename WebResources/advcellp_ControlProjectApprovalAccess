@@ -1,0 +1,147 @@
+// ApprovalProjecRequestFlow: Handles field access based on user role and process stage
+function ControlProjectApprovalAccess(executionContext) {
+    try {
+        "use strict";
+        // Get the form context from the execution context
+        var formContext = executionContext.getFormContext();
+        // Get current user ID and name
+        var UserId = formContext.context.getUserId().replace(/[{}]/g, '').toLowerCase();
+        var UserName = formContext.context.getUserName();
+        // Get project lead and approval status
+        var ProjectLead = formContext.getAttribute("msdyn_projectmanager").getValue();
+        var DepartmentHead = formContext.getAttribute("advcellp_departmenthead").getValue();
+        var PMOHead = formContext.getAttribute("advcellp_pmohead").getValue();
+        var ProjectManager = formContext.getAttribute("proj_manager").getValue();
+        var ReadyForApproval = formContext.getAttribute("advcellp_readyforapproval").getValue();
+        var ExecutiveSponsor = formContext.getAttribute("proj_executivesponsor").getValue();
+        var CTO = formContext.getAttribute("advcellp_cto").getValue();
+        // Get current process stage
+        var activeStage = formContext.data.process.getActiveStage();
+        var stagename = activeStage.getName();
+        // Check if user is admin
+        const isAdmin = isAdminRole();
+
+        // Delegate stage-based field access logic to a separate function
+        handleStageFieldAccess({
+            stagename,
+            formContext,
+            UserName,
+            ProjectLead,
+            ProjectManager,
+            PMOHead,
+            DepartmentHead,
+            ExecutiveSponsor,
+            CTO,
+            isAdmin
+        });
+    } catch (error) {
+        // Error handling can be added here if needed
+    }
+}
+
+// DisableAllFields: Disables all controls in specified tabs
+function DisableAllFields(formContext) {
+    try {
+        // List of tab names to disable
+        var tabNames = ["Summary", "Business_case", "Financials", "Resources", "Status"];
+        tabNames.forEach(function(tabName) {
+            var tab = formContext.ui.tabs.get(tabName);
+            if (tab) {
+                tab.sections.get().forEach(function(section) {
+                    section.controls.get().forEach(function(control) {
+                        control.setDisabled(true); // Disable each control
+                    });
+                });
+            }
+        });
+    } catch (error) {
+        // Error handling can be added here if needed
+    }
+}
+
+// isAdminRole: Checks if current user has the 'Agratas PFW Admin' role
+function isAdminRole() {
+    const roles = Xrm.Utility.getGlobalContext().userSettings.roles;
+
+    if (roles === null) return false;
+
+    var hasRole = false;
+
+    roles.forEach(function (item) {
+        if (item.name === "Agratas PFW Admin") {
+            hasRole = true;
+        }
+    });
+
+    return hasRole;
+}
+
+// handleStageFieldAccess: Handles field access logic for each stage
+function handleStageFieldAccess({stagename, formContext, UserName, ProjectLead, ProjectManager, PMOHead, DepartmentHead, ExecutiveSponsor, CTO, isAdmin}) {
+    switch (stagename) 
+    {
+        case 'Initiation':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead && ProjectLead[0].name === UserName;
+            var isProjectManager = ProjectManager && ProjectManager[0].name === UserName;
+            // Always disable proj_businessunit and proj_manager fields in Initiation stage
+            if (formContext.getControl("proj_businessunit")) {
+                formContext.getControl("proj_businessunit").setDisabled(false);
+            }
+            if (formContext.getControl("proj_manager")) {
+                formContext.getControl("proj_manager").setDisabled(false);
+            }
+            if (!(isProjectLead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Department And PMO Head Review':
+            // Determine if current user is PMO Head or Project Manager
+            var isPMOHead = PMOHead && PMOHead[0].name === UserName;
+            var isDepartmentHead = DepartmentHead && DepartmentHead[0].name === UserName;
+            if (!(isDepartmentHead || isPMOHead || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Executive Sponsor Review':
+            // Determine if current user is PMO Head or Project Manager
+            var isExecutiveSponsor = ExecutiveSponsor && ExecutiveSponsor[0].name === UserName;
+            if (!(isExecutiveSponsor || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'CTO Review':
+            // Determine if current user is PMO Head or Project Manager
+            var isCTO = CTO && CTO[0].name === UserName;
+            if (!(isCTO || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Approved':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isPMOHead = PMOHead && PMOHead[0].name === UserName;
+            var isProjectManager = ProjectManager && ProjectManager[0].name === UserName;
+            if (!(isPMOHead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Rejected':
+            DisableAllFields(formContext);
+            break;
+        case 'Revision Needed':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead && ProjectLead[0].name === UserName;
+            var isProjectManager = ProjectManager && ProjectManager[0].name === UserName;
+            if (!(isProjectLead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+    }
+}
+

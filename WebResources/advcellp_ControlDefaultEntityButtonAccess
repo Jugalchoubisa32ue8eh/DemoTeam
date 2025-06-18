@@ -1,0 +1,26 @@
+// ApprovalProjecRequestFlow: Handles button access based on user role and process stage
+function ControlDefaultEntityButtonAccess(primaryControl) 
+{
+    try 
+    {
+        "use strict";
+        // Get current entity name
+        var entityName = primaryControl.data.entity.getEntityName();
+        // If entity is 'msdyn_projectrequest', always return false
+        // Only check 'Rejected' for 'msdyn_project' table
+        if (entityName === 'msdyn_project') {
+            var activeStage = primaryControl.data.process.getActiveStage();
+            var stagename = activeStage.getName();
+            if (stagename === 'Rejected') 
+            {
+                return false;
+            }
+        }
+        
+    } 
+    catch (error) 
+    {
+        // Error handling can be added here if needed
+    }
+}
+

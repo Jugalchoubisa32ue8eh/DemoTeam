@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{bad13b82-2bdd-4d12-a10b-af4e67123ec1}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{5c6d380e-40a2-4647-9413-6033d7e9a29e}" IsUserDefined="1" name="General">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{1d262f48-3193-4b3a-94d3-d4fa6b21089c}" columns="11">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{23b1372e-2af6-4e13-ae88-8e278196ec52}">
+                        <labels>
+                          <label description="Line item name" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_newcolumn" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="advcellp_newcolumn" />
+                      </cell>
+                      <cell id="{655d386b-6475-4503-9b22-82d4ab43bd01}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Line item type" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_lineitemtype" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_lineitemtype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1b94a1d9-b540-4e86-839b-443577da743c}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Estimated cost" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_cost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_cost" disabled="false" />
+                      </cell>
+                      <cell id="{78926934-c31a-4e95-b36f-5d2e9b5f5e97}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Actual cost" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_actualcost" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{76db038e-66d0-45f0-a6ee-fe1a11a62c0a}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_project" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_project" disabled="true" />
+                      </cell>
+                      <cell id="{2aa2545e-86c5-4eef-846e-786b540ec120}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Project approval stage" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectapprovalstage" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="advcellp_projectapprovalstage" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{468b2e07-0429-4ab7-9146-7a1355cf3475}" visible="false">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                      <cell id="{3e61e1f2-bd34-440a-b139-f4811aa0346f}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Project Request" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectrequest" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_projectrequest" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{4adbcb92-bf51-49f9-9e65-9059ad67e66c}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{22fc7033-aa4b-45f0-ab87-755279ad25dc}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{bc0306ce-0a6c-4414-b273-e8ec60085d42}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{d2c7c51e-3da8-49e6-aa61-9c76a5460a49}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{6f01524d-e8bc-4f39-920d-5a1dff371188}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{4746a1cc-7865-41d3-9e42-1af6c8ef1f3d}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{478c692f-671d-4f44-97a7-deffbe6adcc6}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4187ef82-23f5-4d4d-9fac-0f7e0891937f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+      <formLibraries>
+        <Library name="advcellp_ControlRelatedEntityAccess" libraryUniqueId="{8c4538ff-af18-49c1-a1f6-f6e60bf5da3e}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="ControlRelatedEntityAccess" libraryName="advcellp_ControlRelatedEntityAccess" handlerUniqueId="{9fafdf11-98b9-4ffb-aa9a-d7576214f734}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

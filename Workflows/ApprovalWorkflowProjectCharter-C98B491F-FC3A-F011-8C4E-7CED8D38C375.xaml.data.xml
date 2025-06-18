@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{c98b491f-fc3a-f011-8c4e-7ced8d38c375}" Name="Approval Workflow Project Charter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <XamlFileName>/Workflows/ApprovalWorkflowProjectCharter-C98B491F-FC3A-F011-8C4E-7CED8D38C375.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>4</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>1</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <processorder>100</processorder>
+  <RunAs>1</RunAs>
+  <UniqueName>advcellp_approvalworkflowproject</UniqueName>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ProcessTriggerScope>1</ProcessTriggerScope>
+  <ModernFlowType>0</ModernFlowType>
+  <PrimaryEntity>msdyn_project</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Approval Workflow Project Charter" />
+  </LocalizedNames>
+  <labels>
+    <steplabels id="{a287ac6d-2de4-438f-8257-430828072b71}">
+      <label languagecode="1033" description="Initiation" />
+    </steplabels>
+    <steplabels id="{363b2866-18b5-46cc-85b1-4d76420825fb}">
+      <label languagecode="1033" description="Ready for approval" />
+    </steplabels>
+    <steplabels id="{b29b4a5b-0e4f-4603-b89a-32dc1218ce7b}">
+      <label languagecode="1033" description="Stage" />
+    </steplabels>
+    <steplabels id="{cd555a00-783c-41ee-b20c-39bca78be632}">
+      <label languagecode="1033" description="Revision Needed" />
+    </steplabels>
+    <steplabels id="{9ec6a254-30ed-4bec-85ea-eeb955635e5f}">
+      <label languagecode="1033" description="Resubmit Charter" />
+    </steplabels>
+    <steplabels id="{aae711e3-e816-4e6b-bc53-ac50b77685aa}">
+      <label languagecode="1033" description="Department And PMO Head Review" />
+    </steplabels>
+    <steplabels id="{5a7f653e-73ef-4083-b93a-3ede41be7f44}">
+      <label languagecode="1033" description="Dept Head review status" />
+    </steplabels>
+    <steplabels id="{8dc18923-04ba-4ea2-b468-da953e2faf47}">
+      <label languagecode="1033" description="Dept Head comment" />
+    </steplabels>
+    <steplabels id="{534730f0-7ab3-4208-b00a-a03cb0b7a3ca}">
+      <label languagecode="1033" description="PMO Head review status" />
+    </steplabels>
+    <steplabels id="{b0cb2b7c-6bd9-4352-b2ac-246780d08703}">
+      <label languagecode="1033" description="PMO Head comment" />
+    </steplabels>
+    <steplabels id="{054771eb-3754-4009-bf08-020c1a3070a0}">
+      <label languagecode="1033" description="Rejected" />
+    </steplabels>
+    <steplabels id="{f27188b2-deea-48e7-9820-314144f3ce10}">
+      <label languagecode="1033" description="Rejected" />
+    </steplabels>
+    <steplabels id="{339da459-40c5-42d4-ba1c-611576dce5f8}">
+      <label languagecode="1033" description="Executive Sponsor Review" />
+    </steplabels>
+    <steplabels id="{ab8fb6ed-98cd-460c-adf4-c29303ffa3bd}">
+      <label languagecode="1033" description="Executive Sponsor review status" />
+    </steplabels>
+    <steplabels id="{90ad6be5-910a-4e39-8a1d-33cde8516613}">
+      <label languagecode="1033" description="Executive Sponsor comment" />
+    </steplabels>
+    <steplabels id="{22d0f686-6985-4398-a67d-9a08e5f4bd76}">
+      <label languagecode="1033" description="Rejected" />
+    </steplabels>
+    <steplabels id="{37477d7e-4a17-4b2e-858d-0278b7278d7e}">
+      <label languagecode="1033" description="Rejected" />
+    </steplabels>
+    <steplabels id="{327a80ce-c32a-4497-a4c9-c60fd887d810}">
+      <label languagecode="1033" description="CTO Review" />
+    </steplabels>
+    <steplabels id="{695f079f-6657-461e-a9e4-9694d4f87f9e}">
+      <label languagecode="1033" description="CTO review status" />
+    </steplabels>
+    <steplabels id="{2854c46d-2977-4d51-a184-96d26afda8e0}">
+      <label languagecode="1033" description="CTO comment" />
+    </steplabels>
+    <steplabels id="{fb7f6b0f-0721-4784-91c6-bfc96e2239a9}">
+      <label languagecode="1033" description="Rejected" />
+    </steplabels>
+    <steplabels id="{3571260e-0c15-4561-9842-2723a532d55b}">
+      <label languagecode="1033" description="Rejected" />
+    </steplabels>
+    <steplabels id="{8d55c194-1358-46ec-a139-ffe8ed8c0dc3}">
+      <label languagecode="1033" description="Approved" />
+    </steplabels>
+    <steplabels id="{4a6c033c-6848-46d4-88f3-2f94ecc1423f}">
+      <label languagecode="1033" description="Charter approved" />
+    </steplabels>
+  </labels>
+</Workflow>

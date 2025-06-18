@@ -1,0 +1,6 @@
+advcellp_risklevel: |-
+    =If(proj_exposure >= 1 And proj_exposure <= 8, "Low",
+       If(proj_exposure >= 9 And proj_exposure <= 17, "Medium",
+          If(proj_exposure >= 18 And proj_exposure <= 25, "High", "")
+       )
+    )

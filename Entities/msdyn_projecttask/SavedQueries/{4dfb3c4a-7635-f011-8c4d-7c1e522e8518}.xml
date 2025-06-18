@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{4dfb3c4a-7635-f011-8c4d-7c1e522e8518}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="msdyn_subject" select="1" icon="1" preview="1">
+        <row name="result" id="msdyn_projecttaskid">
+          <cell name="msdyn_subject" width="200" />
+          <cell name="msdyn_start" width="100" />
+          <cell name="msdyn_finish" width="100" />
+          <cell name="advcellp_isdeliverable" width="116" />
+          <cell name="msdyn_progress" width="110" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+        <entity name="msdyn_projecttask">&lt;attribute name="msdyn_subject" /&gt;&lt;attribute name="msdyn_scheduledstart" /&gt;&lt;attribute name="modifiedby" /&gt;&lt;attribute name="msdyn_duration" /&gt;&lt;attribute name="msdyn_descriptionplaintext" /&gt;
+        
+        
+        <attribute name="msdyn_subject" /><attribute name="msdyn_projecttaskid" /><attribute name="msdyn_finish" /><attribute name="msdyn_start" /><attribute name="advcellp_isdeliverable" /><attribute name="msdyn_progress" /><filter type="and"><condition attribute="statecode" operator="eq" value="0" /><condition attribute="advcellp_isdeliverable" operator="eq" value="1" /></filter></entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Deliverables" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

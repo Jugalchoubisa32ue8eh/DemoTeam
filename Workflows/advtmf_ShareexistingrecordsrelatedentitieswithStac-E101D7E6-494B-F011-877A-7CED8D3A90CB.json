@@ -1,0 +1,574 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "08ae0a3e-d0ea-43fd-9b4c-fcc775158a5c"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Project ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Try_-_Update_Stage_Field": {
+          "actions": {
+            "ID": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "e52096dc-ef71-4dcd-a975-de4d72017873"
+              },
+              "type": "Compose",
+              "inputs": "@triggerBody()['text']"
+            },
+            "List_rows_-_Financial_Line_Item": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8f650462-f8c9-4310-a893-5a12128f071b"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "advcellp_lineitems",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"advcellp_lineitem\">\n<attribute name=\"advcellp_lineitemid\"/>\n<attribute name=\"advcellp_newcolumn\"/>\n<attribute name=\"createdon\"/>\n<order attribute=\"advcellp_newcolumn\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"advcellp_project\" operator=\"eq\" uiname=\"cellpack no 1\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statecode\" operator=\"eq\" value=\"0\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Apply_to_each": {
+              "foreach": "@outputs('List_rows_-_Financial_Line_Item')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_Line_Items": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "75527cb1-743e-4acb-804b-8d2cc300beab"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each')?['advcellp_lineitemid']",
+                      "text_3": "advcellp_lineitems",
+                      "text": "@items('Apply_to_each')?['_advcellp_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Financial_Line_Item": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "861ffc80-332a-4a07-8562-c3c8f141d20c"
+              },
+              "type": "Foreach"
+            },
+            "List_rows_-_External_Resource": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0999ac99-eff8-4d83-99ad-2b2da4d602fa"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "advcellp_externalresources",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"advcellp_externalresource\">\n<attribute name=\"advcellp_externalresourceid\"/>\n<attribute name=\"advcellp_newcolumn\"/>\n<attribute name=\"createdon\"/>\n<order attribute=\"advcellp_newcolumn\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"advcellp_project\" operator=\"eq\" uiname=\"Autonomous Battery Testing Pilot\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statecode\" operator=\"eq\" value=\"0\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Apply_to_each_2": {
+              "foreach": "@outputs('List_rows_-_External_Resource')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_External_Resources": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "ead6f313-bf1e-4463-aebb-6a1d6c26fc15"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each_2')?['advcellp_externalresourceid']",
+                      "text_3": "advcellp_externalresources",
+                      "text": "@items('Apply_to_each_2')?['_advcellp_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_External_Resource": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "fe570295-32a4-4411-9a7f-6852ff53a1e7"
+              },
+              "type": "Foreach"
+            },
+            "List_rows_-_Work_package": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "f84776a5-ccc7-41c5-b316-d894e416c516"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "advcellp_workpackages",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"advcellp_workpackage\">\n<attribute name=\"advcellp_workpackageid\"/>\n<attribute name=\"advcellp_workpackagename\"/>\n<attribute name=\"createdon\"/>\n<order attribute=\"advcellp_workpackagename\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"advcellp_project\" operator=\"eq\" uiname=\"Autonomous Battery Testing Pilot\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statecode\" operator=\"eq\" value=\"0\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "List_rows_-_Deliverable_": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1dc144a0-d88d-4c47-b250-d76ee899a590"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projecttasks",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"msdyn_projecttask\">\n<attribute name=\"msdyn_subject\"/>\n<attribute name=\"createdon\"/>\n<attribute name=\"msdyn_projecttaskid\"/>\n<order attribute=\"msdyn_subject\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"msdyn_project\" operator=\"eq\" uiname=\"cellpack no 1\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statuscode\" operator=\"eq\" value=\"1\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "List_rows_-_Risk": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "afe2cf40-d01a-4577-bb68-fd6c582da548"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projectrisks",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"msdyn_projectrisk\">\n<attribute name=\"msdyn_projectriskid\"/>\n<attribute name=\"msdyn_name\"/>\n<attribute name=\"createdon\"/>\n<order attribute=\"msdyn_name\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"msdyn_project\" operator=\"eq\" uiname=\"Autonomous Battery Testing Pilot\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statecode\" operator=\"eq\" value=\"0\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "List_rows_-_Issue": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "77fbcb81-9270-42a3-9384-ba6e264f92de"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projectissues",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"msdyn_projectissue\">\n<attribute name=\"msdyn_projectissueid\"/>\n<attribute name=\"msdyn_name\"/>\n<attribute name=\"createdon\"/>\n<order attribute=\"msdyn_name\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"msdyn_project\" operator=\"eq\" uiname=\"cellpack no 1\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statecode\" operator=\"eq\" value=\"0\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "List_rows_-_Status": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2d642325-ef87-4986-9014-8c7479ccd261"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projectstatusreports",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"msdyn_projectstatusreport\">\n<attribute name=\"msdyn_projectstatusreportid\"/>\n<attribute name=\"msdyn_name\"/>\n<attribute name=\"createdon\"/>\n<order attribute=\"msdyn_name\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"msdyn_project\" operator=\"eq\" uiname=\"cellpack no 1\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statecode\" operator=\"eq\" value=\"0\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "List_rows_-_Change": {
+              "runAfter": {
+                "ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b6e92dcf-9270-44ef-b4e5-6c38a928a218"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projectchanges",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n<entity name=\"msdyn_projectchange\">\n<attribute name=\"msdyn_projectchangeid\"/>\n<attribute name=\"msdyn_name\"/>\n<attribute name=\"createdon\"/>\n<order attribute=\"msdyn_name\" descending=\"false\"/>\n<filter type=\"and\">\n<condition attribute=\"msdyn_project\" operator=\"eq\" uiname=\"dfgds\" uitype=\"msdyn_project\" value=\"@{triggerBody()['text']}\"/>\n<condition attribute=\"statecode\" operator=\"eq\" value=\"0\"/>\n</filter>\n</entity>\n</fetch>"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Apply_to_each_3": {
+              "foreach": "@outputs('List_rows_-_Work_package')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_Work_Package": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "9a9f493c-9b01-4e3e-8606-9dad0db15c75"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each_3')?['advcellp_workpackageid']",
+                      "text_3": "advcellp_workpackages",
+                      "text": "@items('Apply_to_each_3')?['_advcellp_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Work_package": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "88f3e24c-9bb1-4fbc-9a7d-0d8f7f2ab187"
+              },
+              "type": "Foreach"
+            },
+            "Apply_to_each_4": {
+              "foreach": "@outputs('List_rows_-_Deliverable_')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_Deliverable": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "75937b23-8ac9-4726-b30f-1196f0ffbf4b"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each_4')?['msdyn_projecttaskid']",
+                      "text_3": "msdyn_projecttasks",
+                      "text": "@items('Apply_to_each_4')?['_msdyn_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Deliverable_": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0e765bb1-99a2-494b-a457-435d1eba7cda"
+              },
+              "type": "Foreach"
+            },
+            "Apply_to_each_5": {
+              "foreach": "@outputs('List_rows_-_Risk')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_Risk": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "4c537fd1-b518-4033-a05e-7f36a244ff9b"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each_5')?['msdyn_projectriskid']",
+                      "text_3": "msdyn_projectrisks",
+                      "text": "@items('Apply_to_each_5')?['_msdyn_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Risk": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "f25ec364-2307-46f7-ab6c-5f8bf1277ef0"
+              },
+              "type": "Foreach"
+            },
+            "Apply_to_each_6": {
+              "foreach": "@outputs('List_rows_-_Issue')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_Issue": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "60354055-853b-439d-ac2c-d1ae957a95dd"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each_6')?['msdyn_projectissueid']",
+                      "text_3": "msdyn_projectissues",
+                      "text": "@items('Apply_to_each_6')?['_msdyn_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Issue": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b2755882-06a8-4acd-b60d-e2f6f2d9d456"
+              },
+              "type": "Foreach"
+            },
+            "Apply_to_each_7": {
+              "foreach": "@outputs('List_rows_-_Status')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_Status": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "a0f3bb8f-2d13-4642-bacb-6fc836d66514"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each_7')?['msdyn_projectstatusreportid']",
+                      "text_3": "msdyn_projectstatusreports",
+                      "text": "@items('Apply_to_each_7')?['_msdyn_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Status": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "28e4a21b-27db-4489-a4d3-0ec22a3b64f4"
+              },
+              "type": "Foreach"
+            },
+            "Apply_to_each_8": {
+              "foreach": "@outputs('List_rows_-_Change')?['body/value']",
+              "actions": {
+                "Run_a_Child_Flow_-_Share_Change": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "f6d77b78-74ec-4281-9283-b5473b6f308d"
+                  },
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "12f91758-854a-f011-877b-6045bdc1fe02"
+                    },
+                    "body": {
+                      "text_1": "@items('Apply_to_each_8')?['msdyn_projectchangeid']",
+                      "text_3": "msdyn_projectchanges",
+                      "text": "@items('Apply_to_each_8')?['_msdyn_project_value']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Change": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "29a1f72f-fe9a-4d42-b5be-09ec32fa6399"
+              },
+              "type": "Foreach"
+            },
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Apply_to_each": [
+                  "Succeeded"
+                ],
+                "Apply_to_each_2": [
+                  "Succeeded"
+                ],
+                "Apply_to_each_3": [
+                  "Succeeded"
+                ],
+                "Apply_to_each_4": [
+                  "Succeeded"
+                ],
+                "Apply_to_each_5": [
+                  "Succeeded"
+                ],
+                "Apply_to_each_6": [
+                  "Succeeded"
+                ],
+                "Apply_to_each_7": [
+                  "Succeeded"
+                ],
+                "Apply_to_each_8": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9ab6db99-0d1c-475e-bdd5-cf5bacc7a0b2"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {},
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "adf08aeb-5b5e-4582-aea6-49374cd011da"
+          },
+          "type": "Scope"
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

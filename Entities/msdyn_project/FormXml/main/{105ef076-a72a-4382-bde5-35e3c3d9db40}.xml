@@ -1,0 +1,1286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{105ef076-a72a-4382-bde5-35e3c3d9db40}</formid>
+    <IntroducedVersion>1.0.0.1</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form maxWidth="1900" showImage="false" shownavigationbar="true" headerdensity="HighWithControls" solutionaction="Modified">
+      <tabs>
+        <tab id="{ac4158d2-008d-4b6d-8e11-58c9ab47b14b}" name="Summary" expanded="true" showlabel="true" locklevel="0" IsUserDefined="1" verticallayout="true" ordinalvalue="0">
+          <columns>
+            <column width="40%" id="0">
+              <sections>
+                <section id="{31843965-2614-4dec-b525-872d76e16b92}" name="{31843965-2614-4dec-b525-872d76e16b92}" showlabel="true" locklevel="0" IsUserDefined="0" celllabelposition="Left" celllabelalignment="Left" labelwidth="115" columns="1" showbar="false" ordinalvalue="0">
+                  <rows>
+                    <row>
+                      <cell id="{817041e0-274f-4ed6-a5c7-9ddea921cb6a}" locklevel="0" ordinalvalue="10001">
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="true" solutionaction="Modified" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5f58ac12-e2f7-4f11-b509-d3fee6c4b927}" locklevel="0" visible="false" ordinalvalue="10002" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{51dc3d04-dfb0-45fc-8de2-4736088861a5}" locklevel="0" ordinalvalue="10004" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{65ad858c-d16d-47ed-a9ee-568fec3fd5d1}" locklevel="0" ordinalvalue="10005" solutionaction="Modified">
+                        <labels>
+                          <label description="Business unit / Department" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                        <control id="proj_businessunit" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_businessunit" disabled="true" solutionaction="Modified" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{515759a3-fd70-4d35-9ecf-273d3e5b6083}" locklevel="0" ordinalvalue="10006" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{626ff956-1b01-4b19-8909-5e6da58a2e44}" locklevel="0" visible="false" ordinalvalue="10007" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{1b043a51-5c8d-4b63-848a-222312f3fb7c}" locklevel="0" ordinalvalue="10008" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{0d51d5e1-8e53-4810-aba9-ac0ae61927ec}" locklevel="0" ordinalvalue="10008" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{4c09fc93-3edc-443e-ab3e-e9cfa2335168}" locklevel="0" ordinalvalue="10009" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{97ac332c-49c4-0694-3ad2-2d263b586dc8}" showlabel="true" locklevel="0" ordinalvalue="10010" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{4e273e12-0090-4394-9ccc-6246b1212602}" locklevel="0" ordinalvalue="10011" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{e0516dba-a82a-11d8-7e72-1b99e55192c4}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10013" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{3dc6d07e-d585-4b78-b57b-bb5cccaeddbc}" showlabel="true" locklevel="1" visible="false" ordinalvalue="10014" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{24a52df4-64ee-43e4-b3ae-b9369d6ccf8b}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10003" solutionaction="Added">
+                        <labels>
+                          <label description="Project category" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectcategory" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="advcellp_projectcategory" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2457cd32-88c2-43ed-9ede-70967be6d142}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10009" solutionaction="Added">
+                        <labels>
+                          <label description="Project status" languagecode="1033" />
+                        </labels>
+                        <control id="statecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e739bb4c-9ff4-4197-9801-cbf2f058ac8b}" locklevel="0" colspan="1" rowspan="1" visible="false" ordinalvalue="10010" solutionaction="Added">
+                        <labels>
+                          <label description="Ready for approval" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_readyforapproval" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="advcellp_readyforapproval" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{65df00a5-1068-43b9-8497-7501900b33dd}" locklevel="0" colspan="1" rowspan="1" visible="false" ordinalvalue="10011" solutionaction="Added">
+                        <labels>
+                          <label description="Ready for approval" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_readyforapproval" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="advcellp_readyforapproval" disabled="false" uniqueid="{b07ad71f-ae64-4193-8079-3503da46e185}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1e5890be-1200-4b97-ac70-4d58a8dee9f4}" locklevel="0" colspan="1" rowspan="1" visible="false" ordinalvalue="10012" solutionaction="Added">
+                        <labels>
+                          <label description="Ready for closure approval" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_readyforclouserapproval" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="advcellp_readyforclouserapproval" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a3b42917-8443-4bec-993f-a8dbde4a18c5}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10015" solutionaction="Added">
+                        <labels>
+                          <label description="Cost center" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_costcenter" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="advcellp_costcenter" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Summary_section_calendar" showlabel="true" showbar="false" locklevel="0" id="{2240c94e-97ea-1139-111a-568c3be82235}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left" visible="false" ordinalvalue="1" solutionaction="Modified">
+                  <rows>
+                    <row>
+                      <cell id="{36d6a45b-00b4-3029-15e4-2585ccbc4d69}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10001" solutionaction="Modified" />
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="32%" id="1">
+              <sections>
+                <section id="{268011a4-c806-444e-0081-a57540dea520}" name="{ac4158d2-008d-4b6d-8e11-58c9ab47b14b}_section_4" showlabel="true" locklevel="0" IsUserDefined="0" celllabelposition="Left" celllabelalignment="Left" labelwidth="115" columns="1" showbar="false" layout="varwidth" ordinalvalue="0" solutionaction="Removed" />
+                <section name="Summary_section_5" showlabel="true" showbar="false" locklevel="0" id="{74815ce4-37dc-6abd-cd4e-491ae8797452}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left" ordinalvalue="0" solutionaction="Added">
+                  <labels>
+                    <label description="Internal key stakeholders" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{e866930c-45db-46a3-840e-871983ba065f}" locklevel="1" colspan="1" rowspan="1" ordinalvalue="10000">
+                        <labels>
+                          <label description="CTO" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_cto" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_cto" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0d51d5e1-8e53-4810-aba9-ac0ae61927ec}" locklevel="1" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Executive Sponsor" languagecode="1033" />
+                        </labels>
+                        <control id="proj_executivesponsor" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="proj_executivesponsor" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{24e9bacd-1827-35a6-b186-ab6ee99a3854}" showlabel="true" locklevel="1" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Department Head" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_departmenthead" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_departmenthead" disabled="true" uniqueid="{e90e56a5-4e41-60a9-616a-3745043be359}">
+                          <parameters>
+                            <AutoResolve>true</AutoResolve>
+                            <DisableMru>false</DisableMru>
+                            <DisableQuickFind>false</DisableQuickFind>
+                            <DisableViewPicker>false</DisableViewPicker>
+                            <DefaultViewId>{E88CA999-0B16-4AE9-B6A9-9EDC840D42D8}</DefaultViewId>
+                            <AllowFilterOff>false</AllowFilterOff>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3f7815ce-c529-4f87-922b-fe4ab2350e42}" locklevel="1" colspan="1" rowspan="1" ordinalvalue="10003">
+                        <labels>
+                          <label description="PMO Head" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_pmohead" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="advcellp_pmohead" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{97ac332c-49c4-0694-3ad2-2d263b586dc8}" showlabel="true" locklevel="1" colspan="1" rowspan="1" ordinalvalue="10004">
+                        <labels>
+                          <label description="Project Lead" languagecode="1033" />
+                        </labels>
+                        <control disabled="true" id="msdyn_projectmanager" datafieldname="msdyn_projectmanager" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}">
+                          <parameters>
+                            <AutoResolve>true</AutoResolve>
+                            <DisableMru>false</DisableMru>
+                            <DisableQuickFind>false</DisableQuickFind>
+                            <DisableViewPicker>false</DisableViewPicker>
+                            <DefaultViewId>{E88CA999-0B16-4AE9-B6A9-9EDC840D42D8}</DefaultViewId>
+                            <AllowFilterOff>false</AllowFilterOff>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4c09fc93-3edc-443e-ab3e-e9cfa2335168}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10005">
+                        <labels>
+                          <label description="Project Manager" languagecode="1033" />
+                        </labels>
+                        <control id="proj_manager" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="proj_manager" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section id="{dd3a16bd-a235-139d-862d-96b30ac74e1a}" name="{ac4158d2-008d-4b6d-8e11-58c9ab47b14b}_section_5" showlabel="true" locklevel="0" IsUserDefined="0" celllabelposition="Left" celllabelalignment="Left" labelwidth="115" columns="1" showbar="false" layout="varwidth" ordinalvalue="1" solutionaction="Added">
+                  <labels>
+                    <label description="Effort" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{9e57b518-96d2-3b38-8e7d-412ce258eed0}" locklevel="0" showlabel="true" visible="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="Earliest Start Date" languagecode="1033" />
+                        </labels>
+                        <control disabled="true" id="msdyn_taskearlieststart" datafieldname="msdyn_taskearlieststart" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" uniqueid="{5d18d364-b893-8ceb-3b58-b03d632a1d18}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a5a57c8b-4246-73c0-9474-d1b4a58bb599}" showlabel="true" locklevel="0" ordinalvalue="10001">
+                        <labels>
+                          <label description="Effort (Hours)" languagecode="1033" />
+                        </labels>
+                        <control disabled="true" id="msdyn_effort" datafieldname="msdyn_effort" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" uniqueid="{62708c05-a7b7-da2e-3521-a95e3987995a}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4b894bca-2d9e-1abb-d731-614a194b3491}" showlabel="true" locklevel="0" ordinalvalue="10002">
+                        <labels>
+                          <label description="Effort completed (Hours)" languagecode="1033" />
+                        </labels>
+                        <control disabled="true" id="msdyn_effortcompleted" datafieldname="msdyn_effortcompleted" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" uniqueid="{6db4406c-b165-8a01-6b92-934571a23736}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{36d86856-7668-4072-b88f-7ce7ece50fc7}" locklevel="0" ordinalvalue="10003">
+                        <labels>
+                          <label description="Effort remaining (Hours)" languagecode="1033" />
+                        </labels>
+                        <control id="msdyn_effortremaining" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="msdyn_effortremaining" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="28%" id="2">
+              <sections>
+                <section id="{dd3a16bd-a235-139d-862d-96b30ac74e1a}" name="{ac4158d2-008d-4b6d-8e11-58c9ab47b14b}_section_5" showlabel="true" locklevel="0" IsUserDefined="0" celllabelposition="Left" celllabelalignment="Left" labelwidth="115" columns="1" showbar="false" layout="varwidth" ordinalvalue="0" solutionaction="Removed" />
+                <section id="{268011a4-c806-444e-0081-a57540dea520}" name="{ac4158d2-008d-4b6d-8e11-58c9ab47b14b}_section_4" showlabel="true" locklevel="0" IsUserDefined="0" celllabelposition="Left" celllabelalignment="Left" labelwidth="115" columns="1" showbar="false" layout="varwidth" ordinalvalue="0" solutionaction="Added">
+                  <labels>
+                    <label description="Schedule" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0a2d7423-7785-6041-72aa-1eb37cd20818}" showlabel="true" locklevel="0" ordinalvalue="10000">
+                        <labels>
+                          <label description="Estimated start date" languagecode="1033" />
+                        </labels>
+                        <control disabled="false" id="msdyn_scheduledstart" datafieldname="msdyn_scheduledstart" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" uniqueid="{c5e57147-d0eb-2351-6831-0cb1b3d79adc}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2ce0311c-b461-45a6-a1b9-e2c20b2fc46e}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10001">
+                        <labels>
+                          <label description="Start" languagecode="1033" />
+                        </labels>
+                        <control disabled="false" id="msdyn_tzascheduledstart" datafieldname="msdyn_tzascheduledstart" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" uniqueid="{842e760b-7a62-4460-894a-31505da2bf26}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cb97d02c-206b-31d2-01e1-0315164ba333}" showlabel="true" locklevel="0" ordinalvalue="10002">
+                        <labels>
+                          <label description="Finish date" languagecode="1033" />
+                        </labels>
+                        <control disabled="true" id="msdyn_finish" datafieldname="msdyn_finish" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" uniqueid="{c0b049c9-985a-ee6a-ee8e-2200e298bebe}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0441dcf2-d867-40b0-9382-84acf56f1447}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10003">
+                        <labels>
+                          <label description="Duration (Days)" languagecode="1033" />
+                        </labels>
+                        <control id="msdyn_duration" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="msdyn_duration" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{dd78e60e-2e36-4fc5-9b6c-f4fbb87985cc}" visible="false" ordinalvalue="10004">
+                        <labels>
+                          <label description="% Complete" languagecode="1033" />
+                        </labels>
+                        <control id="msdyn_progress" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="msdyn_progress" disabled="true" uniqueid="{D94631FA-4F18-4653-A6F9-54BBF2C98508}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{89bd5660-6c39-40cf-a55e-303018ebc685}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10005">
+                        <labels>
+                          <label description="Finish" languagecode="1033" />
+                        </labels>
+                        <control disabled="false" id="msdyn_tzafinish" datafieldname="msdyn_tzafinish" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" uniqueid="{842e760b-7a62-4460-894a-31505da2bf26}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Progress" id="ab2497c1-cc73-49af-98f0-32afbb810718" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="1" solutionaction="Added">
+                  <labels>
+                    <label description="Progress" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f57226c8-9854-4324-b760-8df8e1256bd3}" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a9eacc0b-1e54-48a8-b6fa-1f5ec9d28e51}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10001">
+                        <labels>
+                          <label description="Deliverables progress %" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_deliverablesprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_deliverablesprogress" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{aced71e7-2461-e9bb-3d0b-7aaab0e88bd6}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10002">
+                        <labels>
+                          <label description="Completed deliverable count" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_completeddeliverablecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="advcellp_completeddeliverablecount" disabled="false" uniqueid="{2054e37c-7105-4095-721e-de267a4ed408}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{eaaa3a68-40b2-5789-8aaa-a7306c9b6e4a}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10003">
+                        <labels>
+                          <label description="Deliverable count" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_deliverablecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="advcellp_deliverablecount" disabled="false" uniqueid="{7a24b890-57b7-ec64-5c37-0a1a0659260e}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{bb77cd8f-48e9-4e9b-abf2-52232881de1c}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10004">
+                        <labels>
+                          <label description="Project progress %" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_projectprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_projectprogress" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{edc8a332-9130-ed1a-86ea-19741d0ab92e}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10005">
+                        <labels>
+                          <label description="Sum of all work package progress" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_sumofallworkpackageprogress" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="advcellp_sumofallworkpackageprogress" disabled="false" uniqueid="{cc6464c2-a928-e47c-5024-e67ee4be51a5}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e0511179-5ee5-7540-19cb-264ce39d1e0b}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10006">
+                        <labels>
+                          <label description="Work package count" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_workpackagecount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="advcellp_workpackagecount" disabled="false" uniqueid="{a4718430-54ea-8663-aca4-8367890d31e3}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Business_case" id="06965096-be3e-4181-9e7c-c13da8df4dc0" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="1" solutionaction="Modified">
+          <columns>
+            <column width="50%" id="0" solutionaction="Modified">
+              <sections>
+                <section name="tab_5_section_1" id="75b01030-e961-46a0-9bca-50ec365c5acd" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <rows>
+                    <row>
+                      <cell id="{69458d47-1318-4155-994e-defa2639b780}" locklevel="0" rowspan="5" ordinalvalue="10000">
+                        <labels>
+                          <label description="Objective &amp; scope" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_5_section_3" id="76500744-2aac-4ff8-a144-ff8c8f378ac1" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" ordinalvalue="1" solutionaction="Removed" />
+              </sections>
+            </column>
+            <column width="50%" id="1" solutionaction="Added">
+              <sections>
+                <section name="tab_5_section_3" id="76500744-2aac-4ff8-a144-ff8c8f378ac1" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="Prioritization" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ad92f33f-0010-42f4-9f73-343f30974f93}" locklevel="0" ordinalvalue="10000">
+                        <labels>
+                          <label description="Strategic alignment" languagecode="1033" />
+                        </labels>
+                        <control id="proj_strategicalignment" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_strategicalignment" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{aea78e84-c844-4195-b270-b95ffc6bead9}" locklevel="0" ordinalvalue="10001">
+                        <labels>
+                          <label description="Improve employee retention" languagecode="1033" />
+                        </labels>
+                        <control id="proj_improveemployeeretention" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_improveemployeeretention" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{bf872b84-851a-48b2-8cb1-d4e3929d8566}" showlabel="false" ordinalvalue="10002">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{90ccec99-be8c-43dc-9e5d-47fbb319086a}" locklevel="0" ordinalvalue="10003">
+                        <labels>
+                          <label description="Lower cost" languagecode="1033" />
+                        </labels>
+                        <control id="proj_lowercost" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_lowercost" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3d85484a-ce4e-4b14-9ffd-e25c230ea959}" locklevel="0" ordinalvalue="10004">
+                        <labels>
+                          <label description="Risk" languagecode="1033" />
+                        </labels>
+                        <control id="proj_risk" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_risk" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7e10e442-860a-47c5-bb33-a5aec74ab136}" locklevel="0" showlabel="true" ordinalvalue="10005">
+                        <labels>
+                          <label description="Prioritization score" languagecode="1033" />
+                        </labels>
+                        <control id="proj_prioritizationscore" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="proj_prioritizationscore" disabled="false" uniqueid="{85989ea8-7e95-75e2-6ee9-d0524b288eb2}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Financials" id="358517df-74f4-47fc-bfbc-548954233cf4" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="2" solutionaction="Modified">
+          <columns>
+            <column width="100%" id="0" solutionaction="Modified">
+              <sections>
+                <section name="Financials" id="51cae57c-2683-4623-939f-36daf2c7c72a" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" ordinalvalue="0" solutionaction="Modified">
+                  <rows>
+                    <row>
+                      <cell id="{3a090bba-2d60-497d-9726-84638f0942b6}" locklevel="0" showlabel="true" colspan="1" rowspan="1" ordinalvalue="10006" solutionaction="Modified">
+                        <labels>
+                          <label description="Project budget" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                        <control id="proj_budget" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="proj_budget" disabled="false" uniqueid="{8d77e726-4385-c622-16a5-ea0cc5be721b}" solutionaction="Modified" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3a4bdd9c-86ee-44c2-b71d-53e93d068c09}" locklevel="0" ordinalvalue="20007" solutionaction="Modified">
+                        <control id="proj_forecast" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="proj_forecast" disabled="true" solutionaction="Modified" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9d099f27-6a59-4992-a53a-6cdfb6e7b37e}" locklevel="0" ordinalvalue="10002" solutionaction="Removed" />
+                    </row>
+                    <row>
+                      <cell id="{8c708e5c-47ee-407f-9293-700a7bb6ddf7}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10009" solutionaction="Modified">
+                        <labels>
+                          <label description="Remaining budget" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1a7b800c-47a8-4036-8eea-ff833d41818e}" locklevel="0" ordinalvalue="20010" solutionaction="Modified">
+                        <labels>
+                          <label description="Budget variance" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ae013989-b91e-b9a5-94bd-da3c400803b2}" showlabel="true" locklevel="0" ordinalvalue="10000" solutionaction="Added">
+                        <labels>
+                          <label description="Capex total" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_capexplannedinvestment" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_capexplannedinvestment" disabled="false" />
+                      </cell>
+                      <cell id="{e78eb1a6-4bd0-649b-3a8c-6b802dd98b26}" showlabel="true" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20001" solutionaction="Added">
+                        <labels>
+                          <label description="Opex total" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_opexplannedinvestment" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_opexplannedinvestment" disabled="false" />
+                      </cell>
+                      <cell id="{30547b94-77e5-5e52-79ee-4a8d38670e7e}" showlabel="true" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30002" solutionaction="Added">
+                        <labels>
+                          <label description="External resource total" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_externalresourcetotalbudget" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_externalresourcetotalbudget" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{5b909c1e-084a-45d9-8183-4ac7c5bfca9d}" showlabel="false" ordinalvalue="10003" solutionaction="Added">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{173f7aa1-5dea-48fb-928b-04dfcf733f2f}" showlabel="false" ordinalvalue="20004" solutionaction="Added">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{bc644f9e-b701-44c8-aa3b-71c2dff68c3b}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30005" solutionaction="Added">
+                        <labels>
+                          <label description="Actual cost" languagecode="1033" />
+                        </labels>
+                        <control id="proj_actualcost" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="proj_actualcost" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{89cfe5f3-1349-4d2c-8eb1-11b1170b29a7}" locklevel="0" colspan="1" rowspan="1" visible="false" ordinalvalue="30008" solutionaction="Added">
+                        <labels>
+                          <label description="Actual cost roll up" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_actualcosting" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="advcellp_actualcosting" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{5dcf96e5-56d1-4e7f-976b-e518f52428ae}" showlabel="false" ordinalvalue="30011" solutionaction="Added">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_6_section_5" id="4a417f4b-0c80-4227-9df8-aa80b6669577" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" ordinalvalue="1" solutionaction="Added">
+                  <labels>
+                    <label description="Benefit " languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{cd9ecf4e-c570-4e63-a86c-3257fb3f019e}" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{9e9ff3ca-3225-41d7-8cba-cca346f76175}" showlabel="false" ordinalvalue="20001">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8c0b232d-d0ec-4f45-b512-59e380eedea5}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Benefits" languagecode="1033" />
+                        </labels>
+                        <control id="proj_benefits" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="proj_benefits" disabled="false" />
+                      </cell>
+                      <cell id="{d26acc4e-630e-49a2-a6d6-30aeb8acfdd9}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20003">
+                        <labels>
+                          <label description="ROI" languagecode="1033" />
+                        </labels>
+                        <control id="proj_roi" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="proj_roi" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Funding " showlabel="true" showbar="false" locklevel="0" id="{ddd6e0b6-e15c-8c25-8989-27c4e1d961a4}" IsUserDefined="0" layout="varwidth" columns="11" labelwidth="115" celllabelalignment="Left" celllabelposition="Left" ordinalvalue="2" solutionaction="Added">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{26f77081-c7b8-4aa4-9d3f-0d6ca3851256}" locklevel="0" ordinalvalue="10000">
+                        <labels>
+                          <label description="Funding available" languagecode="1033" />
+                        </labels>
+                        <control id="proj_fundingavailable" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="proj_fundingavailable" disabled="false" />
+                      </cell>
+                      <cell id="{f5b7bc6a-a4a3-4e31-a55e-28476b489565}" locklevel="0" ordinalvalue="20001">
+                        <labels>
+                          <label description="Funding source" languagecode="1033" />
+                        </labels>
+                        <control id="proj_fundingsource" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="proj_fundingsource" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Financials_line_item" showlabel="true" showbar="false" locklevel="0" id="{a5954b41-95ed-b5ad-d220-2554599a9e5b}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left" ordinalvalue="3" solutionaction="Added">
+                  <labels>
+                    <label description="Financials line item" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{56c421b7-8696-a4b1-eac6-06669b267a73}" showlabel="true" colspan="1" auto="false" rowspan="7" ordinalvalue="10000">
+                        <labels>
+                          <label description="Financials Line Item" languagecode="1033" />
+                        </labels>
+                        <control id="Financials_line_item" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{3de4d05b-a8e6-a769-8ee0-a1055e7c86b1}">
+                          <parameters>
+                            <ViewId>{1D13D44F-4001-4B91-9017-777D203B05A4}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>advcellp_lineitem_Project_msdyn_project</RelationshipName>
+                            <TargetEntityType>advcellp_lineitem</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>true</EnableViewPicker>
+                            <ViewIds>{1D13D44F-4001-4B91-9017-777D203B05A4}</ViewIds>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>All</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="33%" id="1" solutionaction="Removed" />
+            <column width="33%" id="2" solutionaction="Removed" />
+          </columns>
+        </tab>
+        <tab id="{2004a365-c869-aab1-5472-ed33a97187c7}" name="Resources" expanded="true" showlabel="true" locklevel="0" IsUserDefined="0" ordinalvalue="3" solutionaction="Modified">
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section id="{1a451c3a-e891-5715-d49a-c4625d537db2}" name="{ac4158d2-008d-4b6d-8e11-58c9ab47b14b}_section_3" height="auto" showlabel="false" locklevel="0" IsUserDefined="0" celllabelposition="Left" celllabelalignment="Left" labelwidth="115" columns="1" showbar="false" layout="varwidth" visible="false" ordinalvalue="1" solutionaction="Modified">
+                  <rows />
+                </section>
+                <section name="Team_section_3" id="89d396b9-42f6-4ae1-be04-66d9b06437eb" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" ordinalvalue="0" solutionaction="Added">
+                  <labels>
+                    <label description="Resources" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{407ccf64-b4b3-42dc-8a62-a7d8397ce208}" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{a456bfc6-1d27-4383-bf64-2c5544987641}" showlabel="false" ordinalvalue="20001">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{af60d647-8b7a-410c-a366-12c7b1e8ee19}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10002">
+                        <labels>
+                          <label description="Facility" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_facility" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="advcellp_facility" disabled="false" />
+                      </cell>
+                      <cell id="{f3e85190-f356-445b-9125-2b247c2465da}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20003">
+                        <labels>
+                          <label description="Material" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_material" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="advcellp_material" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="Team_section_4" id="9c0e0c10-f9af-4e62-9347-1bcd5275b178" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="2" solutionaction="Added">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{da0978c9-bb5a-16ae-b5bb-301ab37c6481}" showlabel="true" colspan="1" auto="false" rowspan="7" ordinalvalue="10000">
+                        <labels>
+                          <label description="External resource" languagecode="1033" />
+                        </labels>
+                        <control id="External_resource" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{C0E7F261-708E-45E8-AD3F-08952105FB1E}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>advcellp_externalresource_Project_msdyn_project</RelationshipName>
+                            <TargetEntityType>advcellp_externalresource</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <ViewIds>{C0E7F261-708E-45E8-AD3F-08952105FB1E}</ViewIds>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>All</ChartGridMode>
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Task" id="{7e446539-e15b-bbaa-e250-14c6144da622}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" availableforphone="false" contenttype="singleComponent" ordinalvalue="7" solutionaction="Modified">
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="PexWebTab_section_3" id="b2679e8a-e7fd-4433-b2ee-1d39eaf3f49e" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="1" solutionaction="Added">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{b8085ee9-a805-40d2-bd2c-ac97a185430c}" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Calendar_Tab" id="{7621398e-c9be-46e4-9239-86891d1c8a12}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" visible="false" ordinalvalue="4" solutionaction="Modified">
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="Calendar_section_calendar" showlabel="false" showbar="false" locklevel="0" id="{4eeec0ab-9ea1-2d82-2d61-a459923752d9}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left" ordinalvalue="0">
+                  <rows>
+                    <row>
+                      <cell id="{ea8e456a-2378-1c83-5913-881e7ae8c605}" showlabel="false" locklevel="0" ordinalvalue="10000">
+                        <labels>
+                          <label description="Calendar Id" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Risk" id="ddcff769-e55e-4645-a0be-a64351aa0cec" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="8" solutionaction="Modified">
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_7_section_1" id="712c3ba5-2c35-4f5f-bdd3-b6202183bb21" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <rows />
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Issue" id="1a37d682-296a-4c42-a0f0-a9a0c7a1f982" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="9" solutionaction="Modified">
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_8_section_1" id="5cdcbf93-c3a4-4952-b9b4-417afa0a3d22" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <rows />
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Change" id="e5bbf6f6-fd5b-48f9-b8be-e40c283562d4" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="10" solutionaction="Modified" />
+        <tab name="Status" id="0d410592-2286-49ec-a60a-b7801e9ef143" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="11" solutionaction="Modified">
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_10_section_1" id="4dca3725-34f2-4d52-8210-f56e79b3c221" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1111" labelwidth="115" ordinalvalue="0" solutionaction="Modified">
+                  <rows>
+                    <row>
+                      <cell id="{a9d91e9f-2335-4eca-b078-d6a8ea10c651}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20001" solutionaction="Modified">
+                        <labels>
+                          <label description="Overall health" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                      <cell id="{f666e676-dd0a-4118-8246-aa3e08b822a7}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30002" solutionaction="Modified">
+                        <labels>
+                          <label description="Schedule health" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                      <cell id="{ceaede98-abe6-4277-be6b-09473de3b266}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="40003" solutionaction="Modified">
+                        <labels>
+                          <label description="Financial health" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{93602ac2-1e5b-4d60-976a-d24780bd1b1a}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20005" solutionaction="Modified">
+                        <labels>
+                          <label description="Issue health" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                      <cell id="{88448aff-ba4c-4819-b75f-b38c669aa879}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30006" solutionaction="Modified">
+                        <labels>
+                          <label description="Effort health" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                      <cell id="{a6e9a087-bf34-49e1-957e-0b5a30e19476}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="40007" solutionaction="Modified">
+                        <labels>
+                          <label description="Needs staffing" languagecode="1033" solutionaction="Modified" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{67245ec7-a0e4-4344-ad53-e6f964f06b0e}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="20009" solutionaction="Modified" />
+                      <cell id="{704efa2f-6d13-4255-a157-36847a3eabbd}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="30010" solutionaction="Modified" />
+                      <cell id="{d076040f-e30a-4244-b5fd-dcaf09bd6cf5}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="40011" solutionaction="Modified" />
+                    </row>
+                    <row>
+                      <cell id="{f9b74cd5-22c5-4f9b-9cd7-59eb1a015a01}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10000" solutionaction="Added">
+                        <labels>
+                          <label description="Deliverables progress" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_deliverablesprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_deliverablesprogress" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7d54ef57-eceb-4a95-b96f-777f9f7cd766}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10004" solutionaction="Added">
+                        <labels>
+                          <label description="Work package progress" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_workpackageprogress" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="advcellp_workpackageprogress" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{71ecff6b-4996-4be8-8839-77d4e14972df}" locklevel="0" colspan="1" rowspan="1" ordinalvalue="10008" solutionaction="Added">
+                        <labels>
+                          <label description="Overdue work packages" languagecode="1033" />
+                        </labels>
+                        <control id="advcellp_overdueworkpackage" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="advcellp_overdueworkpackage" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_10_section_3" id="05af1d35-03a8-4603-9e83-c8ed2590dca7" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="1">
+                  <rows />
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab id="{3556f180-df5b-4f03-8d02-3ab8d980d7d0}" name="Reconciliation_Tab" expanded="false" showlabel="true" locklevel="0" IsUserDefined="0" visible="false" ordinalvalue="12" solutionaction="Modified" />
+        <tab name="Work_package" id="51bcae21-6173-41c4-a4f6-f9c2f85fd75e" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="5" solutionaction="Added">
+          <labels>
+            <label description="Work package" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_13_section_1" id="f1f48f1a-f6b7-4d65-ae24-0500595b77b1" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" visible="true" ordinalvalue="0">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{1ae5ef38-f7db-4e3f-bae4-31d7b53c2e42}" rowspan="10" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="Work package" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_6" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" uniqueid="{003ca119-8adb-d87b-7462-4924b2260bb1}">
+                          <parameters>
+                            <RecordsPerPage>8</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>advcellp_workpackage_Project_msdyn_project</RelationshipName>
+                            <TargetEntityType>advcellp_workpackage</TargetEntityType>
+                            <ViewId>{A405B446-CB3B-43A4-AB7B-E1C97FB5D131}</ViewId>
+                            <ViewIds>{A405B446-CB3B-43A4-AB7B-E1C97FB5D131}</ViewIds>
+                            <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            <IsUserView>false</IsUserView>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="Deliverables" id="8c55333a-f906-4cd8-bf96-bf499abb2633" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true" ordinalvalue="6" solutionaction="Added">
+          <labels>
+            <label description="Deliverables" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%" id="0">
+              <sections>
+                <section name="tab_12_section_1" id="c403514f-51b0-46f6-a53f-e7c0e509b51d" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" ordinalvalue="0">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{39643996-2539-4ab9-acef-4e464294ddb3}" rowspan="10" colspan="1" auto="false" showlabel="false" ordinalvalue="10000">
+                        <labels>
+                          <label description="New SG control 1747744292513" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_7" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{855f2c38-1195-4d43-81f5-fbf4f91ea768}">
+                          <parameters>
+                            <RecordsPerPage>8</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>msdyn_msdyn_project_msdyn_projecttask_project</RelationshipName>
+                            <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                            <ViewId>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewId>
+                            <ViewIds>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518},{D0A93DF9-04FE-47C9-9E5D-BB7AEFF65A0A}</ViewIds>
+                            <VisualizationId>{E869F2BA-4A71-E511-80F0-00155DB99003}</VisualizationId>
+                            <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            <IsUserView>false</IsUserView>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <IsUserChart>false</IsUserChart>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{bcffd101-82b0-408c-9f2a-0d0734a2ff3e}" celllabelposition="Top" celllabelalignment="Left" labelwidth="250" columns="1111">
+        <rows>
+          <row>
+            <cell id="{d4ab2656-fe83-4b86-8cae-f8ccb11de3ff}" showlabel="false" ordinalvalue="10000" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{7e3fa0bd-0e78-4ec8-b4e0-bdbca4c917d0}" showlabel="false" ordinalvalue="20001" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{446eaadc-0adb-40f1-ac5e-61d6baf9ae24}" showlabel="false" ordinalvalue="30002" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{8ec0bbf4-bb2b-4058-a672-c26c2d470202}" showlabel="false" ordinalvalue="40003" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <Navigation>
+        <NavBar>
+          <NavBarByRelationshipItem RelationshipName="hardcoded_{B7196B13-6B9D-42CD-BD58-B19A3953126F}navAudit" Id="navAudit" Show="true" Sequence="10006" Area="Info" solutionaction="Modified">
+            <Titles>
+              <Title Text="Audit History" LCID="1033" />
+              <Title Text="محفوظات التدقيق" LCID="1025" solutionaction="Removed" />
+              <Title Text="Хронология на проверка" LCID="1026" solutionaction="Removed" />
+              <Title Text="Historial de l'auditoria" LCID="1027" solutionaction="Removed" />
+              <Title Text="Historie auditu" LCID="1029" solutionaction="Removed" />
+              <Title Text="Oversigt over overvågning" LCID="1030" solutionaction="Removed" />
+              <Title Text="Überwachungsverlauf" LCID="1031" solutionaction="Removed" />
+              <Title Text="Ιστορικό ελέγχου" LCID="1032" solutionaction="Removed" />
+              <Title Text="Historial de auditoría" LCID="3082" solutionaction="Removed" />
+              <Title Text="Auditeerimisajalugu" LCID="1061" solutionaction="Removed" />
+              <Title Text="Auditoretza-historia" LCID="1069" solutionaction="Removed" />
+              <Title Text="Seurantahistoria" LCID="1035" solutionaction="Removed" />
+              <Title Text="Historique d'audit" LCID="1036" solutionaction="Removed" />
+              <Title Text="Historial de auditoría" LCID="1110" solutionaction="Removed" />
+              <Title Text="היסטוריית ביקורת" LCID="1037" solutionaction="Removed" />
+              <Title Text="ऑडिट इतिहास" LCID="1081" solutionaction="Removed" />
+              <Title Text="Povijest nadzora" LCID="1050" solutionaction="Removed" />
+              <Title Text="Auditnapló előzményei" LCID="1038" solutionaction="Removed" />
+              <Title Text="Riwayat Audit" LCID="1057" solutionaction="Removed" />
+              <Title Text="Cronologia controllo" LCID="1040" solutionaction="Removed" />
+              <Title Text="監査履歴" LCID="1041" solutionaction="Removed" />
+              <Title Text="Тексеру журналы" LCID="1087" solutionaction="Removed" />
+              <Title Text="감사 기록" LCID="1042" solutionaction="Removed" />
+              <Title Text="Tikrinimo retrospektyva" LCID="1063" solutionaction="Removed" />
+              <Title Text="Audita vēsture" LCID="1062" solutionaction="Removed" />
+              <Title Text="Sejarah Audit" LCID="1086" solutionaction="Removed" />
+              <Title Text="Logg for sporing av endringer" LCID="1044" solutionaction="Removed" />
+              <Title Text="Controlegeschiedenis" LCID="1043" solutionaction="Removed" />
+              <Title Text="Historia inspekcji" LCID="1045" solutionaction="Removed" />
+              <Title Text="Histórico de Auditoria" LCID="1046" solutionaction="Removed" />
+              <Title Text="Histórico de Auditoria" LCID="2070" solutionaction="Removed" />
+              <Title Text="Istoric auditare" LCID="1048" solutionaction="Removed" />
+              <Title Text="Журнал аудита" LCID="1049" solutionaction="Removed" />
+              <Title Text="História auditov" LCID="1051" solutionaction="Removed" />
+              <Title Text="Zgodovina spremljanja sprememb" LCID="1060" solutionaction="Removed" />
+              <Title Text="Историја надгледања" LCID="3098" solutionaction="Removed" />
+              <Title Text="Istorija nadgledanja" LCID="2074" solutionaction="Removed" />
+              <Title Text="Granskningshistorik" LCID="1053" solutionaction="Removed" />
+              <Title Text="ประวัติการตรวจสอบ" LCID="1054" solutionaction="Removed" />
+              <Title Text="Denetim Geçmişi" LCID="1055" solutionaction="Removed" />
+              <Title Text="Журнал відстеження" LCID="1058" solutionaction="Removed" />
+              <Title Text="Lịch sử Kiểm tra" LCID="1066" solutionaction="Removed" />
+              <Title Text="审核历史记录" LCID="2052" solutionaction="Removed" />
+              <Title Text="稽核歷程記錄" LCID="3076" solutionaction="Removed" />
+              <Title Text="稽核歷程記錄" LCID="1028" solutionaction="Removed" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem Id="nav_msdyn_msdyn_project_bookableresourcebooking_projectid" Area="Info" Sequence="10024" RelationshipName="msdyn_msdyn_project_bookableresourcebooking_projectid" Show="false" solutionaction="Modified" />
+          <NavBarByRelationshipItem Id="nav_msdyn_msdyn_project_bookableresourcebookingheader_projectid" Area="Info" Sequence="10025" RelationshipName="msdyn_msdyn_project_bookableresourcebookingheader_projectid" Show="false" solutionaction="Modified" />
+          <NavBarByRelationshipItem Id="nav_msdyn_msdyn_project_msdyn_resourceassignment_projectid" Area="Info" Sequence="10026" RelationshipName="msdyn_msdyn_project_msdyn_resourceassignment_projectid" Show="false" solutionaction="Modified" />
+          <NavBarByRelationshipItem RelationshipName="advcellp_externalresource_Project_msdyn_project" Sequence="10001" Area="Info" Id="nav_advcellp_externalresource_Project_msdyn_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="External Resources" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="bpf_msdyn_project_advcellp_approvalworkflowproject" Sequence="10003" Area="Info" Id="nav_bpf_msdyn_project_advcellp_approvalworkflowproject" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Approval Workflow Project Charter" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="advcellp_lineitem_Project_msdyn_project" Sequence="10004" Area="Info" Id="nav_advcellp_lineitem_Project_msdyn_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Financial line items" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_project_SharePointDocuments" Id="navSPDocuments" Show="true" Sequence="10005" Area="Info" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Documents" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_documentheader_project" Sequence="10007" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_documentheader_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Document Headers" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectbucket_project" Sequence="10008" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectbucket_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project Buckets" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_replaylogsection_project" Sequence="10009" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_replaylogsection_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Replay Log Sections" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_operationset" Sequence="10010" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_operationset" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="OperationSets" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectgoal_projectid" Sequence="10011" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectgoal_projectid" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project Goals" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projecthistory_project" Sequence="10012" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projecthistory_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project History" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectlabel_Project" Sequence="10013" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectlabel_Project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project Labels" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectsprint_project" Sequence="10014" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectsprint_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project Sprints" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectteamschannelmapping_Project" Sequence="10015" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectteamschannelmapping_Project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project Teams Channel Mappings" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_psserrorlog" Sequence="10016" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_psserrorlog" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="PSS Error Logs" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectbaselinedata" Sequence="10017" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectbaselinedata" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project Baseline Datas" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectchange_Project" Sequence="10018" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectchange_Project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Change" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectissue_Project" Sequence="10019" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectissue_Project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Issue" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectrequest_Project" Sequence="10020" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectrequest_Project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Project Request" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectrisk_Project" Sequence="10021" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectrisk_Project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Risk" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="msdyn_msdyn_project_msdyn_projectstatusreport_Project" Sequence="10022" Area="Info" Id="nav_msdyn_msdyn_project_msdyn_projectstatusreport_Project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Status Report" />
+            </Titles>
+          </NavBarByRelationshipItem>
+          <NavBarByRelationshipItem RelationshipName="advcellp_workpackage_Project_msdyn_project" Sequence="10023" Area="Info" Id="nav_advcellp_workpackage_Project_msdyn_project" Show="false" solutionaction="Added">
+            <Titles>
+              <Title LCID="1033" Text="Work packages" />
+            </Titles>
+          </NavBarByRelationshipItem>
+        </NavBar>
+      </Navigation>
+      <formLibraries>
+        <Library name="advcellp_FieldEditabilityBasedOnStage" libraryUniqueId="{61e4a757-7e1c-499d-a6f7-bd493dfc86f6}" solutionaction="Added" />
+        <Library name="advcellp_StageButtonVisibility" libraryUniqueId="{e5772f18-4fa5-4e8f-b786-91a282f06450}" solutionaction="Added" />
+        <Library name="advcellp_ControlProjectApprovalAccess" libraryUniqueId="{03d4b844-0b6c-6a9c-ba6e-c03bcec71e46}" solutionaction="Added" />
+        <Library name="advcellp_ControlDefaultEntityButtonAccess" libraryUniqueId="{2488fdc2-be92-44a7-bb34-f3ef819f415b}" solutionaction="Added" />
+      </formLibraries>
+      <events>
+        <event name="onload" active="false" application="false">
+          <Handlers>
+            <Handler functionName="FieldEditabilityBasedOnStage" libraryName="advcellp_FieldEditabilityBasedOnStage" handlerUniqueId="{1d809d0a-5b92-48b7-b819-9b0e3becde89}" enabled="true" parameters="" passExecutionContext="true" ordinalvalue="7" solutionaction="Added" />
+            <Handler functionName="StageButtonVisibility" libraryName="advcellp_StageButtonVisibility" handlerUniqueId="{d164ac36-938b-4a6e-8334-dd3530769416}" enabled="true" parameters="" passExecutionContext="true" ordinalvalue="8" solutionaction="Added" />
+            <Handler functionName="ControlProjectApprovalAccess" libraryName="advcellp_ControlProjectApprovalAccess" handlerUniqueId="{ec2e6d1a-4c38-54b6-3cb1-9b6946cd2570}" enabled="true" parameters="" passExecutionContext="true" ordinalvalue="9" solutionaction="Added" />
+          </Handlers>
+        </event>
+      </events>
+      <formparameters solutionaction="Removed" />
+      <controlDescriptions>
+        <controlDescription forControl="{b07ad71f-ae64-4193-8079-3503da46e185}" solutionaction="Added">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>advcellp_readyforapproval</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">advcellp_readyforapproval</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">advcellp_readyforapproval</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">advcellp_readyforapproval</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{855f2c38-1195-4d43-81f5-fbf4f91ea768}" solutionaction="Added">
+          <customControl id="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+            <parameters />
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.Grid.GridControl">
+            <parameters>
+              <data-set name="Grid">
+                <ViewId>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewId>
+                <columnsDefaultView />
+                <IsUserView>false</IsUserView>
+                <RelationshipName>msdyn_msdyn_project_msdyn_projecttask_project</RelationshipName>
+                <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                <EnableViewPicker>false</EnableViewPicker>
+                <FilteredViewIds>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518},{D0A93DF9-04FE-47C9-9E5D-BB7AEFF65A0A}</FilteredViewIds>
+              </data-set>
+              <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+              <EnableEditing static="true" type="Enum">yes</EnableEditing>
+              <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+              <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+              <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+              <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+              <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+              <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+            <parameters>
+              <data-set name="Grid">
+                <ViewId>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewId>
+                <columnsDefaultView />
+                <IsUserView>false</IsUserView>
+                <RelationshipName>msdyn_msdyn_project_msdyn_projecttask_project</RelationshipName>
+                <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                <EnableViewPicker>false</EnableViewPicker>
+                <FilteredViewIds>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518},{D0A93DF9-04FE-47C9-9E5D-BB7AEFF65A0A}</FilteredViewIds>
+              </data-set>
+              <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+              <EnableEditing static="true" type="Enum">yes</EnableEditing>
+              <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+              <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+              <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+              <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+              <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+              <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+            <parameters>
+              <data-set name="Grid">
+                <ViewId>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518}</ViewId>
+                <columnsDefaultView />
+                <IsUserView>false</IsUserView>
+                <RelationshipName>msdyn_msdyn_project_msdyn_projecttask_project</RelationshipName>
+                <TargetEntityType>msdyn_projecttask</TargetEntityType>
+                <EnableViewPicker>false</EnableViewPicker>
+                <FilteredViewIds>{4DFB3C4A-7635-F011-8C4D-7C1E522E8518},{D0A93DF9-04FE-47C9-9E5D-BB7AEFF65A0A}</FilteredViewIds>
+              </data-set>
+              <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+              <EnableEditing static="true" type="Enum">yes</EnableEditing>
+              <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+              <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+              <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+              <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+              <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+              <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+      <footer id="{104cf40d-4b92-49e5-a9b2-30e6a565ecc3}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{79beb962-33a8-40c3-ae0a-512b69bad247}" showlabel="false" ordinalvalue="10000" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{5c3f8d69-bd3f-4391-a5b5-7abc93fde696}" showlabel="false" ordinalvalue="20001" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{db8e1855-f26c-417a-8b20-e3163bb1f22c}" showlabel="false" ordinalvalue="30002" solutionaction="Added">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+    </form>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery unmodified="1">
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{48eebd46-3659-eb11-a812-000d3a31e53d}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="msdyn_name" select="1" icon="1" preview="1">
+        <row name="result" id="msdyn_projectissueid">
+          <cell name="msdyn_name" width="200" />
+          <cell name="proj_state" width="100" />
+          <cell name="proj_requestor" width="100" />
+          <cell name="proj_assignedto" width="100" />
+          <cell name="proj_priority" width="100" />
+          <cell name="proj_issuecategory" width="100" />
+          <cell name="proj_duedate" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="msdyn_projectissue">
+          <attribute name="msdyn_name" />
+          <attribute name="msdyn_projectissueid" />
+          <attribute name="proj_state" />
+          <attribute name="proj_requestor" />
+          <attribute name="proj_assignedto" />
+          <attribute name="proj_priority" />
+          <attribute name="proj_issuecategory" />
+          <attribute name="proj_duedate" />
+          <order attribute="proj_state" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.6.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="All Issues" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,87 @@
+function FieldEditabilityBasedOnStage(executionContext) {
+    "use strict";
+    try {
+        // Get the form context
+        var formContext = executionContext.getFormContext();
+
+        // Get user information (optional, for reference)
+        var userId = formContext.context.getUserId().replace(/[{}]/g, '').toLowerCase();
+        var userName = formContext.context.getUserName();
+
+        // Get the active stage information
+        var activeStage = formContext.data.process.getActiveStage();
+        var stageId = activeStage.getId();
+        var stageName = activeStage.getName();
+
+        // Determine which field exists: readyforapproval or readyforchange
+        var readyFieldName = null;
+        if (formContext.getAttribute("advcellp_readyforapproval") != null) {
+            readyFieldName = "advcellp_readyforapproval";
+        } else if (formContext.getAttribute("advcellp_readyforchange") != null) {
+            readyFieldName = "advcellp_readyforchange";
+        }
+
+        var readyValue = null;
+        if (readyFieldName != null) {
+            readyValue = formContext.getAttribute(readyFieldName).getValue();
+        }
+
+        // Call BPFdisableAllFields and pass formContext and readyFieldName
+        BPFdisableAllFields(formContext, readyFieldName);
+
+    } catch (error) {
+        console.error("FieldEditabilityBasedOnStage error:", error);
+    }
+}
+
+function BPFdisableAllFields(formContext, readyFieldName) {
+    "use strict";
+    try {
+        // Build controls list dynamically based on which form we are on
+        var controlsToDisable = [];
+
+        if (readyFieldName === "advcellp_readyforapproval") {
+            // Project screen fields
+            controlsToDisable = [
+                "header_process_advcellp_readyforapproval",
+                "header_process_advcellp_departmentreviewstatus",
+                "header_process_advcellp_departmentheadcomment",
+                "header_process_advcellp_pmoheadreviewstatus",
+                "header_process_advcellp_pmoheadcomment",   
+                "header_process_advcellp_executivesponsorreviewstatus",
+                "header_process_advcellp_executivesponsorcomment",
+                "header_process_advcellp_ctoreviewstatus",
+                "header_process_advcellp_ctocomment",
+                "header_process_advcellp_charterapproved",
+                "header_process_advcellp_rejected"
+            ];
+        } else if (readyFieldName === "advcellp_readyforchange") {
+            // Change screen fields
+            controlsToDisable = [
+                "header_process_advcellp_readyforchange",
+                "header_process_advcellp_departmentheadreviewstatus",
+                "header_process_advcellp_departmentheadcomment",
+                "header_process_advcellp_pmoheadreviewstatus",
+                "header_process_advcellp_pmoheadcomment",   
+                "header_process_advcellp_executivesponsorreviewstatus",
+                "header_process_advcellp_executivesponsorcomment",
+                "header_process_advcellp_ctoreviewstatus",
+                "header_process_advcellp_ctocomment",
+              
+                "header_process_advcellp_rejected",
+              "header_process_advcellp_approved"
+            ];
+        }
+
+        // Disable all controls
+        controlsToDisable.forEach(function (controlName) {
+            var control = formContext.getControl(controlName);
+            if (control) {
+                control.setDisabled(true);
+            }
+        });
+
+    } catch (error) {
+        console.error("BPFdisableAllFields error:", error);
+    }
+}

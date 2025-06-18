@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModuleSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SiteMapUniqueName>msdyn_ProjectServiceCore</SiteMapUniqueName>
+  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <ShowHome>True</ShowHome>
+  <ShowPinned>True</ShowPinned>
+  <ShowRecents>True</ShowRecents>
+  <SiteMap IntroducedVersion="1.0.0.0">
+    <Area Id="msdyn_ProjectsArea" ResourceId="SitemapDesigner.NewArea" DescriptionResourceId="SitemapDesigner.NewArea" VectorIcon="$webresource:msdyn_/SitemapIcons/SVG/Projects.svg" Icon="/WebResources/msdyn_/SitemapIcons/SVG/Projects.svg" ShowGroups="true" ordinalvalue="0">
+      <Group Id="NewGroup_d4203449" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="2" solutionaction="Modified">
+        <SubArea Id="NewSubArea_6101ce44" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="msdyn_projectrequest" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="0">
+          <Titles solutionaction="Added">
+            <Title LCID="1033" Title="Snapshot" ordinalvalue="0" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="msdyn_ProjectGroup" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="1" solutionaction="Modified">
+        <Titles>
+          <Title LCID="1033" Title="Plans" solutionaction="Modified" />
+        </Titles>
+        <SubArea Id="NewSubArea_cc20db17" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="msdyn_projectprogram" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="1" solutionaction="Modified" />
+        <SubArea Id="msdyn_ProjectSubArea" VectorIcon="$webresource:msdyn_/SitemapIcons/SVG/Projects.svg" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="msdyn_project" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="0" solutionaction="Modified">
+          <Titles>
+            <Title LCID="1033" Title="Project Charter" ordinalvalue="44" solutionaction="Modified" />
+            <Title LCID="1025" Title="الخطط" ordinalvalue="43" solutionaction="Modified" />
+            <Title LCID="1026" Title="Планове" ordinalvalue="42" solutionaction="Modified" />
+            <Title LCID="1027" Title="Plans" ordinalvalue="41" solutionaction="Modified" />
+            <Title LCID="1029" Title="Plány" ordinalvalue="40" solutionaction="Modified" />
+            <Title LCID="1030" Title="Planer" ordinalvalue="39" solutionaction="Modified" />
+            <Title LCID="1031" Title="Pläne" ordinalvalue="38" solutionaction="Modified" />
+            <Title LCID="1032" Title="Σχέδια" ordinalvalue="37" solutionaction="Modified" />
+            <Title LCID="3082" Title="Planes" ordinalvalue="36" solutionaction="Modified" />
+            <Title LCID="1061" Title="Plaanid" ordinalvalue="35" solutionaction="Modified" />
+            <Title LCID="1069" Title="Planak" ordinalvalue="34" solutionaction="Modified" />
+            <Title LCID="1035" Title="Suunnitelmat" ordinalvalue="33" solutionaction="Modified" />
+            <Title LCID="1036" Title="Plans" ordinalvalue="32" solutionaction="Modified" />
+            <Title LCID="1110" Title="Plans" ordinalvalue="31" solutionaction="Modified" />
+            <Title LCID="1037" Title="תוכניות" ordinalvalue="30" solutionaction="Modified" />
+            <Title LCID="1081" Title="योजनाएँ" ordinalvalue="29" solutionaction="Modified" />
+            <Title LCID="1050" Title="Planovi" ordinalvalue="28" solutionaction="Modified" />
+            <Title LCID="1038" Title="Tervek" ordinalvalue="27" solutionaction="Modified" />
+            <Title LCID="1057" Title="Rencana" ordinalvalue="26" solutionaction="Modified" />
+            <Title LCID="1040" Title="Piani" ordinalvalue="25" solutionaction="Modified" />
+            <Title LCID="1041" Title="計画" ordinalvalue="24" solutionaction="Modified" />
+            <Title LCID="1087" Title="Жоспарлар" ordinalvalue="23" solutionaction="Modified" />
+            <Title LCID="1063" Title="Planai" ordinalvalue="21" solutionaction="Modified" />
+            <Title LCID="1062" Title="Plāni" ordinalvalue="20" solutionaction="Modified" />
+            <Title LCID="1086" Title="Pelan" ordinalvalue="19" solutionaction="Modified" />
+            <Title LCID="1044" Title="Planer" ordinalvalue="18" solutionaction="Modified" />
+            <Title LCID="1043" Title="Plannen" ordinalvalue="17" solutionaction="Modified" />
+            <Title LCID="1045" Title="Plany" ordinalvalue="16" solutionaction="Modified" />
+            <Title LCID="1046" Title="Planos" ordinalvalue="15" solutionaction="Modified" />
+            <Title LCID="2070" Title="Planos" ordinalvalue="14" solutionaction="Modified" />
+            <Title LCID="1048" Title="Planuri" ordinalvalue="13" solutionaction="Modified" />
+            <Title LCID="1049" Title="Планы" ordinalvalue="12" solutionaction="Modified" />
+            <Title LCID="1051" Title="Plány" ordinalvalue="11" solutionaction="Modified" />
+            <Title LCID="1060" Title="Načrti" ordinalvalue="10" solutionaction="Modified" />
+            <Title LCID="3098" Title="Планови" ordinalvalue="9" solutionaction="Modified" />
+            <Title LCID="2074" Title="Planovi" ordinalvalue="8" solutionaction="Modified" />
+            <Title LCID="1053" Title="Planer" ordinalvalue="7" solutionaction="Modified" />
+            <Title LCID="1054" Title="แผน" ordinalvalue="6" solutionaction="Modified" />
+            <Title LCID="1055" Title="Planlar" ordinalvalue="5" solutionaction="Modified" />
+            <Title LCID="1058" Title="Плани" ordinalvalue="4" solutionaction="Modified" />
+            <Title LCID="1066" Title="Kế hoạch" ordinalvalue="3" solutionaction="Modified" />
+            <Title LCID="2052" Title="计划" ordinalvalue="2" solutionaction="Modified" />
+            <Title LCID="3076" Title="方案" ordinalvalue="1" solutionaction="Modified" />
+            <Title LCID="1028" Title="方案" ordinalvalue="0" solutionaction="Modified" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="msdyn_ResourceGroup" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="3">
+        <Titles>
+          <Title Title="Resources" LCID="1033" />
+          <Title Title="الموارد" LCID="1025" />
+          <Title Title="Ресурси" LCID="1026" />
+          <Title Title="Recursos" LCID="1027" />
+          <Title Title="Zdroje" LCID="1029" />
+          <Title Title="Ressourcer" LCID="1030" />
+          <Title Title="Ressourcen" LCID="1031" />
+          <Title Title="Πόροι" LCID="1032" />
+          <Title Title="Recursos" LCID="3082" />
+          <Title Title="Ressursid" LCID="1061" />
+          <Title Title="Baliabideak" LCID="1069" />
+          <Title Title="Resurssit" LCID="1035" />
+          <Title Title="Ressources" LCID="1036" />
+          <Title Title="Recursos" LCID="1110" />
+          <Title Title="משאבים" LCID="1037" />
+          <Title Title="संसाधन" LCID="1081" />
+          <Title Title="Resursi" LCID="1050" />
+          <Title Title="Erőforrások" LCID="1038" />
+          <Title Title="Sumber Daya" LCID="1057" />
+          <Title Title="Risorse" LCID="1040" />
+          <Title Title="リソース" LCID="1041" />
+          <Title Title="Ресурстар" LCID="1087" />
+          <Title Title="리소스" LCID="1042" />
+          <Title Title="Ištekliai" LCID="1063" />
+          <Title Title="Resursi" LCID="1062" />
+          <Title Title="Sumber" LCID="1086" />
+          <Title Title="Ressurser" LCID="1044" />
+          <Title Title="Resources" LCID="1043" />
+          <Title Title="Zasoby" LCID="1045" />
+          <Title Title="Recursos" LCID="1046" />
+          <Title Title="Recursos" LCID="2070" />
+          <Title Title="Resurse" LCID="1048" />
+          <Title Title="Ресурсы" LCID="1049" />
+          <Title Title="Zdroje" LCID="1051" />
+          <Title Title="Viri" LCID="1060" />
+          <Title Title="Ресурси" LCID="3098" />
+          <Title Title="Resursi" LCID="2074" />
+          <Title Title="Resurser" LCID="1053" />
+          <Title Title="ทรัพยากร" LCID="1054" />
+          <Title Title="Kaynaklar" LCID="1055" />
+          <Title Title="Ресурси" LCID="1058" />
+          <Title Title="Nguồn lực" LCID="1066" />
+          <Title Title="资源" LCID="2052" />
+          <Title Title="資源" LCID="3076" />
+          <Title Title="資源" LCID="1028" />
+        </Titles>
+        <SubArea Icon="/_imgs/imagestrips/transparent_spacer.gif" VectorIcon="$webresource:msdyn_/SitemapIcons/SVG/Resources.svg" Id="msdyn_ResourceSubArea" Sku="All,OnPremise,Live,SPLA" PassParams="false" AvailableOffline="true" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" Entity="bookableresource" ordinalvalue="0">
+          <Titles>
+            <Title Title="Resources" LCID="1033" ordinalvalue="0" />
+            <Title Title="الموارد" LCID="1025" ordinalvalue="1" />
+            <Title Title="Ресурси" LCID="1026" ordinalvalue="2" />
+            <Title Title="Recursos" LCID="1027" ordinalvalue="3" />
+            <Title Title="Zdroje" LCID="1029" ordinalvalue="4" />
+            <Title Title="Ressourcer" LCID="1030" ordinalvalue="5" />
+            <Title Title="Ressourcen" LCID="1031" ordinalvalue="6" />
+            <Title Title="Πόροι" LCID="1032" ordinalvalue="7" />
+            <Title Title="Recursos" LCID="3082" ordinalvalue="8" />
+            <Title Title="Ressursid" LCID="1061" ordinalvalue="9" />
+            <Title Title="Baliabideak" LCID="1069" ordinalvalue="10" />
+            <Title Title="Resurssit" LCID="1035" ordinalvalue="11" />
+            <Title Title="Ressources" LCID="1036" ordinalvalue="12" />
+            <Title Title="Recursos" LCID="1110" ordinalvalue="13" />
+            <Title Title="משאבים" LCID="1037" ordinalvalue="14" />
+            <Title Title="संसाधन" LCID="1081" ordinalvalue="15" />
+            <Title Title="Resursi" LCID="1050" ordinalvalue="16" />
+            <Title Title="Erőforrások" LCID="1038" ordinalvalue="17" />
+            <Title Title="Sumber Daya" LCID="1057" ordinalvalue="18" />
+            <Title Title="Risorse" LCID="1040" ordinalvalue="19" />
+            <Title Title="リソース" LCID="1041" ordinalvalue="20" />
+            <Title Title="Ресурстар" LCID="1087" ordinalvalue="21" />
+            <Title Title="리소스" LCID="1042" ordinalvalue="22" />
+            <Title Title="Ištekliai" LCID="1063" ordinalvalue="23" />
+            <Title Title="Resursi" LCID="1062" ordinalvalue="24" />
+            <Title Title="Sumber" LCID="1086" ordinalvalue="25" />
+            <Title Title="Ressurser" LCID="1044" ordinalvalue="26" />
+            <Title Title="Resources" LCID="1043" ordinalvalue="27" />
+            <Title Title="Zasoby" LCID="1045" ordinalvalue="28" />
+            <Title Title="Recursos" LCID="1046" ordinalvalue="29" />
+            <Title Title="Recursos" LCID="2070" ordinalvalue="30" />
+            <Title Title="Resurse" LCID="1048" ordinalvalue="31" />
+            <Title Title="Ресурсы" LCID="1049" ordinalvalue="32" />
+            <Title Title="Zdroje" LCID="1051" ordinalvalue="33" />
+            <Title Title="Viri" LCID="1060" ordinalvalue="34" />
+            <Title Title="Ресурси" LCID="3098" ordinalvalue="35" />
+            <Title Title="Resursi" LCID="2074" ordinalvalue="36" />
+            <Title Title="Resurser" LCID="1053" ordinalvalue="37" />
+            <Title Title="ทรัพยากร" LCID="1054" ordinalvalue="38" />
+            <Title Title="Kaynaklar" LCID="1055" ordinalvalue="39" />
+            <Title Title="Ресурси" LCID="1058" ordinalvalue="40" />
+            <Title Title="Nguồn lực" LCID="1066" ordinalvalue="41" />
+            <Title Title="资源" LCID="2052" ordinalvalue="42" />
+            <Title Title="資源" LCID="3076" ordinalvalue="43" />
+            <Title Title="資源" LCID="1028" ordinalvalue="44" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="NewGroup_9aeaa708" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="4">
+        <SubArea Id="NewSubArea_f7ca159f" ResourceId="Homepage_Dashboards" DescriptionResourceId="Dashboards_Description" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="/workplace/home_dashboards.aspx" DefaultDashboard="273d6e2f-293d-f011-877b-6045bdc1fe02" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="0" solutionaction="Modified" />
+      </Group>
+    </Area>
+    <Area Id="HLP" ResourceId="Area_Help" ShowGroups="true" DescriptionResourceId="Help_Area_Description" IntroducedVersion="7.0.0.0" ordinalvalue="2">
+      <Group Id="HLP_GRP" ResourceId="Group_Help" DescriptionResourceId="Help_Description" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="Help_ToolTip" ordinalvalue="0">
+        <SubArea Id="Help_Resource_Center" ResourceId="Area_CustomerCenter" DescriptionResourceId="ResourceCenter_Area_Description" Url="https://aka.ms/ProjPowerAppHelpLink" IntroducedVersion="7.0.0.0" AvailableOffline="false" PassParams="false" ordinalvalue="0" solutionaction="Modified" />
+      </Group>
+    </Area>
+  </SiteMap>
+  <LocalizedNames>
+    <LocalizedName description="Project" languagecode="1033" />
+  </LocalizedNames>
+</AppModuleSiteMap>

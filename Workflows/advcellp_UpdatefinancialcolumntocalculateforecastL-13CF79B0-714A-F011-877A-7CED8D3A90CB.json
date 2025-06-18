@@ -1,0 +1,338 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_webcontents": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedwebcontents_d3eca"
+        },
+        "api": {
+          "name": "shared_webcontents"
+        }
+      },
+      "shared_commondataserviceforapps_1": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Environment URL (advcellp_EnvironmentURL)": {
+          "defaultValue": "https://cellpakdev.crm11.dynamics.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_EnvironmentURL"
+          }
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "c2b411e5-98a1-4b36-a13d-d12bd7f62d22"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "advcellp_lineitem",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "advcellp_cost,advcellp_actualcost",
+              "subscriptionRequest/name": "7e49bdc3-403d-f011-877b-7ced8d38c375:MTA"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "actions": {
+            "Invoke_an_HTTP_request_-_Update_Opex_Roll_Up": {
+              "runAfter": {
+                "URI_Opex": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e24b808b-5918-435b-86fb-060d3d7c7700"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents",
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Opex')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "URI_Opex": {
+              "runAfter": {
+                "Cost": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "82bb9739-3eb1-4128-a4d8-1200b71a37c2"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'msdyn_projects(@{triggerOutputs()?['body/_advcellp_project_value']})'}&@field='advcellp_opexplannedinvestment'"
+            },
+            "URI_Capex": {
+              "runAfter": {
+                "Cost": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2c6272c2-d740-4ade-a0f1-daf5747173ca"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'msdyn_projects(@{triggerOutputs()?['body/_advcellp_project_value']})'}&@field='advcellp_capexplannedinvestment'"
+            },
+            "Invoke_an_HTTP_request_-_Update_Capex_Roll_Up": {
+              "runAfter": {
+                "URI_Capex": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents",
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Capex')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Cost": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "308ca140-cf82-4892-bd9c-2adc4624e760"
+              },
+              "type": "Compose",
+              "inputs": "@triggerOutputs()?['body/advcellp_cost']"
+            },
+            "URI_Actual_Cost": {
+              "runAfter": {
+                "Cost": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "81e9dc10-cb46-4917-a072-4ab074366ece"
+              },
+              "type": "Compose",
+              "inputs": "@{parameters('Environment URL (advcellp_EnvironmentURL)')}api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'msdyn_projects(@{triggerOutputs()?['body/_advcellp_project_value']})'}&@field='advcellp_actualcosting'"
+            },
+            "Invoke_an_HTTP_request_-_Update_Actual_Cost_Roll_Up": {
+              "runAfter": {
+                "URI_Actual_Cost": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e85f7a4e-81cb-4642-a229-188022a7fde6"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents",
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "@outputs('URI_Actual_Cost')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Update_a_row_-_Sum_on_forecast": {
+              "runAfter": {
+                "Actual_Costing_Roll_Updated_Value": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "bbf08e0f-4be1-43ce-abcd-85f69367fd6b"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "UpdateOnlyRecord"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projects",
+                  "recordId": "@outputs('Get_a_row_by_ID_-_Project')?['body/msdyn_projectid']",
+                  "item/proj_actualcost": "@outputs('Actual_Costing_Roll_Updated_Value')",
+                  "item/proj_forecast": "@outputs('Sum_of_Capex_opex_external_resource')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Sum_of_Capex_opex_external_resource": {
+              "runAfter": {
+                "Get_a_row_by_ID_-_Project": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b6ef20f9-3662-47ba-8627-db28ecac3ed8"
+              },
+              "type": "Compose",
+              "inputs": "@add(\r\n   add(\r\n      coalesce(outputs('Get_a_row_by_ID_-_Project')?['body/advcellp_capexplannedinvestment'], 0),\r\n      coalesce(outputs('Get_a_row_by_ID_-_Project')?['body/advcellp_opexplannedinvestment'], 0)\r\n   ),\r\n   coalesce(outputs('Get_a_row_by_ID_-_Project')?['body/advcellp_externalresourcetotalbudget'], 0)\r\n)\r\n"
+            },
+            "Get_a_row_by_ID_-_Project": {
+              "runAfter": {
+                "Invoke_an_HTTP_request_-_Update_Actual_Cost_Roll_Up": [
+                  "Succeeded"
+                ],
+                "Invoke_an_HTTP_request_-_Update_Capex_Roll_Up": [
+                  "Succeeded"
+                ],
+                "Invoke_an_HTTP_request_-_Update_Opex_Roll_Up": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "03b30100-10b5-4086-87f9-9cead9da7896"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "GetItem"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projects",
+                  "recordId": "@triggerOutputs()?['body/_advcellp_project_value']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Actual_Costing_Roll_Updated_Value": {
+              "runAfter": {
+                "Sum_of_Capex_opex_external_resource": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "ff770664-c44e-4ae6-8d40-ed8c1439d7a6"
+              },
+              "type": "Compose",
+              "inputs": "@body('Invoke_an_HTTP_request_-_Update_Actual_Cost_Roll_Up')?['advcellp_actualcosting']\r\n"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "b3d3d0a8-df90-4af7-821f-fb8594400959"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Create_item_-_Error_Log": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PostItem"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                  "table": "@parameters('Error Log List (advcellp_ErrorLogList)')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

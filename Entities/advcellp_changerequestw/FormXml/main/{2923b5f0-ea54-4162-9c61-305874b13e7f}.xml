@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{2923b5f0-ea54-4162-9c61-305874b13e7f}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{b14e1504-28d6-4b8a-a796-c02911ac53b6}" name="StageStep3" locklevel="0" expanded="true" visible="false" labelid="{66428652-3cef-4a71-b659-cfbd03be9aca}">
+          <labels>
+            <label description="Initiation" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{c996df1c-1413-c5cd-88a5-90f6206f3e14}" name="StageStep3_section1" labelid="{c019dff8-be6d-44d9-8bce-102970bf7232}">
+                  <labels>
+                    <label description="Initiation" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3423316c-d220-47e9-bff4-cf2e0318cfa5}" showlabel="true" visible="true" labelid="{3c98c2ce-5af1-4ca0-ae93-3a384e45b693}">
+                        <labels>
+                          <label description="Ready for change" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_readyforchange" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="advcellp_readyforchange" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{37c3c8e0-b426-400c-92e8-78b11168d3dc}" name="StageStep7" locklevel="0" expanded="true" visible="false" labelid="{04b1171f-d999-4233-8270-a564e660eca5}">
+          <labels>
+            <label description="Department And PMO Head Review" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{2c8cc6ca-221c-2d7b-68df-0f02c55742a7}" name="StageStep7_section1" labelid="{149dfd40-1e63-4b7d-978d-bc8d4e844470}">
+                  <labels>
+                    <label description="Department And PMO Head Review" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{86c5d61b-d20a-4e3e-a81f-626c4004534f}" showlabel="true" visible="true" labelid="{5095938d-6a4a-42d4-a9cd-75e8ee914559}">
+                        <labels>
+                          <label description="Dept Head review status" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_departmentheadreviewstatus" classid="{3ef39988-22bb-4f0b-bbbe-64b5a3748aee}" datafieldname="advcellp_departmentheadreviewstatus" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5bd0e573-ce4f-4577-bb85-edde41abd184}" showlabel="true" visible="true" labelid="{cb987ab0-80c7-4f45-8a6f-fa585808d0b7}">
+                        <labels>
+                          <label description="Dept Head comment" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_departmentheadcomment" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="advcellp_departmentheadcomment" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f6ab977c-0e9d-4d4e-82f3-5ecfd72c219e}" showlabel="true" visible="true" labelid="{187a2e73-c613-45b4-8562-d25f13de32e5}">
+                        <labels>
+                          <label description="PMO Head review status" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_pmoheadreviewstatus" classid="{3ef39988-22bb-4f0b-bbbe-64b5a3748aee}" datafieldname="advcellp_pmoheadreviewstatus" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f6b33f06-6b95-46bd-b887-c4c49e58f331}" showlabel="true" visible="true" labelid="{80092e06-28d8-47e6-a264-5d84b492b477}">
+                        <labels>
+                          <label description="PMO Head comment" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_pmoheadcomment" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="advcellp_pmoheadcomment" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{706b7d60-d66f-4422-9e4e-5346eb413f7c}" name="StageStep17" locklevel="0" expanded="true" visible="false" labelid="{b939a919-30fc-4fc5-8efd-8aab6714e81c}">
+          <labels>
+            <label description="Rejected" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{6785ef98-8b15-1b4e-e2c5-ae1333efc431}" name="StageStep17_section1" labelid="{84d54845-0bd9-4dde-b10e-52e399965eeb}">
+                  <labels>
+                    <label description="Rejected" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{6d0ebd5d-e481-4d5f-9d7c-c06584e064a6}" showlabel="true" visible="true" labelid="{383550e2-d89a-4360-b943-7bf096b48379}">
+                        <labels>
+                          <label description="Rejected" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_rejected" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="advcellp_rejected" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{fdfeed6f-5dad-43c4-a74c-fdb0dfbca752}" name="StageStep21" locklevel="0" expanded="true" visible="false" labelid="{d3a2a90e-a611-4518-8522-af6e939dd859}">
+          <labels>
+            <label description="Executive Sponsor Review" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{204fe78b-fe8d-18c0-8207-b7889f70e609}" name="StageStep21_section1" labelid="{b4b5c63f-2847-4eb8-bdca-4e0fa570d84d}">
+                  <labels>
+                    <label description="Executive Sponsor Review" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{760ec404-aeb1-46fc-bd33-190af2d7966c}" showlabel="true" visible="true" labelid="{b8203dd0-c601-494b-aa38-0e241a81faf9}">
+                        <labels>
+                          <label description="Executive Sponsor review status" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_executivesponsorreviewstatus" classid="{3ef39988-22bb-4f0b-bbbe-64b5a3748aee}" datafieldname="advcellp_executivesponsorreviewstatus" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e895613f-c899-4431-bf6e-e55515a3fec4}" showlabel="true" visible="true" labelid="{99271a63-8f4d-4fac-9639-3df6218b64ae}">
+                        <labels>
+                          <label description="Executive sponsor comment" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_executivesponsorcomment" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="advcellp_executivesponsorcomment" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{a4785617-4b38-4b8e-8be2-acf06da76729}" name="StageStep27" locklevel="0" expanded="true" visible="false" labelid="{7b92540a-9e5e-4a58-aa56-0d86d7abe3df}">
+          <labels>
+            <label description="Rejected" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{69fd720f-ac88-ed54-416b-b270461d9bce}" name="StageStep27_section1" labelid="{35690b7b-b739-4c73-b1c0-5122acc51619}">
+                  <labels>
+                    <label description="Rejected" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{6d3c4f38-94eb-4ca1-bd82-750cb9f07579}" showlabel="true" visible="true" labelid="{57c933ab-9374-4360-93e8-c602d137e53c}">
+                        <labels>
+                          <label description="Rejected" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_rejected" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="advcellp_rejected" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{805b4c7f-23e2-4b43-b7a7-1a047f25bbaa}" name="StageStep31" locklevel="0" expanded="true" visible="false" labelid="{af03ec14-f3e0-4f4b-8efa-2f52ab7055e7}">
+          <labels>
+            <label description="CTO Review" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{8cf564ce-e084-172a-81f0-a9261d0e765b}" name="StageStep31_section1" labelid="{ddf77023-12cb-4a4f-9f9c-1d3823c0d4be}">
+                  <labels>
+                    <label description="CTO Review" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{489914e9-4066-44cd-891f-926023fdd4ba}" showlabel="true" visible="true" labelid="{8682afc9-cbf3-4e25-8ea5-80f13f836225}">
+                        <labels>
+                          <label description="CTO review status" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_ctoreviewstatus" classid="{3ef39988-22bb-4f0b-bbbe-64b5a3748aee}" datafieldname="advcellp_ctoreviewstatus" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c1ed1d45-5285-415a-b88c-933e245e4c25}" showlabel="true" visible="true" labelid="{8930aae4-b2f4-4dc3-a1e2-845eff2ca7c5}">
+                        <labels>
+                          <label description="CTO comment" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_ctocomment" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="advcellp_ctocomment" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{b3fea4e6-f4e2-4ae2-a14a-7da869fe1e98}" name="StageStep37" locklevel="0" expanded="true" visible="false" labelid="{f90818a4-8993-4fea-a6e5-fdfa4fe82e9f}">
+          <labels>
+            <label description="Rejected" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{622c1a1d-97e9-d3a7-832a-f568f30478c6}" name="StageStep37_section1" labelid="{08a8ea48-9f3e-426f-9e63-2cce642d5168}">
+                  <labels>
+                    <label description="Rejected" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a91f0bf1-0202-4f10-91f6-5966c9291b8f}" showlabel="true" visible="true" labelid="{de3e00ee-167e-44be-9f39-68089cf55e11}">
+                        <labels>
+                          <label description="Rejected" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_rejected" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="advcellp_rejected" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{3b8daaaf-3730-42ad-b397-6dd6c5c0ba24}" name="StageStep41" locklevel="0" expanded="true" visible="false" labelid="{0d39c9b9-0462-407f-a9eb-c40a7e9b75a1}">
+          <labels>
+            <label description="Approved" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{ee7a6afd-1844-cc26-572c-7b69c0c130ba}" name="StageStep41_section1" labelid="{98d1f4c8-61eb-49cc-a0ec-7f162a846311}">
+                  <labels>
+                    <label description="Approved" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{562a2154-b020-4582-a344-e4ab30e939c8}" showlabel="true" visible="true" labelid="{5ed7fbe1-9b31-4c7c-ae13-098d181b961e}">
+                        <labels>
+                          <label description="Change request approved" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_approved" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="advcellp_approved" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{0a7c6e84-3978-4765-9832-5cd99e5e9d10}" name="StageStep45" locklevel="0" expanded="true" visible="false" labelid="{8d08e521-c070-46db-ab68-01a6d960dc4d}">
+          <labels>
+            <label description="Approved" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{572c3f16-18b1-1973-6f75-e760250a042a}" name="StageStep45_section1" labelid="{f3a8ff79-457a-4d55-a4ec-a021ca2abeb5}">
+                  <labels>
+                    <label description="Approved" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{2df556d4-dcea-4f91-99f8-244ec44af256}" showlabel="true" visible="true" labelid="{f1de7bce-d40e-41fe-8f33-e0dbf2ec103a}">
+                        <labels>
+                          <label description="Change request approved" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_msdyn_projectchange_advcellp_changerequestw:advcellp_approved" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="advcellp_approved" disabled="false" relationship="bpf_msdyn_projectchange_advcellp_changerequestw" isrequired="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

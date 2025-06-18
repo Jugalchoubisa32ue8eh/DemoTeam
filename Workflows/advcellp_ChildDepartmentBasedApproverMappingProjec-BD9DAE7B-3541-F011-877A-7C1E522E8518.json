@@ -1,0 +1,575 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedcommondataserviceforapps_f3c76"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "advcellp_sharedsharepointonline_5eb58"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Approver List Name (advcellp_ApproverListName)": {
+          "defaultValue": "dc8c1d30-b772-49dc-a64f-6418550a5fff",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ApproverListName"
+          }
+        },
+        "Sharepoint Site Name (advcellp_SharepointSiteName)": {
+          "defaultValue": "https://agratas.sharepoint.com/sites/AgratasCellpackSite",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_SharepointSiteName"
+          }
+        },
+        "Error Log List (advcellp_ErrorLogList)": {
+          "defaultValue": "736f5c22-48c4-42d2-82a1-acc196c907ec",
+          "type": "String",
+          "metadata": {
+            "schemaName": "advcellp_ErrorLogList"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "bba7f980-e6bc-4226-9e98-6c6617d00c0e"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "ProjectID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_variable_User_Email": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "eb854970-2dbe-4cda-b1c6-5014a248ece2"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "PMO head",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_CTO_ID": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "8798ad77-d12c-4722-98a3-684faa04f938"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "CTO ID",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_Executive_sponsor_ID": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "57c6697c-030f-4b2c-a642-341a7ec01059"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Executive sponsor ID",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_Department_head_ID": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "7333acbc-54a7-400a-831c-5b09d2a6d17a"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Department head ID",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Try": {
+          "actions": {
+            "Compose_for_Department": {
+              "runAfter": {
+                "Get_a_row_by_ID_for_Project": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "47668e40-807f-4308-aaad-c26fcc8f8535"
+              },
+              "type": "Compose",
+              "inputs": "@outputs('Get_a_row_by_ID_for_Project')?['body/proj_businessunit@OData.Community.Display.V1.FormattedValue']"
+            },
+            "Get_a_row_by_ID_for_Project": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "75cab8d5-e377-40a6-ae63-3b67fecdac05"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_projects",
+                  "recordId": "@triggerBody()['text']"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Set_variable_-_Project_Manager": {
+              "runAfter": {
+                "Compose_for_Department": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "6cc1308d-344a-41ea-b424-a85c621ec27c"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Project Manager",
+                "value": "@outputs('Get_a_row_by_ID_for_Project')?['body/_proj_manager_value']"
+              }
+            },
+            "Set_variable_-_Project_Lead": {
+              "runAfter": {
+                "Compose_for_Department": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8eaaafda-280f-4927-802f-c27a6be142ed"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Project Lead",
+                "value": "@outputs('Get_a_row_by_ID_for_Project')?['body/_msdyn_projectmanager_value']"
+              }
+            },
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Apply_to_each": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "91c46699-e457-47b1-9115-2c52eb861443"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "department_head_id": "@variables('Department head ID')",
+                  "cto_id": "@variables('CTO ID')",
+                  "executive_sponsor_id": "@variables('Executive sponsor ID')",
+                  "pmo_head": "@variables('PMO head')",
+                  "project_lead": "@variables('Project Lead')",
+                  "project_manager": "@variables('Project Manager')"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "department_head_id": {
+                      "title": "Department head ID",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "cto_id": {
+                      "title": "CTO ID",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "executive_sponsor_id": {
+                      "title": "Executive sponsor ID",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "pmo_head": {
+                      "title": "PMO head",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "project_lead": {
+                      "title": "Project Lead",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "project_manager": {
+                      "title": "Project Manager",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "Apply_to_each": {
+              "foreach": "@outputs('Get_items_from_Agratas_Head_Approvers_list')?['body/value']",
+              "actions": {
+                "List_rows_Users": {
+                  "runAfter": {
+                    "Compose_for_Head_value": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "50e24ca8-ee89-4724-af4d-80e6b17d81d7"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "systemusers",
+                      "$select": "systemuserid, internalemailaddress",
+                      "$filter": "internalemailaddress eq '@{items('Apply_to_each')?['Name/Email']}'"
+                    },
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                    }
+                  }
+                },
+                "Switch_case_for_Head_value": {
+                  "runAfter": {
+                    "List_rows_Users": [
+                      "Succeeded"
+                    ]
+                  },
+                  "cases": {
+                    "Case_-_Department_Head": {
+                      "case": "Department head",
+                      "actions": {
+                        "Apply_to_each_3": {
+                          "foreach": "@outputs('List_rows_Users')?['body/value']",
+                          "actions": {
+                            "Set_variable_Department_Head_user_email": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "351e34e5-6a40-4fe7-955d-98f74bfc13dc"
+                              },
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "Department head ID",
+                                "value": "@items('Apply_to_each_3')?['systemuserid']"
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "1c8d261f-1b36-4507-b844-27c00d7d40fb"
+                          },
+                          "type": "Foreach"
+                        }
+                      }
+                    },
+                    "Case_-_CTO": {
+                      "case": "CTO",
+                      "actions": {
+                        "Apply_to_each_4": {
+                          "foreach": "@outputs('List_rows_Users')?['body/value']",
+                          "actions": {
+                            "Set_variable_CTO_user_email": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "81d540bb-4506-46e8-9854-f9f74c1d0c0a"
+                              },
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "CTO ID",
+                                "value": "@items('Apply_to_each_4')?['systemuserid']"
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "87d4c915-c841-444b-a83c-41dec6bc28f5"
+                          },
+                          "type": "Foreach"
+                        }
+                      }
+                    },
+                    "Case_Executive_Sponsor": {
+                      "case": "Executive sponsor",
+                      "actions": {
+                        "Apply_to_each_5": {
+                          "foreach": "@outputs('List_rows_Users')?['body/value']",
+                          "actions": {
+                            "Set_variable_Executive_sponsor_user_email": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "33af1a7c-edc4-4d80-8f75-8c28fd7dd5e6"
+                              },
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "Executive sponsor ID",
+                                "value": "@items('Apply_to_each_5')?['systemuserid']"
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "ee0638c2-a225-44ea-9827-172a98641557"
+                          },
+                          "type": "Foreach"
+                        }
+                      }
+                    },
+                    "Case_PMO_Head": {
+                      "case": "PMO head",
+                      "actions": {
+                        "Apply_to_each_6": {
+                          "foreach": "@outputs('List_rows_Users')?['body/value']",
+                          "actions": {
+                            "Set_variable_PMO_Head": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "9733d880-d412-480b-8a1a-95b7d31c20ce"
+                              },
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "PMO head",
+                                "value": "@items('Apply_to_each_6')?['systemuserid']"
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "d3e07506-73bf-46a5-85fa-451dd0c3e403"
+                          },
+                          "type": "Foreach"
+                        }
+                      }
+                    }
+                  },
+                  "default": {
+                    "actions": {}
+                  },
+                  "expression": "@items('Apply_to_each')?['Head/Value']",
+                  "metadata": {
+                    "operationMetadataId": "5c4e9673-5266-43ac-b077-73a505be5c00"
+                  },
+                  "type": "Switch"
+                },
+                "Compose_for_Head_value": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "c887ea78-2bce-4ef2-928b-6e347e90ae98"
+                  },
+                  "type": "Compose",
+                  "inputs": "@items('Apply_to_each')?['Head/Value']"
+                }
+              },
+              "runAfter": {
+                "Get_items_from_Agratas_Head_Approvers_list": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d3e0a326-d263-4b7d-a0a6-a1eb42223381"
+              },
+              "type": "Foreach"
+            },
+            "Get_items_from_Agratas_Head_Approvers_list": {
+              "runAfter": {
+                "Set_variable_-_Project_Lead": [
+                  "Succeeded"
+                ],
+                "Set_variable_-_Project_Manager": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b2532074-e7fc-493b-9406-fb7a3ea9de5b"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "GetItems",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                  "table": "@parameters('Approver List Name (advcellp_ApproverListName)')",
+                  "$filter": "Department eq '@{outputs('Compose_for_Department')}'"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_variable_CTO_ID": [
+              "Succeeded"
+            ],
+            "Initialize_variable_Executive_sponsor_ID": [
+              "Succeeded"
+            ],
+            "Initialize_variable_-_Project_Lead": [
+              "Succeeded"
+            ],
+            "Initialize_variable_-_Project_Manager": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1c1af855-32ab-49de-a9c4-8a584e1a3209"
+          },
+          "type": "Scope"
+        },
+        "Catch_2": {
+          "actions": {
+            "Create_item_-_Error_Log_2": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dfda1d5f-e020-4f9b-a0be-9cec5ae5079c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PostItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Site Name (advcellp_SharepointSiteName)')",
+                  "table": "@parameters('Error Log List (advcellp_ErrorLogList)')",
+                  "item/Title": "advcellp_Child Department Based Approver Mapping (Project)",
+                  "item/ErrorLogType/Value": "Power automate",
+                  "item/PowerAutomateorJavascriptName": "advcellp_Child Department Based Approver Mapping (Project)",
+                  "item/ErrorMessage": "Child automate to get Department based Approver from sharepoint and send response to partent automate",
+                  "item/ErrorOccurredInEntity": "Approver list ",
+                  "item/EntityRecordID": " ",
+                  "item/OccurrenceTime": "@convertTimeZone(utcNow(), 'India Standard Time', 'UTC')",
+                  "item/PathorRunningAutomateURL": "@concat('https://make.powerautomate.com/environments/', workflow()['tags']['environmentName'], '/flows/', workflow()['name'], '/runs/', workflow()['run']['name'])",
+                  "item/OtherInformation": "Child automate to get Department based Approver from sharepoint and send response to partent automate"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7240598b-077d-4b5f-86c0-aef41cce2c98"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable_-_Project_Lead": {
+          "runAfter": {
+            "Initialize_variable_User_Email": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2c761911-4f09-4fed-9fea-886bc9b593b3"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Project Lead",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_-_Project_Manager": {
+          "runAfter": {
+            "Initialize_variable_Department_head_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "eb1a0c93-d3af-49ca-bc20-7f0fdf237f79"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Project Manager",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

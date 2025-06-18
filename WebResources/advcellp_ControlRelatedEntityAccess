@@ -1,0 +1,229 @@
+function ControlRelatedEntityAccess(executionContext) 
+{
+  debugger;
+
+    var formContext = executionContext.getFormContext();
+    // Get current entity logical name
+    var entityName = formContext.data.entity.getEntityName();
+    // Get current user ID and name
+    var UserName = formContext.context.getUserName();
+    var UserId = formContext.context.getUserId();
+    const isAdmin = isAdminRole();
+    var advcellpProject = null;
+    var msdynProject = null;
+    var advcellpProjectRequest = null;
+    if (formContext.getAttribute("advcellp_project")) {
+        advcellpProject = formContext.getAttribute("advcellp_project").getValue();
+    }
+    if (formContext.getAttribute("msdyn_project")) {
+        msdynProject = formContext.getAttribute("msdyn_project").getValue();
+    }
+    if (formContext.getAttribute("advcellp_projectrequest")) {
+        advcellpProjectRequest = formContext.getAttribute("advcellp_projectrequest").getValue();
+    }
+    // If project request lookup exists and contains data, and project lookup contains data, disable all fields
+    if (
+        advcellpProjectRequest && advcellpProjectRequest[0] && advcellpProjectRequest[0].id &&
+        ((advcellpProject && advcellpProject[0] && advcellpProject[0].id) || (msdynProject && msdynProject[0] && msdynProject[0].id))
+    ) {
+        DisableAllFields(formContext);
+        return;
+    }
+    var Project = null;
+    // Prefer advcellp_project if it exists, otherwise use msdyn_project
+    if (advcellpProject && advcellpProject[0] && advcellpProject[0].id) {
+        Project = advcellpProject;
+    } else if (msdynProject && msdynProject[0] && msdynProject[0].id) {
+        Project = msdynProject;
+    }
+    var pmoHead, projManager, msdynProjectManager; // Declare outside for broader scope
+    // Get the project id dynamically from the lookup field
+    if (!Project || !Project[0] || !Project[0].id) {
+        console.warn('Project lookup is empty or invalid.');
+        return; // Exit early if project id is null or invalid
+    }
+    var projectIdValue = Project[0].id.replace(/[{}]/g, ""); // Remove curly braces if present
+    var fetchXmlQuery = '' +
+        '<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">' +
+        '<entity name="msdyn_project">' +
+        '<attribute name="msdyn_subject"/>' +
+        '<attribute name="msdyn_projectid"/>' +
+        '<attribute name="proj_stage"/>' +
+        '<attribute name="msdyn_projectmanager"/>' +
+        '<attribute name="advcellp_pmohead"/>' +
+        '<attribute name="advcellp_departmenthead"/>' +
+        '<attribute name="proj_executivesponsor"/>' +
+        '<attribute name="advcellp_cto"/>' +
+        '<attribute name="proj_manager"/>' +
+        '<order attribute="msdyn_subject" descending="false"/>' +
+        '<filter type="and">' +
+        '<condition attribute="msdyn_projectid" operator="eq" value="{' + projectIdValue + '}"/>' +
+        '</filter>' +
+        '</entity>' +
+        '</fetch>';
+
+    // Create an XMLHttpRequest for data retrieval
+    var req = new XMLHttpRequest();
+    req.open(
+        "GET",
+        Xrm.Page.context.getClientUrl() +
+        "/api/data/v9.2/msdyn_projects?fetchXml=" +
+        encodeURIComponent(fetchXmlQuery),
+        false
+    );
+    req.setRequestHeader("Prefer", 'odata.include-annotations="*"');
+    req.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            req.onreadystatechange = null;
+            if (this.status === 200) {
+                // Parse the response JSON
+                var results = JSON.parse(this.response);
+                if (results.value && results.value.length > 0) {
+                    var project = results.value[0];
+                    pmoHead = project["_advcellp_pmohead_value@OData.Community.Display.V1.FormattedValue"];
+                    projManager = project["_proj_manager_value@OData.Community.Display.V1.FormattedValue"];
+                    msdynProjectManager = project["_msdyn_projectmanager_value@OData.Community.Display.V1.FormattedValue"];
+                    departmentHead = project["_advcellp_departmenthead_value@OData.Community.Display.V1.FormattedValue"];
+                    ctoHead = project["_advcellp_cto_value@OData.Community.Display.V1.FormattedValue"];
+                    executiveSponsor = project["_proj_executivesponsor_value@OData.Community.Display.V1.FormattedValue"];
+                    var projStage = project["proj_stage@OData.Community.Display.V1.FormattedValue"];
+                    // Call a function to use these values
+                    handleStageFieldAccess(projStage,formContext,UserName,msdynProjectManager,projManager,pmoHead,departmentHead,executiveSponsor,ctoHead,isAdmin);
+                } else {
+                    console.warn('No project found for the given ID.');
+                }
+            } else {
+                // Handle HTTP error here
+                console.error("HTTP error: " + this.status + " " + this.statusText);
+            }
+        }
+    };
+    req.send();
+}
+
+
+function handleStageFieldAccess(stagename, formContext, UserName, ProjectLead, ProjectManager, PMOHead, DepartmentHead, ExecutiveSponsor, CTOHead, isAdmin) {
+    // Get the entity name
+    var entityName = formContext.data.entity.getEntityName();
+    // If entity is 'advcellp_issuerisk', only execute the 'Rejected' case
+    if (entityName === 'msdyn_projectissue' || entityName === 'msdyn_projectchange' || entityName === 'msdyn_projectrisk') {
+        if (stagename === 'Rejected') {
+            DisableAllFields(formContext);
+        }
+        return;
+    }
+    switch (stagename) 
+    {
+        case 'Initiation':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead === UserName;
+            var isProjectManager = ProjectManager === UserName;
+            if (!(isProjectLead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Department And PMO Head Review':
+            // Determine if current user is PMO Head or Project Manager
+            // Determine if current user is PMO Head or Project Manager
+            var isPMOHead = PMOHead === UserName;
+            var isDepartmentHead = DepartmentHead === UserName;
+            if (!(isDepartmentHead || isPMOHead || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Executive Sponsor Review':
+            // Determine if current user is PMO Head or Project Manager
+             var isExecutiveSponsor = ExecutiveSponsor === UserName;
+            if (!(isExecutiveSponsor || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'CTO Review':
+            // Determine if current user is PMO Head or Project Manager
+            var isCTO = CTOHead === UserName;
+            if (!(isCTO || isAdmin)) {
+                // If not Project Manager, PMO Head, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Approved':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectManager = ProjectManager === UserName;
+            var isPMOHead = PMOHead === UserName;
+            if (!(isPMOHead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Rejected':
+            DisableAllFields(formContext);
+            break;
+        case 'Dept & PMO Head Revision Needed':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead === UserName;
+            var isProjectManager = ProjectManager === UserName;
+            if (!(isProjectLead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'Executive Sponsor Revision Needed':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead === UserName;
+            var isProjectManager = ProjectManager === UserName;
+            if (!(isProjectLead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+        case 'CTO Revision Needed':
+            // Only Project Lead, Project Manager, or admin can edit fields in Initiation stage
+            var isProjectLead = ProjectLead === UserName;
+            var isProjectManager = ProjectManager === UserName;
+            if (!(isProjectLead || isProjectManager || isAdmin)) {
+                // If not Project Lead, Project Manager, or admin, disable all fields
+                DisableAllFields(formContext);
+            }
+            break;
+    }
+}
+
+// isAdminRole: Checks if current user has the 'Agratas PFW Admin' role
+function isAdminRole() {
+    const roles = Xrm.Utility.getGlobalContext().userSettings.roles;
+
+    if (roles === null) return false;
+
+    var hasRole = false;
+
+    roles.forEach(function (item) {
+        if (item.name === "Agratas PFW Admin") {
+            hasRole = true;
+        }
+    });
+
+    return hasRole;
+}
+
+// DisableAllFields: Disables all controls in specified tabs
+function DisableAllFields(formContext) {
+    try {
+        // List of tab names to disable
+        var tabNames = ["General"];
+        tabNames.forEach(function(tabName) {
+            var tab = formContext.ui.tabs.get(tabName);
+            if (tab) {
+                tab.sections.get().forEach(function(section) {
+                    section.controls.get().forEach(function(control) {
+                        control.setDisabled(true); // Disable each control
+                    });
+                });
+            }
+        });
+    } catch (error) {
+        // Error handling can be added here if needed
+    }
+}
